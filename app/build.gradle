@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+    defaultConfig {
+        applicationId "com.xin.framework.xinframwork"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+
+    // 解决.common.process.ProcessException: org.gradle.process.internal.ExecException: Process 'command... java.exe'' finished with non-zero exit value 1问题
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+
+    buildTypes {
+        release {
+            zipAlignEnabled true
+            minifyEnabled false
+            // 接口地址配置
+            buildConfigField('int', 'API_PATH', "1")
+        }
+
+        debug {
+            zipAlignEnabled true
+            minifyEnabled false
+            // 接口地址配置
+            buildConfigField('int', 'API_PATH', "0")
+        }
+
+    }
+
+}
+
+dependencies {
+    compile project(':utils')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(path: ':fragmentation')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support:multidex:1.0.1'
+
+    // ANR 异常捕获
+    debugCompile 'com.github.moduth:blockcanary-android:1.2.1'
+    releaseCompile 'com.github.moduth:blockcanary-no-op:1.2.1'
+    // 内存泄露 异常捕获
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    // bugly
+    compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+
+}

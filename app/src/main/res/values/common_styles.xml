@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--公共的 根据项目需求设定-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:listViewStyle">@style/common_list_view</item>
+        <item name="android:gridViewStyle">@style/common_grid_view</item>
+        <item name="android:alertDialogStyle">@style/common_dialog_alert</item>
+        <item name="android:textViewStyle">@style/common_textView</item>
+        <item name="android:dialogTheme">@style/common_dialog_alert</item>
+        <item name="android:alertDialogTheme">@style/common_dialog_alert</item>
+    </style>
+
+    <!--对话框风格-->
+    <style name="common_dialog_alert" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textColor">#3695d9</item>
+        <item name="android:textSize">@dimen/common_text_size_medium_18</item>
+        <item name="android:scrollbarSize">3dp</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+    <!--ListView风格-->
+    <style name="common_list_view" parent="@android:style/Widget.ListView">
+        <item name="android:fadingEdge">none</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <!-- <item name="android:listSelector">@drawable/list_selector_background</item>-->
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:scrollbarSize">3dp</item>
+        <!--         <item name="android:scrollbarThumbVertical">@drawable/thumb</item> -->
+    </style>
+
+    <!--GridView风格-->
+    <style name="common_grid_view" parent="@android:style/Widget.GridView">
+        <item name="android:listSelector">#00000000</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <!--    <item name="android:scrollbarThumbVertical">@drawable/thumb</item>-->
+        <item name="android:scrollbarSize">3dp</item>
+    </style>
+
+
+    <style name="common_textView" parent="@android:style/Widget.TextView">
+    </style>
+
+
+    <style name="WrapMatch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MatchWrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WrapWrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MatchMatch">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MatchAuto">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="AutoMatch">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="WrapAuto">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="AutoWrap">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WrapMatch.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="WrapMatch.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MatchWrap.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MatchWrap.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="WrapWrap.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="WrapWrap.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MatchMatch.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MatchMatch.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MatchAuto.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MatchAuto.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="AutoMatch.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AutoMatch.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="WrapAuto.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="WrapAuto.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="AutoWrap.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AutoWrap.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MatchOne">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+    </style>
+
+    <style name="OneMatch">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+</resources>
