@@ -14,7 +14,7 @@ import me.framework.fragmentation.ActivitySupport;
 
 /**
  * 基类
- * Created by 王照鑫 on 2017/5/11 0011.<p>
+ * Created by 鑫 on 2017/5/11 0011.<p>
  * 权限使用子类根据 requestCode去实现<p>
  * <code><pre><p>
  * {@literal @}PermissionSuccess(requestCode = requestCode)
