@@ -1,6 +1,13 @@
 # XinFramework
 
+# About Me
 
+个人主页：http://www.shindong.xin
+
+网易博客：http://blog.163.com/ittfxin@126
+
+邮    箱：Get_sugar@hotmail.com
+       
 
 ```
 
