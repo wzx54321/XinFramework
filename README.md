@@ -3,7 +3,7 @@
 根据个人工作总结，结合三方开源代码，符合国内设计风格，做一个简单、快速的开发框架，可以拿来就搭建新的项目。由于工作比较忙只能闲暇时间来做，2017年6月第一次提交，后续功能不断完善和持续更新中。我希望能够帮助你同时希望有大神指教。
 
 
-### TODO
+#### TODO
 
 
 - [x] 权限处理
@@ -25,16 +25,17 @@
 - [ ] 支付
 - [ ] 定位模块
 - [ ] 二维码处理
+- [ ] 多渠道打包配置
 - [ ] ...
 
-### 感谢
+#### 感谢
 感谢开源
 
 - [YoKeyword][1]
 
 
 
-# About Me
+#### About Me
 
 炤鑫
 
@@ -42,7 +43,7 @@
 
 网易博客：http://blog.163.com/ittfxin@126
 
-邮    箱：Get_sugar@hotmail.com
+邮    箱： Get_sugar@hotmail.com
        
 
 ```
@@ -58,8 +59,8 @@
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
- limitations under the License.
+  See the License for the specific language governing permissions 
+  and limitations under the License.
 
 ```
 
