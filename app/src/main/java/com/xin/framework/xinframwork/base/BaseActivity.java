@@ -1,6 +1,5 @@
 package com.xin.framework.xinframwork.base;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 

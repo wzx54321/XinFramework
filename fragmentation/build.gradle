@@ -9,8 +9,17 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
     }
+
+
 }
 
-dependencies {
-    provided 'com.android.support:appcompat-v7:25.3.1'
+
+
+
+
+
+
+    dependencies {
+        provided 'com.android.support:appcompat-v7:25.3.1'
+
 }

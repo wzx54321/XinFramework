@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.github.moduth.blockcanary.BlockCanary;
+import com.meituan.android.walle.ChannelInfo;
+import com.meituan.android.walle.WalleChannelReader;
 import com.squareup.leakcanary.LeakCanary;
 import com.xin.framework.utils.android.SysUtils;
 import com.xin.framework.xinframwork.content.SPManager;
@@ -53,5 +55,18 @@ public class App extends Application {
         //  Device ID
         SPManager.getInstance().putDeviceId(SysUtils.getDeviceId(sAppContext));
         // TODO 创建或更新数据库
+    }
+
+
+
+
+    private void readChannel() {
+
+        final long startTime = System.currentTimeMillis();
+        final ChannelInfo channelInfo = WalleChannelReader.getChannelInfo(this.getApplicationContext());
+       /* if (channelInfo != null) {
+            tv.setText(channelInfo.getChannel() + "\n" + channelInfo.getExtraInfo());
+        }
+        Toast.makeText(this, "ChannelReader takes " + (System.currentTimeMillis() - startTime) + " milliseconds", Toast.LENGTH_SHORT).show();*/
     }
 }
