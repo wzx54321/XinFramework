@@ -3,7 +3,7 @@ package com.xin.framework.xinframwork.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.xin.framework.utils.android.view.ViewFinder;
+import com.xin.framework.xinframwork.utils.android.view.ViewFinder;
 import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.ui.widget.titlebar.utils.TitleCompatibilityUtil;
 import com.xin.framework.xinframwork.ui.widget.titlebar.view.TitleBar;

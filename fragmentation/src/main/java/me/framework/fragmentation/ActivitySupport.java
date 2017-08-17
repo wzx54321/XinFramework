@@ -52,10 +52,10 @@ public class ActivitySupport extends AppCompatActivity implements ISupport {
 
 
     FragmentationDelegate getFragmentationDelegate() {
-        if (mFragmentationDelegate == null) {
+            if (mFragmentationDelegate == null) {
             mFragmentationDelegate = new FragmentationDelegate(this);
         }
-        return mFragmentationDelegate;
+        return mFragmentationDelegate ;
     }
 
     Handler getHandler() {

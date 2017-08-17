@@ -1,0 +1,8 @@
+public def increasedVersionCode() {
+    return new Date().format("YYMMddHHmm").toInteger();
+}
+ext {
+
+    versionCode = increasedVersionCode()
+
+}

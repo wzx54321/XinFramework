@@ -3,7 +3,7 @@ package com.xin.framework.xinframwork.content;
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
-import com.xin.framework.utils.common.data.DataKeeper;
+import com.xin.framework.xinframwork.utils.common.data.DataKeeper;
 import com.xin.framework.xinframwork.app.App;
 import com.xin.framework.xinframwork.common.SharedPreferencesKeys;
 

@@ -1,5 +1,6 @@
 package com.xin.framework.xinframwork;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.xin.framework.utils.android.view.ViewFinder;
 import com.xin.framework.xinframwork.base.BaseActivity;
+import com.xin.framework.xinframwork.utils.android.view.ViewFinder;
 
 public class MainActivity extends BaseActivity implements AbsListView.OnScrollListener {
 
@@ -52,6 +53,8 @@ public class MainActivity extends BaseActivity implements AbsListView.OnScrollLi
 
         mTitle.addViewToFadeListTitle();
 
+        checkPermission(1000, Manifest.permission.CHANGE_NETWORK_STATE, Manifest.permission.WRITE_SETTINGS);
+
     }
 
     @Override
@@ -93,4 +96,24 @@ public class MainActivity extends BaseActivity implements AbsListView.OnScrollLi
             return convertView;
         }
     }
+
+   /* @PermissionSuccess(requestCode = 1000)
+    public void doSomething(){
+
+        if (SysUtils.hasNougat())
+            NetWorkNotify.getInstance(this).setNetNotifyForNougat(new ConnectivityManager.NetworkCallback() {
+                                                                      @Override
+                                                                      public void onAvailable(Network network) {
+                                                                          super.onAvailable(network);
+                                                                      }
+                                                                  }
+            );
+    }
+
+
+    @PermissionFail(requestCode = 1000)
+    public void doFailSomething(){
+        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
+    }*/
+
 }
