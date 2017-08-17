@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import com.xin.framework.xinframwork.utils.common.data.DataKeeper;
-import com.xin.framework.xinframwork.app.App;
+import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.common.SharedPreferencesKeys;
 
 import java.util.UUID;
@@ -21,7 +21,7 @@ public class SPManager implements SharedPreferencesKeys {
     private static SPManager spManager;
 
     private SPManager() {
-        mDk = new DataKeeper(App.getAppContext(), spFileName);
+        mDk = new DataKeeper(XinApplication.getAppContext(), spFileName);
     }
 
     public static SPManager getInstance() {
