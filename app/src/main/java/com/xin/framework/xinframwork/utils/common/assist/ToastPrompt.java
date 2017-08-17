@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xin.framework.utils.R;
+import com.xin.framework.xinframwork.R;
 
 
 /**

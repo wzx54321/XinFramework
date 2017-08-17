@@ -110,15 +110,14 @@ dependencies {
         exclude module: 'support-annotations'
     }
     compile rootProject.ext.dependencies["okhttp3"]
+    // glide
     compile(rootProject.ext.dependencies["glide"]) {
         exclude module: 'support-v4'
     }
-
     compile rootProject.ext.dependencies["glide-loader-okhttp3"]
     annotationProcessor(rootProject.ext.dependencies["glide-compiler"]) {
         exclude module: 'jsr305'
     }
-
 
 
 }

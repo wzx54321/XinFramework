@@ -50,10 +50,7 @@
                 android:resource="@xml/file_paths"/>
         </provider>
 
-        <!--glide配置-->
-        <meta-data
-            android:name="com.xin.framework.xinframwork.utils.glide.GlideConfig"
-            android:value="GlideModule"/>
+
 
     </application>
 

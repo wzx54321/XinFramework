@@ -1,6 +1,5 @@
 package com.xin.framework.xinframwork;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,7 @@ public class MainActivity extends BaseActivity implements AbsListView.OnScrollLi
 
         mTitle.addViewToFadeListTitle();
 
-        checkPermission(1000, Manifest.permission.CHANGE_NETWORK_STATE, Manifest.permission.WRITE_SETTINGS);
+        //checkPermission(1000, Manifest.permission.CHANGE_NETWORK_STATE, Manifest.permission.WRITE_SETTINGS);
 
     }
 

@@ -1,7 +1,6 @@
 package com.xin.framework.xinframwork.common;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Environment;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -9,14 +8,10 @@ import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.utils.android.PermissionUtil;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
-import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.common.utils.FileUtil;
 import com.xin.framework.xinframwork.utils.common.utils.SdCardUtil;
 
 import java.io.File;
-
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
-import me.jessyan.rxerrorhandler.handler.listener.ResponseErrorListener;
 
 /**
  * Description : 文件路径配置
@@ -86,16 +81,7 @@ public class FileConfig {
             public void run() {
                 if (SysUtils.hasLollipop()) {
 
-                    RxErrorHandler rxErrorHandler = RxErrorHandler
-                            .builder()
-                            .with(activity)
-                            .responseErrorListener(new ResponseErrorListener() {
-                                @Override
-                                public void handleResponseError(Context context, Throwable t) {
-                                    Log.e(t, "error handle");
 
-                                }
-                            }).build();
 
                     PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
                         @Override
@@ -107,7 +93,7 @@ public class FileConfig {
                         public void onRequestPermissionFailure() {
                             // 没有创建权限
                         }
-                    }, new RxPermissions(activity), rxErrorHandler);
+                    }, new RxPermissions(activity), null);
                 } else {
                     createParentDir();
                 }

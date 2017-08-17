@@ -1,8 +1,10 @@
 package com.xin.framework.xinframwork.utils.android;
 
 import android.Manifest;
+import android.content.Context;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
+import me.jessyan.rxerrorhandler.handler.listener.ResponseErrorListener;
 
 
 /**
@@ -44,6 +47,21 @@ public class PermissionUtil {
         if (needRequest.size() == 0) {//全部权限都已经申请过，直接执行操作
             requestPermission.onRequestPermissionSuccess();
         } else {//没有申请过,则开始申请
+
+            if(errorHandler==null){
+
+                errorHandler = RxErrorHandler
+                        .builder()
+                        .with(XinApplication.getAppContext())
+                        .responseErrorListener(new ResponseErrorListener() {
+                            @Override
+                            public void handleResponseError(Context context, Throwable t) {
+                                Log.e(t, "error handle");
+
+                            }
+                        }).build();
+            }
+
             rxPermissions
                     .request(needRequest.toArray(new String[needRequest.size()]))
                     .subscribe(new ErrorHandleSubscriber<Boolean>(errorHandler) {

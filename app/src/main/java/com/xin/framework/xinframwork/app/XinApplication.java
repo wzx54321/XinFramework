@@ -41,4 +41,11 @@ public class XinApplication extends Application {
         super.onLowMemory();
         mAppDelegate.onLowMemory();
     }
+
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        mAppDelegate.onTrimMemory(level);
+    }
 }
