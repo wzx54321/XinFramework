@@ -16,13 +16,13 @@ import me.framework.fragmentation.ActivitySupport;
  */
 public abstract class BaseActivity extends ActivitySupport {
 
-    public final static int PERMISSION_REQUEST_CODE = 1000;
     public boolean mIsImmersive;
     public TitleBar mTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mIsImmersive = TitleCompatibilityUtil.full(this);
         setContentView(getLayoutId());
         mTitle = ViewFinder.findViewById(this, R.id.title_bar);

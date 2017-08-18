@@ -12,7 +12,7 @@ import android.support.multidex.MultiDex;
 public class XinApplication extends Application {
     private static Context sAppContext = null;
 
-    private AppDelegate mAppDelegate;
+    private static AppDelegate mAppDelegate;
 
     public static Context getAppContext() {
         return sAppContext;
@@ -48,4 +48,12 @@ public class XinApplication extends Application {
         super.onTrimMemory(level);
         mAppDelegate.onTrimMemory(level);
     }
+
+    /**
+     * 退出应用
+     */
+    public static void exitApp(){
+        mAppDelegate.exit();
+    }
+
 }

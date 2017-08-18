@@ -1,4 +1,4 @@
-package com.xin.framework.xinframwork.utils.glide;
+package com.xin.framework.xinframwork.utils.glide.base;
 
 import android.content.Context;
 

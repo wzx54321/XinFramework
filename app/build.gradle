@@ -98,10 +98,7 @@ dependencies {
         exclude module: 'rxjava'
         /* exclude module: 'dagger'*/
     }
-    compile(rootProject.ext.dependencies['rxerrorhandler2']) {
-        exclude module: 'rxjava'
-        exclude module: 'appcompat-v7'
-    }
+
     compile(rootProject.ext.dependencies["rxcache-jolyglot-gson"]) {
         exclude module: 'gson'
     }

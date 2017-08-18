@@ -6,13 +6,13 @@ import android.content.Context;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
+import com.xin.framework.xinframwork.utils.common.rxerrorhandler.core.RxErrorHandler;
+import com.xin.framework.xinframwork.utils.common.rxerrorhandler.handler.ErrorHandleSubscriber;
+import com.xin.framework.xinframwork.utils.common.rxerrorhandler.handler.listener.ResponseErrorListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.jessyan.rxerrorhandler.core.RxErrorHandler;
-import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-import me.jessyan.rxerrorhandler.handler.listener.ResponseErrorListener;
 
 
 /**

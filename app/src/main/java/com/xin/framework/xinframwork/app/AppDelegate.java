@@ -1,7 +1,9 @@
 package com.xin.framework.xinframwork.app;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -14,10 +16,12 @@ import com.xin.framework.xinframwork.common.CrashReportConfig;
 import com.xin.framework.xinframwork.common.FileConfig;
 import com.xin.framework.xinframwork.common.NetWorkConfig;
 import com.xin.framework.xinframwork.content.SPManager;
+import com.xin.framework.xinframwork.utils.android.ActivityStackManager;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.android.logger.LogLevel;
-import com.xin.framework.xinframwork.utils.glide.GlideApp;
+import com.xin.framework.xinframwork.utils.android.logger.MemoryLog;
+import com.xin.framework.xinframwork.utils.glide.base.GlideApp;
 
 /**
  * Description :
@@ -53,7 +57,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         setDeviceId();
 
         // TODO 创建或更新数据库
-        // TODO 添加Activity栈管理
+
         app.registerActivityLifecycleCallbacks(this);
     }
 
@@ -66,6 +70,10 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        if (MemoryLog.DEBUG_MEMORY) {// 堆栈和内存使用log
+            MemoryLog.printMemory(activity.getClass().getName() + "-->onCreate");
+        }
+        ActivityStackManager.getInstance().pushActivity(activity);
 
         if (appCreateCount == 0) {
             //   配置文件系统
@@ -106,7 +114,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-
+        ActivityStackManager.getInstance().popActivity(activity);
     }
 
 
@@ -131,5 +139,18 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
     public void onTrimMemory(int level) {
         GlideApp.get(app).onTrimMemory(level);
+    }
+
+    public void exit() {
+        try{
+            ActivityStackManager.getInstance().popAllActivity();
+            ActivityManager activityMgr =
+                    (ActivityManager) app.getSystemService(Context.ACTIVITY_SERVICE);
+            activityMgr.killBackgroundProcesses(app.getPackageName());
+            System.exit(0);
+        }catch (Exception er){
+            Log.e(er,"exit app error");
+        }
+
     }
 }

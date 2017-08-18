@@ -2,6 +2,9 @@ package com.xin.framework.xinframwork.utils.glide;
 
 import android.content.Context;
 
+import com.xin.framework.xinframwork.utils.glide.base.IImageLoaderDelegate;
+import com.xin.framework.xinframwork.utils.glide.base.ImageConfig;
+
 
 public final class ImageLoader {
     private IImageLoaderDelegate mStrategy;

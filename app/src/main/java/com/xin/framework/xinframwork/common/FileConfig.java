@@ -75,39 +75,41 @@ public class FileConfig {
     }
 
     public void init(final Activity activity) {
+        if (SysUtils.hasLollipop()) {
+
+
+            PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
+                @Override
+                public void onRequestPermissionSuccess() {
+                    createParentDir();
+                }
+
+                @Override
+                public void onRequestPermissionFailure() {
+                    // 没有创建权限
+                }
+            }, new RxPermissions(activity), null);
+        } else {
+            createParentDir();
+        }
+
+
+    }
+
+    private static void createParentDir() {
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
-                if (SysUtils.hasLollipop()) {
 
-
-
-                    PermissionUtil.externalStorage(new PermissionUtil.RequestPermission() {
-                        @Override
-                        public void onRequestPermissionSuccess() {
-                            createParentDir();
-                        }
-
-                        @Override
-                        public void onRequestPermissionFailure() {
-                            // 没有创建权限
-                        }
-                    }, new RxPermissions(activity), null);
-                } else {
-                    createParentDir();
+                if (SdCardUtil.isSdCardAvailable()) {// 创建外置根目录,.nimedia文件
+                    FileUtil.createNewFileAndParentDir(new File(getPublicDir(DIR_PUBLLIC_ROOT),
+                            ".nomedia"));
                 }
-
-
             }
         }).start();
-    }
 
-    private static void createParentDir() {
-        if (SdCardUtil.isSdCardAvailable()) {// 创建外置根目录,.nimedia文件
-            FileUtil.createNewFileAndParentDir(new File(getPublicDir(DIR_PUBLLIC_ROOT),
-                    ".nomedia"));
-        }
 
     }
 }
