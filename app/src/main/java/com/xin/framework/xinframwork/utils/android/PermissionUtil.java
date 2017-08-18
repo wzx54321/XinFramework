@@ -48,7 +48,7 @@ public class PermissionUtil {
             requestPermission.onRequestPermissionSuccess();
         } else {//没有申请过,则开始申请
 
-            if(errorHandler==null){
+            if (errorHandler == null) {
 
                 errorHandler = RxErrorHandler
                         .builder()
@@ -68,7 +68,7 @@ public class PermissionUtil {
                         @Override
                         public void onNext(Boolean granted) {
                             if (granted) {
-                              Log.d("Request permissons success");
+                                Log.d("Request permissons success");
                                 requestPermission.onRequestPermissionSuccess();
                             } else {
                                 Log.d("Request permissons failure");
@@ -106,6 +106,16 @@ public class PermissionUtil {
 
 
     /**
+     * 短信所有权限
+     */
+    public static void SmsAll(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
+        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.READ_SMS,
+                Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.BROADCAST_SMS,
+                Manifest.permission.RECEIVE_MMS, Manifest.permission.RECEIVE_WAP_PUSH);
+    }
+
+
+    /**
      * 请求打电话权限
      */
     public static void callPhone(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
@@ -118,6 +128,46 @@ public class PermissionUtil {
      */
     public static void readPhonestate(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
         requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.READ_PHONE_STATE);
+    }
+
+
+    /**
+     * 联系人权限
+     */
+    public static void contacts(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
+        requestPermission(requestPermission, rxPermissions, errorHandler,Manifest.permission.GET_ACCOUNTS);
+    }
+
+    /**
+     * 日历权限
+     */
+    public static void calendar(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
+        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.READ_CALENDAR,
+                Manifest.permission.WRITE_CALENDAR);
+    }
+
+    /**
+     * 位置权限
+     */
+    public static void location(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
+        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+    }
+
+
+    /**
+     * 传感器权限
+     */
+    public static void sensors(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
+        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.BODY_SENSORS);
+    }
+
+
+    /**
+     * 麦克风权限
+     */
+    public static void microphone(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
+        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.RECORD_AUDIO);
     }
 
 }
