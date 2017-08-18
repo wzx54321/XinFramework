@@ -585,8 +585,8 @@ public class FileUtil {
                 }
             }
         }
-        Log.d(TAG,
-                "createFileAndParentDir.file = " + file + ", isCreateNewFileOk = " + isCreateNewFileOk);
+        Log.d(
+                "createFileAndParentDir.file = " + file.getAbsolutePath() + ", isCreateNewFileOk = " + isCreateNewFileOk);
         return isCreateNewFileOk;
     }
 
@@ -690,6 +690,7 @@ public class FileUtil {
             return size;
         }
     }
+
     /**
      * 获取内存设置
      *
@@ -736,8 +737,6 @@ public class FileUtil {
         }
         return path;
     }*/
-
-
 
 
     /**
@@ -876,7 +875,7 @@ public class FileUtil {
                     }
                 }
             } catch (Exception e) {
-                Log.e(e,"clearCacheFolder");
+                Log.e(e, "clearCacheFolder");
             }
         }
         return deletedFiles;
@@ -928,7 +927,7 @@ public class FileUtil {
      */
     public static File getExternalCacheDir(Context context) {
 
-        if ( SdCardUtil.isSdCardAvailable()) {
+        if (SdCardUtil.isSdCardAvailable()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
                 return context.getExternalCacheDir();
             }
