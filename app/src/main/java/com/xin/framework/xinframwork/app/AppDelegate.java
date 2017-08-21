@@ -50,9 +50,9 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
             BlockCanary.install(app, new AppBlockCanaryContext()).start();
             LeakCanary.install(app);
         }
+
         // init bugly
         CrashReportConfig.init(app);
-
         //  Device ID
         setDeviceId();
 

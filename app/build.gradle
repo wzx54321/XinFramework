@@ -89,6 +89,12 @@ dependencies {
     compile(rootProject.ext.dependencies["butterknife"]) {
         exclude module: 'support-annotations'
     }
+    compile(rootProject.ext.dependencies["butterknife-compiler"]) {
+        exclude module: 'support-annotations'
+        exclude module: 'butterknife-annotations'
+    }
+
+
     //rx2
     compile rootProject.ext.dependencies["rxjava2"]
     compile(rootProject.ext.dependencies["rxandroid2"]) {

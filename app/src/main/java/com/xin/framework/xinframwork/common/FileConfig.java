@@ -21,7 +21,7 @@ import java.io.File;
 public class FileConfig {
 
     /**
-     * 应用程序在SDCARD中的根目录，/mnt/sdcard/UnifyApp
+     * 应用程序在SDCARD中的根目录，/mnt/sdcard/
      */
     public static String DIR_PUBLLIC_ROOT = XinApplication.getAppContext().getString(R.string.app_name);
 

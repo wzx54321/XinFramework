@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <paths>
-        <external-path path="shindong.xin" name="." />
+        <external-path path="XinFramwork" name="." />
     </paths>
 </resources>
