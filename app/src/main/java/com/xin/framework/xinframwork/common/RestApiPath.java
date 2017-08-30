@@ -10,7 +10,7 @@ import com.xin.framework.xinframwork.BuildConfig;
 public class RestApiPath {
 
     // host
-    private static final String HOST_OFFICIAL = "";
+    private static final String HOST_OFFICIAL = "https://api.mericentury.com";
     private static final String HOST_DEV = "";
     private static final String HOST_TEST = "";
     private final static String[] HOST={HOST_OFFICIAL,HOST_DEV,HOST_TEST};

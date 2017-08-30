@@ -7,11 +7,12 @@ import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import me.framework.fragmentation.helper.internal.LifecycleHelper;
 
 
 @SuppressLint("Registered")
-public class ActivitySupport extends AppCompatActivity implements ISupport {
+public class ActivitySupport extends RxAppCompatActivity implements ISupport {
     private FragmentationDelegate mFragmentationDelegate;
 
     private LifecycleHelper mLifecycleHelper;

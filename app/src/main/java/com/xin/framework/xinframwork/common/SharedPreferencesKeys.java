@@ -8,11 +8,12 @@ public interface SharedPreferencesKeys {
     // 升级后channel id不变
     String KEY_RECORDED_CHANNEL_ID = TAG + ".key.recorded.channel.id";
 
-    String KEY_APP_VERSION = TAG + ".key.app.version.name";
-
-    String KEY_APP_VERSION_CODE = TAG + ".key.app.version.code";
-
     String KEY_PHONE_DEVICE_ID = TAG + "key.phone.device.id";
+
+    String KEY_USER_ID = TAG + "key.user.id";
+
+    String KEY_USER_TOKEN = TAG + "key.user.token";
+
 
     /**
      * 根据使用情况配置文件名称

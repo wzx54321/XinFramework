@@ -5,23 +5,23 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.github.moduth.blockcanary.BlockCanary;
-import com.meituan.android.walle.ChannelInfo;
-import com.meituan.android.walle.WalleChannelReader;
 import com.squareup.leakcanary.LeakCanary;
 import com.xin.framework.xinframwork.BuildConfig;
+import com.xin.framework.xinframwork.common.AppConfig;
 import com.xin.framework.xinframwork.common.CrashReportConfig;
 import com.xin.framework.xinframwork.common.FileConfig;
+import com.xin.framework.xinframwork.common.HttpConfig;
 import com.xin.framework.xinframwork.common.NetWorkConfig;
-import com.xin.framework.xinframwork.content.SPManager;
 import com.xin.framework.xinframwork.utils.android.ActivityStackManager;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.android.logger.LogLevel;
 import com.xin.framework.xinframwork.utils.android.logger.MemoryLog;
 import com.xin.framework.xinframwork.utils.glide.base.GlideApp;
+
+import static com.xin.framework.xinframwork.utils.android.logger.Log.init;
 
 /**
  * Description :
@@ -43,9 +43,9 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
             return;
         appCreateCount = 0;
         // Log 配置
-        Log.init().logLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
+        init().logLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
 
-        //配置： ANR异常捕获 内存泄露捕获
+        // 配置： ANR异常捕获 内存泄露捕获
         if (!LeakCanary.isInAnalyzerProcess(app)) {
             BlockCanary.install(app, new AppBlockCanaryContext()).start();
             LeakCanary.install(app);
@@ -54,18 +54,20 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         // init bugly
         CrashReportConfig.init(app);
         //  Device ID
-        setDeviceId();
+        AppConfig.setDeviceId(app);
+        //  渠道号
+        AppConfig.setChannel(app);
 
         // TODO 创建或更新数据库
 
         app.registerActivityLifecycleCallbacks(this);
+
+
+        // 配置网络请求
+        HttpConfig.init(app);
     }
 
-    private void setDeviceId() {
-        if (TextUtils.isEmpty(SPManager.getInstance().getDeviceId())) {
-            SPManager.getInstance().putDeviceId(SysUtils.getDeviceId(app));
-        }
-    }
+
 
 
     @Override
@@ -76,11 +78,11 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         ActivityStackManager.getInstance().pushActivity(activity);
 
         if (appCreateCount == 0) {
-            //   配置文件系统
+            // 配置文件系统
             new FileConfig().init(activity);
 
             if (SysUtils.hasNougat()) {
-                //   配置网络监听
+                // 配置网络监听
                 NetWorkConfig.initNetNotify(activity);
             }
         }
@@ -118,21 +120,6 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
     }
 
 
-    /**
-     * 获取渠道信息
-     */
-    private void readChannel() {
-
-        final long startTime = System.currentTimeMillis();
-        final ChannelInfo channelInfo = WalleChannelReader.getChannelInfo(app);
-
-        // TODO
-       /* if (channelInfo != null) {
-            tv.setText(channelInfo.getChannel() + "\n" + channelInfo.getExtraInfo());
-        }
-        Toast.makeText(this, "ChannelReader takes " + (System.currentTimeMillis() - startTime) + " milliseconds", Toast.LENGTH_SHORT).show();*/
-    }
-
     public void onLowMemory() {
         GlideApp.get(app).onLowMemory();
     }
@@ -142,14 +129,14 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
     }
 
     public void exit() {
-        try{
+        try {
             ActivityStackManager.getInstance().popAllActivity();
             ActivityManager activityMgr =
                     (ActivityManager) app.getSystemService(Context.ACTIVITY_SERVICE);
             activityMgr.killBackgroundProcesses(app.getPackageName());
             System.exit(0);
-        }catch (Exception er){
-            Log.e(er,"exit app error");
+        } catch (Exception er) {
+            Log.e(er, "exit app error");
         }
 
     }

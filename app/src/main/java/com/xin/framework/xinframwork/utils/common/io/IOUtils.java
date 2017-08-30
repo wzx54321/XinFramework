@@ -19,11 +19,34 @@ package com.xin.framework.xinframwork.utils.common.io;
 import android.annotation.SuppressLint;
 import android.os.Build;
 
-
+import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.common.io.stream.StringBuilderWriter;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.CharArrayWriter;
+import java.io.Closeable;
+import java.io.EOFException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.channels.Selector;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -440,9 +463,28 @@ public class IOUtils {
      * @throws IOException          if an I/O error occurs
      */
     public static byte[] toByteArray(InputStream input) throws IOException {
-        com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream output = new com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream();
+        com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream output =
+                new com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream();
         copy(input, output);
         return output.toByteArray();
+    }
+
+    public static byte[] toByteArray(Object input) {
+        com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream baos = null;
+        ObjectOutputStream oos = null;
+        try {
+            baos = new com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream();
+            oos = new ObjectOutputStream(baos);
+            oos.writeObject(input);
+            oos.flush();
+            return baos.toByteArray();
+        } catch (IOException e) {
+            Log.e(e, "toByteArray");
+        } finally {
+            IOUtils.closeQuietly(oos);
+            IOUtils.closeQuietly(baos);
+        }
+        return null;
     }
 
     /**
@@ -628,8 +670,8 @@ public class IOUtils {
         try {
             return IOUtils.toByteArray(inputStream);
         } catch (Exception e) {
-            com.xin.framework.xinframwork.utils.android.logger.Log.e(e,"");
-        }finally {
+            com.xin.framework.xinframwork.utils.android.logger.Log.e(e, "");
+        } finally {
             inputStream.close();
         }
         return new byte[0];
@@ -863,8 +905,8 @@ public class IOUtils {
         try {
             return toString(inputStream, encoding);
         } catch (Exception e) {
-            com.xin.framework.xinframwork.utils.android.logger.Log.e(e,"");
-        }finally {
+            com.xin.framework.xinframwork.utils.android.logger.Log.e(e, "");
+        } finally {
             inputStream.close();
         }
         return null;
@@ -915,6 +957,13 @@ public class IOUtils {
      */
     public static String toString(byte[] input, String encoding) throws IOException {
         return new String(input, encoding);
+    }
+
+
+
+
+    public static Reader toReader(String str){
+        return new StringReader(str);
     }
 
     // readLines
@@ -1017,6 +1066,10 @@ public class IOUtils {
         return toInputStream(input, Charset.defaultCharset());
     }
 
+
+
+
+
     /**
      * Convert the specified CharSequence to an input stream, encoded as bytes
      * using the specified character encoding.
@@ -1095,6 +1148,25 @@ public class IOUtils {
         byte[] bytes = StringCodingUtils.getBytes(input, Charsets.toCharset(encoding));
         return new ByteArrayInputStream(bytes);
     }
+
+
+    public static Object toObject(byte[] input) {
+        if (input == null) return null;
+        ByteArrayInputStream bais = null;
+        ObjectInputStream ois = null;
+        try {
+            bais = new ByteArrayInputStream(input);
+            ois = new ObjectInputStream(bais);
+            return ois.readObject();
+        } catch (Exception e) {
+            Log.e(e, "");
+        } finally {
+            IOUtils.closeQuietly(ois);
+            IOUtils.closeQuietly(bais);
+        }
+        return null;
+    }
+
 
     // write byte[]
     //-----------------------------------------------------------------------

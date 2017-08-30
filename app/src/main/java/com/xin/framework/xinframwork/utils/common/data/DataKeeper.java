@@ -72,7 +72,7 @@ public class DataKeeper {
             Log.i(TAG, key + " get: " + obj);
             return obj;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(e,"DataKeeper#put");
         }
         return null;
     }
@@ -88,39 +88,39 @@ public class DataKeeper {
         try {
             Log.i(TAG, key + " put: " + ser);
             if (ser == null) {
-                sp.edit().remove(key).commit();
+                sp.edit().remove(key).apply();
             } else {
                 byte[] bytes = ByteUtil.objectToByte(ser);
                 if (cipher != null) bytes = cipher.encrypt(bytes);
                 put(key, HexUtil.encodeHexStr(bytes));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(e,"DataKeeper#put");
         }
     }
 
     public void put(String key, String value) {
         if (value == null) {
-            sp.edit().remove(key).commit();
+            sp.edit().remove(key).apply();
         } else {
-            sp.edit().putString(key, value).commit();
+            sp.edit().putString(key, value).apply();
         }
     }
 
     public void put(String key, boolean value) {
-        sp.edit().putBoolean(key, value).commit();
+        sp.edit().putBoolean(key, value).apply();
     }
 
     public void put(String key, float value) {
-        sp.edit().putFloat(key, value).commit();
+        sp.edit().putFloat(key, value).apply();
     }
 
     public void put(String key, long value) {
-        sp.edit().putLong(key, value).commit();
+        sp.edit().putLong(key, value).apply();
     }
 
     public void putInt(String key, int value) {
-        sp.edit().putInt(key, value).commit();
+        sp.edit().putInt(key, value).apply();
     }
 
 }

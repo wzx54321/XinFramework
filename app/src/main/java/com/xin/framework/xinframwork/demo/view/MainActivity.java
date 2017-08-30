@@ -1,4 +1,4 @@
-package com.xin.framework.xinframwork;
+package com.xin.framework.xinframwork.demo.view;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,14 +8,23 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.base.BaseActivity;
+import com.xin.framework.xinframwork.demo.contract.MainContract;
+import com.xin.framework.xinframwork.demo.presenter.MainPresenter;
+import com.xin.framework.xinframwork.mvp.PresenterMessage;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements AbsListView.OnScrollListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements AbsListView.OnScrollListener, MainContract.View {
     @BindView(R.id.listView)
     ListView mListView;
 
+
+    @Override
+    public void createMessage() {
+        msg=PresenterMessage.obtain(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,10 @@ public class MainActivity extends BaseActivity implements AbsListView.OnScrollLi
     @Override
     protected void afterCreated() {
 
+        msg = PresenterMessage.obtain(this);
+        mPresenter.onStart();
+
+        mPresenter.checkVersion(msg);
     }
 
     @Override
@@ -57,7 +70,6 @@ public class MainActivity extends BaseActivity implements AbsListView.OnScrollLi
         mTitle.addViewToFadeListTitle();
 
 
-
     }
 
     @Override
@@ -67,13 +79,35 @@ public class MainActivity extends BaseActivity implements AbsListView.OnScrollLi
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        mTitle.onScroll(view,
-                firstVisibleItem,
-                0);
+        if (mTitle != null) {
+            mTitle.onScroll(view,
+                    firstVisibleItem,
+                    0);
+        }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void handlePresenterMsg(PresenterMessage message) {
+
     }
 
 
-    static class MyAdapter extends BaseAdapter {
+    private static class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -101,4 +135,9 @@ public class MainActivity extends BaseActivity implements AbsListView.OnScrollLi
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
+    }
 }

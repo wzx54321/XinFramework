@@ -112,4 +112,7 @@ public final class Log {
     printer.xml(xml);
   }
 
+    public static void printStackTrace(Throwable e) {
+      e(e,"");
+    }
 }

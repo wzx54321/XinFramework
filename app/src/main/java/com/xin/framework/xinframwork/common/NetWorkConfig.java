@@ -17,10 +17,6 @@ import static com.xin.framework.xinframwork.app.XinApplication.getAppContext;
 /**
  * Description :
  * Created by 王照鑫 on 2017/8/17 0017.
- * Job number：147109
- * Email： wangzhaoxin@syswin.com
- * Person in charge :
- * Leader：guohaichun
  */
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

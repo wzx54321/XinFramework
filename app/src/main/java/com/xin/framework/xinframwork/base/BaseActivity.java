@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.mvp.IPresenter;
 import com.xin.framework.xinframwork.mvp.IView;
+import com.xin.framework.xinframwork.mvp.PresenterMessage;
 import com.xin.framework.xinframwork.mvp.TypeUtil;
 import com.xin.framework.xinframwork.ui.widget.titlebar.utils.TitleCompatibilityUtil;
 import com.xin.framework.xinframwork.ui.widget.titlebar.view.TitleBar;
@@ -25,6 +26,10 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
     @Nullable
     public TitleBar mTitle;
     private Unbinder mUnbinder;
+    public PresenterMessage msg;
+
+    public abstract void createMessage();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,9 +41,10 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
         mTitle = ViewFinder.findViewById(this, R.id.title_bar);
         initTitleBar();
         initView();
-        if (this instanceof IView)
+        if (mPresenter != null && (this instanceof IView)){
             mPresenter.setView((IView) this);
-
+            createMessage();
+        }
         afterCreated();
     }
 

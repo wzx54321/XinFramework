@@ -6,11 +6,12 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
+
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -26,7 +27,7 @@ import me.framework.fragmentation.helper.internal.VisibleDelegate;
 /**
  * Created by YoKeyword on 16/1/22.
  */
-public class FragmentSupport extends Fragment implements ISupportFragment {
+public class FragmentSupport extends RxFragment implements ISupportFragment {
     // LaunchMode
     public static final int STANDARD = 0;
     public static final int SINGLETOP = 1;

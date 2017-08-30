@@ -3,6 +3,10 @@
 <resources>
     <!--是否使用loger打印crashlog-->
     <bool name="crash_loger_enable">false</bool>
-
+    <!--bugly appid-->
     <string name="bugly_app_id">注册时申请的APPID</string>
+    <!--是否使用cookie-->
+    <bool name="cookie_enable">false</bool>
+    <!--是否请求参数base64处理-->
+    <bool name="http_params_base64_enable">true</bool>
 </resources>

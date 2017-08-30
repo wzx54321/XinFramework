@@ -10,6 +10,9 @@ import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.meituan.android.walle.ChannelInfo;
+import com.meituan.android.walle.WalleChannelReader;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -130,6 +133,7 @@ public class SysUtils {
      * 获取build号
      */
     public static String getVersionCode(Context context) throws PackageManager.NameNotFoundException {
+
         PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(),
                 0);
         return pi.versionCode + "";
@@ -197,5 +201,22 @@ public class SysUtils {
             }
         }
         return null;
+    }
+
+
+
+    /**
+     * 获取渠道信息
+     */
+    public static ChannelInfo readChannel(Context app) {
+
+        final long startTime = System.currentTimeMillis();
+        return WalleChannelReader.getChannelInfo(app);
+
+        // TODO
+       /* if (channelInfo != null) {
+            tv.setText(channelInfo.getChannel() + "\n" + channelInfo.getExtraInfo());
+        }
+        Toast.makeText(this, "ChannelReader takes " + (System.currentTimeMillis() - startTime) + " milliseconds", Toast.LENGTH_SHORT).show();*/
     }
 }

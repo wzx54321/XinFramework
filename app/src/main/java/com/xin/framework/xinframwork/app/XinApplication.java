@@ -14,9 +14,17 @@ public class XinApplication extends Application {
 
     private static AppDelegate mAppDelegate;
 
+
+
+
     public static Context getAppContext() {
         return sAppContext;
     }
+
+
+
+
+
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -30,6 +38,7 @@ public class XinApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sAppContext = getApplicationContext();
+
         mAppDelegate = new AppDelegate(this);
         mAppDelegate.onCreate();
 

@@ -3,9 +3,9 @@ package com.xin.framework.xinframwork.content;
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
-import com.xin.framework.xinframwork.utils.common.data.DataKeeper;
 import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.common.SharedPreferencesKeys;
+import com.xin.framework.xinframwork.utils.common.data.DataKeeper;
 
 import java.util.UUID;
 
@@ -38,7 +38,6 @@ public class SPManager implements SharedPreferencesKeys {
     }
 
 
-
     /**
      * 获取设备ID
      *
@@ -65,6 +64,56 @@ public class SPManager implements SharedPreferencesKeys {
 
         }
 
+    }
+
+
+    /**
+     * 登录的UID
+     *
+     * @return
+     */
+    public String getUserID() {
+        return mDk.get(KEY_USER_ID, "");
+    }
+
+
+    /**
+     * 存UserID
+     *
+     * @param uid 用户ID
+     */
+    public void putUserId(String uid) {
+        mDk.put(KEY_USER_ID, uid);
+    }
+
+    /**
+     * @return 获取userTOKEN
+     */
+    public String getUserToken() {
+        return mDk.get(KEY_USER_TOKEN, "");
+    }
+
+
+    /***
+     *
+     * @param token 登录使用的token
+     */
+    public void putUserToken(String token) {
+        mDk.put(KEY_USER_TOKEN, token);
+    }
+
+    /**
+     * 存渠道号
+     */
+    public void putChannel(String info) {
+        mDk.put(KEY_RECORDED_CHANNEL_ID, info);
+    }
+
+    /**
+     * 获取渠道号
+     */
+    public String getChannel() {
+       return mDk.get(KEY_RECORDED_CHANNEL_ID, "");
     }
 
 
