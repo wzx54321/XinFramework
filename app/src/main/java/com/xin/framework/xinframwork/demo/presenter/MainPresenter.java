@@ -46,7 +46,7 @@ public class MainPresenter implements MainContract.Presenter {
         model.checkVersion(new CustomRequestCallback<AppVersion>() {
             @Override
             public void onBeforeRequest(@NonNull Disposable disposable) {
-                Log.i("onBeforeRequest");
+
             }
 
             @Override

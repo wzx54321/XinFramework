@@ -23,13 +23,11 @@ import okio.Buffer;
 /**
  * Description :
  * Created by 王照鑫 on 2017/8/22 0022.
- * Job number：147109
- * Email： wangzhaoxin@syswin.com
- * Person in charge :
- * Leader：guohaichun
  */
 
-public class HttpLoggingInterceptor implements Interceptor {
+public class HttpLog implements Interceptor {
+
+    private boolean isPrintbinaryBody;
 
     public enum Level {
         NONE,       //不打印log
@@ -45,10 +43,9 @@ public class HttpLoggingInterceptor implements Interceptor {
         this.printLevel = printLevel;
     }
 
-    private void log(String message) {
-        Log.i(message);
+    public void setPrintbinaryBody(boolean printbinaryBody) {
+        isPrintbinaryBody = printbinaryBody;
     }
-
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -65,7 +62,7 @@ public class HttpLoggingInterceptor implements Interceptor {
         try {
             response = chain.proceed(request);
         } catch (Exception e) {
-            log("<-- HTTP FAILED: " + e);
+            Log.e(e, "<-- HTTP FAILED: ");
             throw e;
         }
         long tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs);
@@ -75,27 +72,28 @@ public class HttpLoggingInterceptor implements Interceptor {
     }
 
 
-
     private void logForRequest(Request request, Connection connection) throws IOException {
+
         boolean logBody = (printLevel == Level.BODY);
         boolean logHeaders = (printLevel == Level.BODY || printLevel == Level.HEADERS);
         RequestBody requestBody = request.body();
         boolean hasRequestBody = requestBody != null;
         Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
 
+        StringBuilder requestMessage = new StringBuilder();
         try {
-            String requestStartMessage = "--> " + request.method() + ' ' + request.url() + ' ' + protocol;
-            log(requestStartMessage);
+            requestMessage.append("--> ").append(request.method()).append(' ').append(request.url()).append(' ').append(protocol).append("\n");
+
 
             if (logHeaders) {
                 if (hasRequestBody) {
                     // Request body headers are only present when installed as a network interceptor. Force
                     // them to be included (when available) so there values are known.
                     if (requestBody.contentType() != null) {
-                        log("\tContent-Type: " + requestBody.contentType());
+                        requestMessage.append("\tContent-Type: ").append(requestBody.contentType()).append("\n");
                     }
                     if (requestBody.contentLength() != -1) {
-                        log("\tContent-Length: " + requestBody.contentLength());
+                        requestMessage.append("\tContent-Length: ").append(requestBody.contentLength()).append("\n");
                     }
                 }
                 Headers headers = request.headers();
@@ -103,28 +101,32 @@ public class HttpLoggingInterceptor implements Interceptor {
                     String name = headers.name(i);
                     // Skip headers from the request body as they are explicitly logged above.
                     if (!"Content-Type".equalsIgnoreCase(name) && !"Content-Length".equalsIgnoreCase(name)) {
-                        log("\t" + name + ": " + headers.value(i));
+                        requestMessage.append("\t").append(name).append(": ").append(headers.value(i)).append("\n");
                     }
                 }
 
-                log(" ");
+
                 if (logBody && hasRequestBody) {
                     if (isPlaintext(requestBody.contentType())) {
-                        bodyToString(request);
+                        requestMessage.append(bodyToString(request));
                     } else {
-                        log("\tbody: maybe [binary body], omitted!");
+                        requestMessage.append("\tbody: maybe [binary body], omitted!\n");
                     }
                 }
             }
         } catch (Exception e) {
-            Log.e(e,"intercept");
+            Log.e(e, "intercept");
         } finally {
-            log("--> END " + request.method());
+
+            requestMessage.append("--> END ").append(request.method());
+
+            Log.i(requestMessage.toString());
         }
     }
 
 
     private Response logForResponse(Response response, long tookMs) {
+        StringBuilder responseMsg = new StringBuilder();
         Response.Builder builder = response.newBuilder();
         Response clone = builder.build();
         ResponseBody responseBody = clone.body();
@@ -132,32 +134,35 @@ public class HttpLoggingInterceptor implements Interceptor {
         boolean logHeaders = (printLevel == Level.BODY || printLevel == Level.HEADERS);
 
         try {
-            log("<-- " + clone.code() + ' ' + clone.message() + ' ' + clone.request().url() + " (" + tookMs + "ms）");
+            responseMsg.append("<-- ").append(clone.code()).append(' ').append(clone.message()).append(' ').append(clone.request().url()).append(" (").append(tookMs).append("ms）" + "\n");
             if (logHeaders) {
                 Headers headers = clone.headers();
+
                 for (int i = 0, count = headers.size(); i < count; i++) {
-                    log("\t" + headers.name(i) + ": " + headers.value(i));
+                    responseMsg.append("\t").append(headers.name(i)).append(": ").append(headers.value(i)).append("\n");
                 }
-                log(" ");
+
                 if (logBody && HttpHeaders.hasBody(clone)) {
                     if (responseBody == null) return response;
 
-                    if (isPlaintext(responseBody.contentType())) {
+                    if (isPrintbinaryBody || isPlaintext(responseBody.contentType())) {
                         byte[] bytes = IOUtils.toByteArray(responseBody.byteStream());
                         MediaType contentType = responseBody.contentType();
                         String body = new String(bytes, getCharset(contentType));
-                        log("\tbody:" + body);
+                        responseMsg.append("\tbody:").append(body);
                         responseBody = ResponseBody.create(responseBody.contentType(), bytes);
                         return response.newBuilder().body(responseBody).build();
                     } else {
-                        log("\tbody: maybe [binary body], omitted!");
+                        responseMsg.append("\tbody: maybe [binary body], omitted! \n if you want to log it please call set isPrintbinaryBody is true");
                     }
                 }
             }
         } catch (Exception e) {
-             Log.e(e,"logForResponse error");
+            Log.e(e, "logForResponse error");
         } finally {
-            log("<-- END HTTP");
+            responseMsg.append("<-- END HTTP");
+
+            Log.i(responseMsg.toString());
         }
         return response;
     }
@@ -180,18 +185,21 @@ public class HttpLoggingInterceptor implements Interceptor {
         return false;
     }
 
-    private void bodyToString(Request request) {
+    private String bodyToString(Request request) {
+
         try {
             Request copy = request.newBuilder().build();
             RequestBody body = copy.body();
-            if (body == null) return;
+            if (body == null) return "";
             Buffer buffer = new Buffer();
             body.writeTo(buffer);
             Charset charset = getCharset(body.contentType());
-            log("\tbody:" + buffer.readString(charset));
+            return "\tbody:" + buffer.readString(charset) + "\n";
         } catch (Exception e) {
-           Log.e(e,"bodyToString error");
+            Log.e(e, "bodyToString error");
         }
+
+        return "";
     }
 
     private static Charset getCharset(MediaType contentType) {

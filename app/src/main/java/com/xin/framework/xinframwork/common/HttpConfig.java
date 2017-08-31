@@ -11,7 +11,7 @@ import com.xin.framework.xinframwork.http.cookie.CookieJarImpl;
 import com.xin.framework.xinframwork.http.cookie.store.DBCookieStore;
 import com.xin.framework.xinframwork.http.cookie.store.MemoryCookieStore;
 import com.xin.framework.xinframwork.http.https.HttpsUtils;
-import com.xin.framework.xinframwork.http.interceptor.HttpLoggingInterceptor;
+import com.xin.framework.xinframwork.http.interceptor.HttpLog;
 import com.xin.framework.xinframwork.http.model.HttpParams;
 
 import java.util.concurrent.TimeUnit;
@@ -43,9 +43,10 @@ public class HttpConfig {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         // log相关
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY); // log打印级别，决定了log显示的详细程度
-        builder.addInterceptor(loggingInterceptor);
+        HttpLog httpLog = new HttpLog();
+        httpLog.setPrintLevel(HttpLog.Level.BODY); // log打印级别，决定了log显示的详细程度
+        //  httpLog.setPrintbinaryBody(true);// 打印二进制Log ,默认不打印
+        builder.addInterceptor(httpLog);
 
         // 超时时间设置，默认60秒
         builder.readTimeout(DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);      // 全局的读取超时时间

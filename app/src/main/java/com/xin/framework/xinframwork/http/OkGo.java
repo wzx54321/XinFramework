@@ -10,7 +10,7 @@ import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.cache.CacheMode;
 import com.xin.framework.xinframwork.http.cookie.CookieJarImpl;
 import com.xin.framework.xinframwork.http.https.HttpsUtils;
-import com.xin.framework.xinframwork.http.interceptor.HttpLoggingInterceptor;
+import com.xin.framework.xinframwork.http.interceptor.HttpLog;
 import com.xin.framework.xinframwork.http.model.HttpHeaders;
 import com.xin.framework.xinframwork.http.model.HttpParams;
 import com.xin.framework.xinframwork.http.request.DeleteRequest;
@@ -67,8 +67,8 @@ public class OkGo {
         mCacheMode = CacheMode.NO_CACHE;
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLog loggingInterceptor = new HttpLog();
+        loggingInterceptor.setPrintLevel(HttpLog.Level.BODY);
         builder.addInterceptor(loggingInterceptor);
 
         builder.readTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);      //全局的读取超时时间
