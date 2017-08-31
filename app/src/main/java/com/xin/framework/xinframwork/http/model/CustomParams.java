@@ -107,7 +107,7 @@ public class CustomParams implements Serializable {
         }
 
         String jsonStr = mParmas.toString();
-        Log.i(jsonStr);
+        Log.i("Parmas："+jsonStr);
         try {
             return  mApp.getResources().getBoolean(R.bool.http_params_base64_enable)
                     ? new String(new Base64Cipher().encrypt(jsonStr.getBytes()), "UTF-8"): jsonStr;

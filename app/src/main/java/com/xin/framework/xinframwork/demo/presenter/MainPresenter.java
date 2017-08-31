@@ -51,8 +51,7 @@ public class MainPresenter implements MainContract.Presenter {
 
             @Override
             public void onSuccess(@NonNull CustomData<AppVersion> resault) {
-                AppVersion appVersion = resault.data;
-                Log.i("onSuccess");
+
             }
 
 
@@ -63,7 +62,7 @@ public class MainPresenter implements MainContract.Presenter {
 
             @Override
             public void onComplete() {
-                Log.i("onComplete");
+
             }
         });
 

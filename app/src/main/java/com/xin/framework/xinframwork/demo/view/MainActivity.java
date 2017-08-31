@@ -138,6 +138,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onDestroy();
+
     }
 }
