@@ -20,7 +20,7 @@ android {
 
 
 dependencies {
-    provided 'com.android.support:appcompat-v7:25.3.1'
+    provided rootProject.ext.dependencies["appcompat-v7"]
 
     //rx2
     compile rootProject.ext.dependencies["rxjava2"]

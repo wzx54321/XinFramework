@@ -28,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class XinRequest<T> {
 
-    Class clzz;
+    private Class clzz;
 
     public XinRequest(Class clzz) {
         this.clzz = clzz;

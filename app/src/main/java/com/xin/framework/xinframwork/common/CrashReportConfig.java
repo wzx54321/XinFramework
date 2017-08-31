@@ -10,7 +10,6 @@ import com.xin.framework.xinframwork.utils.android.logger.CrashLogger;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
-import cat.ereza.customactivityoncrash.config.CaocConfig;
 
 import static com.xin.framework.xinframwork.app.XinApplication.getAppContext;
 
@@ -39,14 +38,6 @@ public class CrashReportConfig {
                         .setUncaughtExceptionHandler(new CrashLogger(getAppContext()));
             } else {
                 try{
-
-                    CaocConfig.Builder.create()
-                            .enabled(true) //default: true
-                            .showErrorDetails(true) //default: true
-                            .showRestartButton(true) //default: true
-                            .trackActivities(true) //default: false
-                            .minTimeBetweenCrashesMs(1000) //default: 3000
-                            .apply();
                     CustomActivityOnCrash.install(app);
                 }catch (Exception e){
                     Log.e(e,"CrashReportConfig on CustomActivityOnCrash init");

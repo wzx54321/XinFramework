@@ -21,8 +21,6 @@ import com.xin.framework.xinframwork.utils.android.logger.LogLevel;
 import com.xin.framework.xinframwork.utils.android.logger.MemoryLog;
 import com.xin.framework.xinframwork.utils.glide.base.GlideApp;
 
-import static com.xin.framework.xinframwork.utils.android.logger.Log.init;
-
 /**
  * Description :
  * Created by 王照鑫 on 2017/8/17 0017.
@@ -43,7 +41,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
             return;
         appCreateCount = 0;
         // Log 配置
-        init().logLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
+        Log.init().logLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
 
         // 配置： ANR异常捕获 内存泄露捕获
         if (!LeakCanary.isInAnalyzerProcess(app)) {
@@ -51,7 +49,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
             LeakCanary.install(app);
         }
 
-        // init bugly
+        // init  CrashReport
         CrashReportConfig.init(app);
         //  Device ID
         AppConfig.setDeviceId(app);
