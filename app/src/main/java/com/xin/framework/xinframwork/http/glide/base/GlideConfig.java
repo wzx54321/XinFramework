@@ -1,4 +1,4 @@
-package com.xin.framework.xinframwork.utils.glide.base;
+package com.xin.framework.xinframwork.http.glide.base;
 
 import android.content.Context;
 
@@ -13,13 +13,17 @@ import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
+import com.xin.framework.xinframwork.http.glide.progress.GlideProgressManager;
 
 import java.io.InputStream;
+
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
 
 @GlideModule
 public class GlideConfig extends AppGlideModule {
 
-   @Override
+    @Override
     public void applyOptions(final Context context, final GlideBuilder builder) {
         builder.setDiskCache(new ExternalCacheDiskCacheFactory(context, 1024 * 1024 * 500));
         MemorySizeCalculator calculator = new MemorySizeCalculator.Builder(context).build();
@@ -35,7 +39,11 @@ public class GlideConfig extends AppGlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
-        registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
+
+        Call.Factory clint = GlideProgressManager.getInstance().with(new OkHttpClient().newBuilder()).build();
+        registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(clint));
+
+
     }
 
     @Override

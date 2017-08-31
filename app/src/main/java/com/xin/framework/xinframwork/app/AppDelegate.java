@@ -14,12 +14,12 @@ import com.xin.framework.xinframwork.common.CrashReportConfig;
 import com.xin.framework.xinframwork.common.FileConfig;
 import com.xin.framework.xinframwork.common.HttpConfig;
 import com.xin.framework.xinframwork.common.NetWorkConfig;
+import com.xin.framework.xinframwork.http.glide.base.GlideApp;
 import com.xin.framework.xinframwork.utils.android.ActivityStackManager;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.android.logger.LogLevel;
 import com.xin.framework.xinframwork.utils.android.logger.MemoryLog;
-import com.xin.framework.xinframwork.utils.glide.base.GlideApp;
 
 /**
  * Description :
@@ -63,6 +63,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
         // 配置网络请求
         HttpConfig.init(app);
+
     }
 
 
