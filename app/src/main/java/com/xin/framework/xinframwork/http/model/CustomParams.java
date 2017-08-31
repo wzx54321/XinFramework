@@ -51,22 +51,22 @@ import java.io.UnsupportedEncodingException;
  */
 
 public class CustomParams implements Serializable {
-    public String appid;           // 4位的整数，用于区分app和请求来源。
-    public String appver;          // app版本号+buildCode，用于区分版本和数据统计
-    public String deviceid;        // 硬件设备号
-    public String cid;             // 渠道号
-    public String ts;              // 时间戳
-    public String uid;             // 用于记录注册登录用户的身份
-    public String token;           // 用于验证身份的合法性和登录的有效性，同时避免接口被刷
+    private String appid;           // 4位的整数，用于区分app和请求来源。
+    private String appver;          // app版本号+buildCode，用于区分版本和数据统计
+    private String deviceid;        // 硬件设备号
+    private String cid;             // 渠道号
+    private String ts;              // 时间戳
+    private String uid;             // 用于记录注册登录用户的身份
+    private String token;           // 用于验证身份的合法性和登录的有效性，同时避免接口被刷
     public JSONObject data;        // 业务参数
-    private JSONObject mParmas;
+    private JSONObject mParams;
 
     private Context mApp;
 
 
     public CustomParams(Context app) {
         mApp = app;
-        mParmas = new JSONObject();
+        mParams = new JSONObject();
         appid = "1002";
         appver = BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE;
         deviceid = SPManager.getInstance().getDeviceId();
@@ -91,23 +91,23 @@ public class CustomParams implements Serializable {
     public String CreateParams(JSONObject data) {
         setData(data);
         try {
-            mParmas.put("appid", appid);
-            mParmas.put("appver", appver);
-            mParmas.put("deviceid", deviceid);
-            mParmas.put("cid", cid);
-            mParmas.put("ts", System.currentTimeMillis());
+            mParams.put("appid", appid);
+            mParams.put("appver", appver);
+            mParams.put("deviceid", deviceid);
+            mParams.put("cid", cid);
+            mParams.put("ts", System.currentTimeMillis());
             if (!TextUtils.isEmpty(uid))
-                mParmas.put("uid", uid);
+                mParams.put("uid", uid);
             if (!TextUtils.isEmpty(token))
-                mParmas.put("token", token);
+                mParams.put("token", token);
             if (this.data != null)
-                mParmas.put("from", this.data);
+                mParams.put("from", this.data);
         } catch (JSONException e) {
             Log.e(e, "CreateParams JSONException");
         }
 
-        String jsonStr = mParmas.toString();
-        Log.i(jsonStr);
+        String jsonStr = mParams.toString();
+        Log.i("Params:"+jsonStr);
         try {
             return  mApp.getResources().getBoolean(R.bool.http_params_base64_enable)
                     ? new String(new Base64Cipher().encrypt(jsonStr.getBytes()), "UTF-8"): jsonStr;

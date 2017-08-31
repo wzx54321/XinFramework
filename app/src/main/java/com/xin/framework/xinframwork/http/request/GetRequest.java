@@ -9,10 +9,6 @@ import okhttp3.RequestBody;
 /**
  * Description :
  * Created by 王照鑫 on 2017/8/23 0023.
- * Job number：147109
- * Email： wangzhaoxin@syswin.com
- * Person in charge :
- * Leader：guohaichun
  */
 
 public class GetRequest<T> extends NoBodyRequest {
