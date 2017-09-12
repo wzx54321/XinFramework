@@ -5,6 +5,7 @@ import com.xin.framework.xinframwork.common.RestApiPath;
 import com.xin.framework.xinframwork.demo.callback.CustomConvert;
 import com.xin.framework.xinframwork.http.OkGo;
 import com.xin.framework.xinframwork.http.adapter.ObservableResponse;
+import com.xin.framework.xinframwork.http.cache.CacheMode;
 import com.xin.framework.xinframwork.http.callback.CustomRequestCallback;
 import com.xin.framework.xinframwork.http.model.CustomData;
 import com.xin.framework.xinframwork.http.model.CustomParams;
@@ -12,6 +13,8 @@ import com.xin.framework.xinframwork.http.model.Response;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,6 +33,9 @@ public class XinRequest<T> {
 
     private Class clzz;
 
+    /**
+     * @param clzz 想要请求返回的Bean
+     */
     public XinRequest(Class clzz) {
         this.clzz = clzz;
     }
@@ -37,8 +43,11 @@ public class XinRequest<T> {
     public void Post(String method, JSONObject input, final CustomRequestCallback<T> callback) {
         OkGo.<CustomData<T>>post(RestApiPath.REST_URI_HOST, method) // 使用常量配置
                 .params("req", new CustomParams(XinApplication.getAppContext()).CreateParams(input))
+                .cacheKey(RestApiPath.REST_URI_HOST + method + (input != null ? input.toString() : ""))              //这里完全同okgo的配置一样
+                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
                 .converter(new CustomConvert<CustomData<T>>(clzz) {
-                }).adapt(new ObservableResponse<CustomData<T>>())//
+                })
+                .adapt(new ObservableResponse<CustomData<T>>())//
                 .subscribeOn(Schedulers.io())//
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -80,6 +89,57 @@ public class XinRequest<T> {
                 });
     }
 
+
+    public void get(String method, HashMap<String, String> input, final CustomRequestCallback<T> callback) {
+
+        OkGo.<CustomData<T>>get(RestApiPath.REST_URI_HOST, method)
+                .params(input, false)
+                .cacheKey(String.format("%s%s%s", RestApiPath.REST_URI_HOST, method, input != null ? input.toString() : ""))              //这里完全同okgo的配置一样
+                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
+                .converter(new CustomConvert<CustomData<T>>(clzz) {
+                })
+                .adapt(new ObservableResponse<CustomData<T>>()).subscribeOn(Schedulers.io())//
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(@NonNull Disposable disposable) throws Exception {
+                        //做一些操作 showLoading();
+                        if (callback != null) {
+                            callback.onBeforeRequest(disposable);
+                        }
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())//
+                .subscribe(new Observer<Response<CustomData<T>>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Response<CustomData<T>> response) {
+                        if (callback != null) {
+                            callback.onSuccess(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) { //请求错误
+                        Log.printStackTrace(e);
+
+                        if (callback != null) {
+                            callback.onError(e);
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (callback != null) {
+                            callback.onComplete();
+                        }
+                    }
+                });
+
+
+    }
 
     private static CompositeDisposable compositeDisposable;
 

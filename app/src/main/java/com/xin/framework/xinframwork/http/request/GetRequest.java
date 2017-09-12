@@ -11,7 +11,7 @@ import okhttp3.RequestBody;
  * Created by 王照鑫 on 2017/8/23 0023.
  */
 
-public class GetRequest<T> extends NoBodyRequest {
+public class GetRequest<T> extends NoBodyRequest<T, GetRequest<T>> {
 
     public GetRequest(String url) {
         super(url);

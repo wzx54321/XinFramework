@@ -85,6 +85,14 @@ public class OkGo {
     /**
      * get请求
      */
+    public static <T> GetRequest<T> get(String host, String method) {
+        return new GetRequest<>(host + method);
+    }
+
+
+    /**
+     * get请求
+     */
     public static <T> GetRequest<T> get(String url) {
         return new GetRequest<>(url);
     }

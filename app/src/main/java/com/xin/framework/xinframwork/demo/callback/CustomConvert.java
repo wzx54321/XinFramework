@@ -23,7 +23,7 @@ import okhttp3.ResponseBody;
 
 public class CustomConvert<T> implements Converter<T> {
 
-    Class clzz;
+    private Class clzz;
 
     public CustomConvert(Class clzz) {
         this.clzz = clzz;
