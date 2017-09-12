@@ -20,8 +20,10 @@ ext {
             blockcanarySdkVersion          : "1.2.1",
             constraintLayoutSdkVersion     : "1.0.1",
             meituanWalleSdkVersion         : "1.1.3",
-            customactivityoncrashSdkVersion: "1.5.0"
+            customactivityoncrashSdkVersion: "1.5.0",
+            objectboxVersion               : "1.0.1"
     ]
+
 
     dependencies = [
 
@@ -68,12 +70,13 @@ ext {
             "blockcanary-release"     : "com.github.moduth:blockcanary-no-op:${version["blockcanarySdkVersion"]}",
             "bugly-crashreport"       : "com.tencent.bugly:crashreport:latest.release",
             "bugly-nativecrashreport" : "com.tencent.bugly:nativecrashreport:latest.release",
-            "meituan-walle"           : "com.meituan.android.walle:library:${version["meituanWalleSdkVersion"]}",
             "customactivityoncrash"   : "cat.ereza:customactivityoncrash:${version["customactivityoncrashSdkVersion"]}",
-            "readystatesoftware.chuck": 'com.readystatesoftware.chuck:library:1.0.4'
+            "readystatesoftware.chuck": 'com.readystatesoftware.chuck:library:1.0.4',
+            "objectbox"               : "io.objectbox:objectbox-gradle-plugin:${version["objectboxVersion"]}",
+            "wallePlugin"             : "com.meituan.android.walle:plugin:${version["meituanWalleSdkVersion"]}",
+            "meituan-walle"           : "com.meituan.android.walle:library:${version["meituanWalleSdkVersion"]}"
 
     ]
-
 }
 
 

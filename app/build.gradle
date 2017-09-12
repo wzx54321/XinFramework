@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'walle'// 美团多渠道打包 https://github.com/Meituan-Dianping/walle
+apply plugin: 'io.objectbox' // after applying Android plugin
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
