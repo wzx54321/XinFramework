@@ -15,7 +15,6 @@
  */
 package com.xin.framework.xinframwork.http.adapter;
 
-import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.cache.policy.CachePolicy;
 import com.xin.framework.xinframwork.http.cache.policy.DefaultCachePolicy;
 import com.xin.framework.xinframwork.http.cache.policy.FirstCacheRequestPolicy;
@@ -26,6 +25,7 @@ import com.xin.framework.xinframwork.http.callback.Callback;
 import com.xin.framework.xinframwork.http.model.Response;
 import com.xin.framework.xinframwork.http.request.base.Request;
 import com.xin.framework.xinframwork.http.utils.HttpUtils;
+import com.xin.framework.xinframwork.store.entity.EntityCache;
 
 /**
  * ================================================
@@ -48,7 +48,7 @@ public class CacheCall<T> implements Call<T> {
 
     @Override
     public Response<T> execute() {
-        CacheEntity<T> cacheEntity = policy.prepareCache();
+        EntityCache<T> cacheEntity = policy.prepareCache();
         return policy.requestSync(cacheEntity);
     }
 
@@ -56,7 +56,7 @@ public class CacheCall<T> implements Call<T> {
     public void execute(Callback<T> callback) {
         HttpUtils.checkNotNull(callback, "callback == null");
 
-        CacheEntity<T> cacheEntity = policy.prepareCache();
+        EntityCache<T> cacheEntity = policy.prepareCache();
         policy.requestAsync(cacheEntity, callback);
     }
 

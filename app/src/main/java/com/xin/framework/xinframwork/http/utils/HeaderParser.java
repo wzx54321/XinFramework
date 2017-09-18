@@ -17,10 +17,10 @@ package com.xin.framework.xinframwork.http.utils;
 
 import android.text.TextUtils;
 
-import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.cache.CacheMode;
 import com.xin.framework.xinframwork.http.model.HttpHeaders;
 import com.xin.framework.xinframwork.http.request.base.Request;
+import com.xin.framework.xinframwork.store.entity.EntityCache;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 
 import java.util.Locale;
@@ -57,7 +57,7 @@ public class HeaderParser {
      * @param cacheKey        缓存的key
      * @return 缓存的实体类
      */
-    public static <T> CacheEntity<T> createCacheEntity(Headers responseHeaders, T data, CacheMode cacheMode, String cacheKey) {
+    public static <T> EntityCache<T> createCacheEntity(Headers responseHeaders, T data, CacheMode cacheMode, String cacheKey) {
 
         long localExpire = 0;   // 缓存相对于本地的到期时间
 
@@ -112,7 +112,7 @@ public class HeaderParser {
         }
 
         //构建缓存实体对象
-        CacheEntity<T> cacheEntity = new CacheEntity<>();
+        EntityCache<T> cacheEntity = new EntityCache<>();
         cacheEntity.setKey(cacheKey);
         cacheEntity.setData(data);
         cacheEntity.setLocalExpire(localExpire);
@@ -135,7 +135,7 @@ public class HeaderParser {
      * @param cacheEntity 缓存实体类
      * @param cacheMode   缓存模式
      */
-    public static <T> void addCacheHeaders(Request request, CacheEntity<T> cacheEntity, CacheMode cacheMode) {
+    public static <T> void addCacheHeaders(Request request, EntityCache<T> cacheEntity, CacheMode cacheMode) {
         //1. 按照标准的 http 协议，添加304相关请求头
         if (cacheEntity != null && cacheMode == CacheMode.DEFAULT) {
             HttpHeaders responseHeaders = cacheEntity.getResponseHeaders();

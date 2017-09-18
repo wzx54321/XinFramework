@@ -16,10 +16,10 @@
 package com.xin.framework.xinframwork.http.cache.policy;
 
 
-import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.callback.Callback;
 import com.xin.framework.xinframwork.http.model.Response;
 import com.xin.framework.xinframwork.http.request.base.Request;
+import com.xin.framework.xinframwork.store.entity.EntityCache;
 
 /**
  * ================================================
@@ -59,7 +59,7 @@ public class NoCachePolicy<T> extends BaseCachePolicy<T> {
     }
 
     @Override
-    public Response<T> requestSync(CacheEntity<T> cacheEntity) {
+    public Response<T> requestSync(EntityCache<T> cacheEntity) {
         try {
             prepareRawCall();
         } catch (Throwable throwable) {
@@ -69,7 +69,7 @@ public class NoCachePolicy<T> extends BaseCachePolicy<T> {
     }
 
     @Override
-    public void requestAsync(CacheEntity<T> cacheEntity, Callback<T> callback) {
+    public void requestAsync(EntityCache<T> cacheEntity, Callback<T> callback) {
         mCallback = callback;
         runOnUiThread(new Runnable() {
             @Override

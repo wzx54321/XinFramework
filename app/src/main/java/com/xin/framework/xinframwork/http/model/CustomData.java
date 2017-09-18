@@ -30,7 +30,7 @@ public class CustomData<T> implements Serializable {
 
     @Override
     public String toString() {
-        return "LzyResponse{\n" +//
+        return "CustomData{\n" +//
                 "\tcode=" + code + "\n" +//
                 "\tmsg='" + msg + "\'\n" +//
                 "\tdata=" + data + "\n" +//

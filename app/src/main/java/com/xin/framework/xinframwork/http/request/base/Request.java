@@ -7,7 +7,6 @@ import com.xin.framework.xinframwork.http.adapter.AdapterParam;
 import com.xin.framework.xinframwork.http.adapter.CacheCall;
 import com.xin.framework.xinframwork.http.adapter.Call;
 import com.xin.framework.xinframwork.http.adapter.CallAdapter;
-import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.cache.CacheMode;
 import com.xin.framework.xinframwork.http.cache.policy.CachePolicy;
 import com.xin.framework.xinframwork.http.callback.Callback;
@@ -16,6 +15,7 @@ import com.xin.framework.xinframwork.http.model.HttpHeaders;
 import com.xin.framework.xinframwork.http.model.HttpMethod;
 import com.xin.framework.xinframwork.http.model.HttpParams;
 import com.xin.framework.xinframwork.http.utils.HttpUtils;
+import com.xin.framework.xinframwork.store.entity.EntityCache;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -139,7 +139,7 @@ public abstract class Request<T, R extends Request> implements Serializable {
     /** 传入 -1 表示永久有效,默认值即为 -1 */
     @SuppressWarnings("unchecked")
     public R cacheTime(long cacheTime) {
-        if (cacheTime <= -1) cacheTime = CacheEntity.CACHE_NEVER_EXPIRE;
+        if (cacheTime <= -1) cacheTime = EntityCache.CACHE_NEVER_EXPIRE;
         this.cacheTime = cacheTime;
         return (R) this;
     }

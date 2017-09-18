@@ -2,13 +2,14 @@
 
 
 buildscript {
+
+    apply from: "config.gradle"
+    apply from: "utils.gradle"
+
     repositories {
         jcenter()
         maven { url "http://objectbox.net/beta-repo/" }
     }
-
-    apply from: "config.gradle"
-    apply from: "utils.gradle"
 
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'

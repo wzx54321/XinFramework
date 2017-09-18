@@ -19,7 +19,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.xin.framework.xinframwork.http.cookie.SerializableCookie;
+import com.xin.framework.xinframwork.store.entity.EntityCookie;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,7 +43,7 @@ import okhttp3.HttpUrl;
  */
 public class SPCookieStore implements CookieStore {
 
-    private static final String COOKIE_PREFS = "okgo_cookie";           //cookie使用prefs保存
+    private static final String COOKIE_PREFS = "key_http_cookie";           //cookie使用prefs保存
     private static final String COOKIE_NAME_PREFIX = "cookie_";         //cookie持久化的统一前缀
 
     /**
@@ -70,7 +70,7 @@ public class SPCookieStore implements CookieStore {
                     //根据对应cookie的Key,从xml中获取cookie的真实值
                     String encodedCookie = cookiePrefs.getString(COOKIE_NAME_PREFIX + name, null);
                     if (encodedCookie != null) {
-                        Cookie decodedCookie = SerializableCookie.decodeCookie(encodedCookie);
+                        Cookie decodedCookie = EntityCookie.decodeCookie(encodedCookie);
                         if (decodedCookie != null) {
                             if (!cookies.containsKey(entry.getKey())) {
                                 cookies.put(entry.getKey(), new ConcurrentHashMap<String, Cookie>());
@@ -120,7 +120,7 @@ public class SPCookieStore implements CookieStore {
         //文件缓存
         SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
         prefsWriter.putString(url.host(), TextUtils.join(",", cookies.get(url.host()).keySet()));
-        prefsWriter.putString(COOKIE_NAME_PREFIX + cookieToken, SerializableCookie.encodeCookie(url.host(), cookie));
+        prefsWriter.putString(COOKIE_NAME_PREFIX + cookieToken, EntityCookie.encodeCookie(url.host(), cookie));
         prefsWriter.apply();
     }
 

@@ -16,9 +16,9 @@
 package com.xin.framework.xinframwork.http.cache.policy;
 
 
-import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.callback.Callback;
 import com.xin.framework.xinframwork.http.model.Response;
+import com.xin.framework.xinframwork.store.entity.EntityCache;
 
 /**
  * ================================================
@@ -59,7 +59,7 @@ public interface CachePolicy<T> {
      *
      * @return 获取的缓存
      */
-    CacheEntity<T> prepareCache();
+    EntityCache<T> prepareCache();
 
     /**
      * 构建请求对象
@@ -74,7 +74,7 @@ public interface CachePolicy<T> {
      * @param cacheEntity 本地的缓存
      * @return 从缓存或本地获取的数据
      */
-    Response<T> requestSync(CacheEntity<T> cacheEntity);
+    Response<T> requestSync(EntityCache<T> cacheEntity);
 
     /**
      * 异步请求获取数据
@@ -82,7 +82,7 @@ public interface CachePolicy<T> {
      * @param cacheEntity 本地的缓存
      * @param callback    异步回调
      */
-    void requestAsync(CacheEntity<T> cacheEntity, Callback<T> callback);
+    void requestAsync(EntityCache<T> cacheEntity, Callback<T> callback);
 
     /**
      * 当前请求是否已经执行

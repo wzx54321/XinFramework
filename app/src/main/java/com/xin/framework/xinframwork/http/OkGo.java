@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.xin.framework.xinframwork.common.HttpConfig;
-import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.cache.CacheMode;
 import com.xin.framework.xinframwork.http.cookie.CookieJarImpl;
 import com.xin.framework.xinframwork.http.https.HttpsUtils;
@@ -22,6 +21,7 @@ import com.xin.framework.xinframwork.http.request.PostRequest;
 import com.xin.framework.xinframwork.http.request.PutRequest;
 import com.xin.framework.xinframwork.http.request.TraceRequest;
 import com.xin.framework.xinframwork.http.utils.HttpUtils;
+import com.xin.framework.xinframwork.store.entity.EntityCache;
 
 import java.util.concurrent.TimeUnit;
 
@@ -63,7 +63,7 @@ public class OkGo {
         mDelivery = new Handler(Looper.getMainLooper());
         mRetryCount = 3;
 
-        mCacheTime = CacheEntity.CACHE_NEVER_EXPIRE;
+        mCacheTime = EntityCache.CACHE_NEVER_EXPIRE;
         mCacheMode = CacheMode.NO_CACHE;
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -230,7 +230,7 @@ public class OkGo {
      * 全局的缓存过期时间
      */
     public OkGo setCacheTime(long cacheTime) {
-        if (cacheTime <= -1) cacheTime = CacheEntity.CACHE_NEVER_EXPIRE;
+        if (cacheTime <= -1) cacheTime = EntityCache.CACHE_NEVER_EXPIRE;
         mCacheTime = cacheTime;
         return this;
     }

@@ -15,7 +15,6 @@ import com.xin.framework.xinframwork.utils.android.logger.Log;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;

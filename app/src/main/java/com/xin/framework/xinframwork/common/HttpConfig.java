@@ -5,14 +5,13 @@ import android.content.Context;
 
 import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.http.OkGo;
-import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.cache.CacheMode;
 import com.xin.framework.xinframwork.http.cookie.CookieJarImpl;
-import com.xin.framework.xinframwork.http.cookie.store.DBCookieStore;
 import com.xin.framework.xinframwork.http.cookie.store.MemoryCookieStore;
 import com.xin.framework.xinframwork.http.https.HttpsUtils;
 import com.xin.framework.xinframwork.http.interceptor.HttpLog;
 import com.xin.framework.xinframwork.http.model.HttpParams;
+import com.xin.framework.xinframwork.store.entity.EntityCache;
 
 import java.util.concurrent.TimeUnit;
 
@@ -56,7 +55,7 @@ public class HttpConfig {
         if (app.getResources().getBoolean(R.bool.cookie_enable)) {
             builder.cookieJar(new CookieJarImpl(new MemoryCookieStore()));            // 使用内存保持cookie，app退出后，cookie消失
             // builder.cookieJar(new CookieJarImpl(new SPCookieStore(app)));          // 使用sp保持cookie，如果cookie不过期，则一直有效
-            builder.cookieJar(new CookieJarImpl(new DBCookieStore(app)));             // 使用数据库保持cookie，如果cookie不过期，则一直有效
+            //  builder.cookieJar(new CookieJarImpl(new DBCookieStore(app)));             // 使用数据库保持cookie，如果cookie不过期，则一直有效
         }
 
         // https相关设置，以下几种方案根据需要自己设置
@@ -76,7 +75,7 @@ public class HttpConfig {
         OkGo.getInstance().init((Application) app) /*必须调用初始化*/
                 .setOkHttpClient(builder.build())/*建议设置OkHttpClient，不设置会使用默认的*/
                 .setCacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)/*全局统一缓存模式，默认不使用缓存，可以不传*/
-                .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)/* 全局统一缓存时间，默认永不过期，可以不传*/
+                .setCacheTime(EntityCache.CACHE_NEVER_EXPIRE)/* 全局统一缓存时间，默认永不过期，可以不传*/
                 .setRetryCount(3)/*全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0*/
                 /*.addCommonHeaders(...)   全局公共头*/
                /* .addCommonParams(...)   公共参数*/

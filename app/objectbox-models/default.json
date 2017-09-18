@@ -1,0 +1,202 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:1756787217514157980",
+      "lastPropertyId": "6:4937771014697563985",
+      "name": "EntityCookie",
+      "properties": [
+        {
+          "id": "1:4296987036729154987",
+          "name": "id"
+        },
+        {
+          "id": "2:76266235903098356",
+          "indexId": "1:2108985385311334255",
+          "name": "host"
+        },
+        {
+          "id": "3:701471317576126478",
+          "name": "name"
+        },
+        {
+          "id": "4:3733142733719923622",
+          "name": "domain"
+        },
+        {
+          "id": "5:9176547889375325547",
+          "name": "cookie"
+        },
+        {
+          "id": "6:4937771014697563985",
+          "name": "cookieToken"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:458033419408217694",
+      "lastPropertyId": "5:3457992203814806065",
+      "name": "EntityCache",
+      "properties": [
+        {
+          "id": "1:1064303701708897382",
+          "name": "id"
+        },
+        {
+          "id": "2:673053343140829792",
+          "indexId": "2:3702307338714070853",
+          "name": "key"
+        },
+        {
+          "id": "3:1568683335734915489",
+          "name": "localExpire"
+        },
+        {
+          "id": "4:6852290302998652890",
+          "name": "HeadByteArray"
+        },
+        {
+          "id": "5:3457992203814806065",
+          "name": "dataByteArray"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:3324592219281074297",
+      "lastPropertyId": "13:2611760985178388553",
+      "name": "EntityDownload",
+      "properties": [
+        {
+          "id": "1:7199199772074929864",
+          "name": "id"
+        },
+        {
+          "id": "2:6085217201864787066",
+          "indexId": "3:7631934627216274156",
+          "name": "tag"
+        },
+        {
+          "id": "3:6064577918626510050",
+          "name": "url"
+        },
+        {
+          "id": "4:5203371961244390018",
+          "name": "folder"
+        },
+        {
+          "id": "5:797694864204662882",
+          "name": "filePath"
+        },
+        {
+          "id": "6:4581550460044998755",
+          "name": "fileName"
+        },
+        {
+          "id": "7:3518875676401368960",
+          "name": "fraction"
+        },
+        {
+          "id": "8:6132971313459770326",
+          "name": "totalSize"
+        },
+        {
+          "id": "9:1999839251224098475",
+          "name": "currentSize"
+        },
+        {
+          "id": "10:6107388600574489399",
+          "name": "status"
+        },
+        {
+          "id": "11:751108840309124580",
+          "name": "priority"
+        },
+        {
+          "id": "12:7414738380831190097",
+          "name": "date"
+        },
+        {
+          "id": "13:2611760985178388553",
+          "name": "requestData"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:9062687537710241784",
+      "lastPropertyId": "13:8653274670300486042",
+      "name": "EntityUpload",
+      "properties": [
+        {
+          "id": "1:406589630305334649",
+          "name": "id"
+        },
+        {
+          "id": "2:6100455802174440299",
+          "indexId": "4:3542976271660487835",
+          "name": "tag"
+        },
+        {
+          "id": "3:8745978946890692960",
+          "name": "url"
+        },
+        {
+          "id": "4:7205910838679540205",
+          "name": "folder"
+        },
+        {
+          "id": "5:4468475689533032283",
+          "name": "filePath"
+        },
+        {
+          "id": "6:8638543981343294791",
+          "name": "fileName"
+        },
+        {
+          "id": "7:8976110152959057120",
+          "name": "fraction"
+        },
+        {
+          "id": "8:5393560671621241743",
+          "name": "totalSize"
+        },
+        {
+          "id": "9:1837942717192511756",
+          "name": "currentSize"
+        },
+        {
+          "id": "10:5722106482106431997",
+          "name": "status"
+        },
+        {
+          "id": "11:148141005570271666",
+          "name": "priority"
+        },
+        {
+          "id": "12:4817359226496416143",
+          "name": "date"
+        },
+        {
+          "id": "13:8653274670300486042",
+          "name": "requestData"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "4:9062687537710241784",
+  "lastIndexId": "4:3542976271660487835",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

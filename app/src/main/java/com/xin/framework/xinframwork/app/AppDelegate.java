@@ -11,6 +11,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.xin.framework.xinframwork.BuildConfig;
 import com.xin.framework.xinframwork.common.AppConfig;
 import com.xin.framework.xinframwork.common.CrashReportConfig;
+import com.xin.framework.xinframwork.common.DBConfig;
 import com.xin.framework.xinframwork.common.FileConfig;
 import com.xin.framework.xinframwork.common.HttpConfig;
 import com.xin.framework.xinframwork.common.NetWorkConfig;
@@ -21,6 +22,8 @@ import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.android.logger.LogLevel;
 import com.xin.framework.xinframwork.utils.android.logger.MemoryLog;
 
+import io.objectbox.BoxStore;
+
 /**
  * Description :
  * Created by 王照鑫 on 2017/8/17 0017.
@@ -30,6 +33,8 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
     private XinApplication app;
     private static int appCreateCount;
+    private BoxStore boxStore;
+
 
     public AppDelegate(XinApplication app) {
         this.app = app;
@@ -40,6 +45,10 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         if (!app.getApplicationInfo().packageName.equals(SysUtils.getCurProcessName(app)))
             return;
         appCreateCount = 0;
+
+        //  创建或更新数据库
+        DBConfig.init(app);
+
         // Log 配置
         Log.init().logLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
 
@@ -56,8 +65,9 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         //  渠道号
         AppConfig.setChannel(app);
 
-        // TODO 创建或更新数据库
 
+
+        // 生命周期
         app.registerActivityLifecycleCallbacks(this);
 
 
@@ -65,8 +75,6 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         HttpConfig.init(app);
 
     }
-
-
 
 
     @Override

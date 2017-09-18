@@ -103,7 +103,7 @@ public class FileConfig {
             @Override
             public void run() {
 
-                if (SdCardUtil.isSdCardAvailable()) {// 创建外置根目录,.nimedia文件
+                if (SdCardUtil.isSdCardAvailable()) {// 创建外置根目录,.nomedia文件
                     FileUtil.createNewFileAndParentDir(new File(getPublicDir(DIR_PUBLLIC_ROOT),
                             ".nomedia"));
                 }

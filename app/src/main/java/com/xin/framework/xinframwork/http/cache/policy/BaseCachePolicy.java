@@ -18,18 +18,20 @@ package com.xin.framework.xinframwork.http.cache.policy;
 import android.graphics.Bitmap;
 
 import com.xin.framework.xinframwork.http.OkGo;
-import com.xin.framework.xinframwork.http.cache.CacheEntity;
 import com.xin.framework.xinframwork.http.cache.CacheMode;
 import com.xin.framework.xinframwork.http.callback.Callback;
-import com.xin.framework.xinframwork.http.db.CacheManager;
 import com.xin.framework.xinframwork.http.exception.HttpException;
 import com.xin.framework.xinframwork.http.model.Response;
 import com.xin.framework.xinframwork.http.request.base.Request;
 import com.xin.framework.xinframwork.http.utils.HeaderParser;
 import com.xin.framework.xinframwork.http.utils.HttpUtils;
+import com.xin.framework.xinframwork.store.box.CacheBox;
+import com.xin.framework.xinframwork.store.entity.EntityCache;
+import com.xin.framework.xinframwork.store.entity.EntityCache_;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Headers;
@@ -51,10 +53,12 @@ public abstract class BaseCachePolicy<T> implements CachePolicy<T> {
     protected boolean executed;
     protected Call rawCall;
     protected Callback<T> mCallback;
-    protected CacheEntity<T> cacheEntity;
+    protected EntityCache<T> cacheEntity;
+    protected CacheBox mCacheBox;
 
     public BaseCachePolicy(Request<T, ? extends Request> request) {
         this.request = request;
+        mCacheBox = new CacheBox();
     }
 
     @Override
@@ -63,7 +67,7 @@ public abstract class BaseCachePolicy<T> implements CachePolicy<T> {
     }
 
     @Override
-    public CacheEntity<T> prepareCache() {
+    public EntityCache<T> prepareCache() {
         //check the config of cache
         if (request.getCacheKey() == null) {
             request.cacheKey(HttpUtils.createUrlFromParams(request.getBaseUrl(), request.getParams().urlParamsMap));
@@ -75,7 +79,7 @@ public abstract class BaseCachePolicy<T> implements CachePolicy<T> {
         CacheMode cacheMode = request.getCacheMode();
         if (cacheMode != CacheMode.NO_CACHE) {
             //noinspection unchecked
-            cacheEntity = (CacheEntity<T>) CacheManager.getInstance().get(request.getCacheKey());
+            cacheEntity = mCacheBox.getQueryBuilder().equal(EntityCache_.key, request.getCacheKey()).build().findUnique();
             HeaderParser.addCacheHeaders(request, cacheEntity, cacheMode);
             if (cacheEntity != null && cacheEntity.checkExpire(cacheMode, request.getCacheTime(), System.currentTimeMillis())) {
                 cacheEntity.setExpire(true);
@@ -183,13 +187,20 @@ public abstract class BaseCachePolicy<T> implements CachePolicy<T> {
         if (request.getCacheMode() == CacheMode.NO_CACHE) return;    //不需要缓存,直接返回
         if (data instanceof Bitmap) return;             //Bitmap没有实现Serializable,不能缓存
 
-        CacheEntity<T> cache = HeaderParser.createCacheEntity(headers, data, request.getCacheMode(), request.getCacheKey());
+        EntityCache<T> cache = HeaderParser.createCacheEntity(headers, data, request.getCacheMode(), request.getCacheKey());
         if (cache == null) {
             //服务器不需要缓存，移除本地缓存
-            CacheManager.getInstance().remove(request.getCacheKey());
+            List<EntityCache> cacheTemps = mCacheBox.getQueryBuilder().equal(EntityCache_.key, request.getCacheKey()).build().find();
+            mCacheBox.deleteList(cacheTemps);
+
         } else {
+            EntityCache<T> cacheTemps = mCacheBox.getQueryBuilder().equal(EntityCache_.key, request.getCacheKey()).build().findFirst();
+          if(cacheTemps!=null){
+
+              cache.setId(cacheTemps.getId());
+          }
             //缓存命中，更新缓存
-            CacheManager.getInstance().replace(request.getCacheKey(), cache);
+            mCacheBox.update(cache);
         }
     }
 
