@@ -1,0 +1,1 @@
+不同的数据库表实体类要封装一个Box用于CRUD操作，每一个Box要继承BaseBoxManager,根据具体的需求使用

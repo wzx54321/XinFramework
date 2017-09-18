@@ -42,7 +42,7 @@ import okhttp3.Headers;
  * 版    本：1.0
  * 创建日期：2017/5/25
  * 描    述：
- * 修订历史：
+ * 修订历史：替换数据库使用objectBox
  * ================================================
  */
 public abstract class BaseCachePolicy<T> implements CachePolicy<T> {
