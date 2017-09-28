@@ -19,6 +19,7 @@ public class MainModel implements MainContract.Model {
 
     @Override
     public void checkVersion(CustomRequestCallback<AppVersion> customRequestCallback) {
-        new XinRequest<AppVersion>(AppVersion.class).Post(ApiMethod.API_CHECK_VER, null, customRequestCallback);
+      new XinRequest<AppVersion>(AppVersion.class).Post(ApiMethod.API_CHECK_VER, null, customRequestCallback);
+
     }
 }
