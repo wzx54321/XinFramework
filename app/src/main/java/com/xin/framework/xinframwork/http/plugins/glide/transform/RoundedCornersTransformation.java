@@ -1,4 +1,4 @@
-package com.xin.framework.xinframwork.http.glide.transform;
+package com.xin.framework.xinframwork.http.plugins.glide.transform;
 
 /**
  * Copyright (C) 2015 Wasabeef

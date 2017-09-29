@@ -2,9 +2,10 @@ package com.xin.framework.xinframwork.http.callback;
 
 
 import com.xin.framework.xinframwork.http.convert.Converter;
-import com.xin.framework.xinframwork.http.model.Progress;
 import com.xin.framework.xinframwork.http.model.Response;
 import com.xin.framework.xinframwork.http.request.base.Request;
+import com.xin.framework.xinframwork.store.entity.EntityDownload;
+import com.xin.framework.xinframwork.store.entity.EntityUpload;
 
 /**
  * ================================================
@@ -33,8 +34,8 @@ public interface Callback<T> extends Converter<T> {
     void onFinish();
 
     /** 上传过程中的进度回调，get请求不回调，UI线程 */
-    void uploadProgress(Progress progress);
+    void uploadProgress(EntityUpload progress);
 
     /** 下载过程中的进度回调，UI线程 */
-    void downloadProgress(Progress progress);
+    void downloadProgress(EntityDownload progress);
 }

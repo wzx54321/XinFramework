@@ -1,9 +1,9 @@
-package com.xin.framework.xinframwork.http.glide.progress.body;
+package com.xin.framework.xinframwork.http.plugins.glide.progress.body;
 
 import android.os.Handler;
 import android.os.SystemClock;
 
-import com.xin.framework.xinframwork.http.glide.progress.ProgressListener;
+import com.xin.framework.xinframwork.http.plugins.glide.progress.ImgProgressListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,14 +27,14 @@ public class GlideProgressRequestBody extends RequestBody {
     protected Handler mHandler;
     protected int mRefreshTime;
     protected final RequestBody mDelegate;
-    protected final ProgressListener[] mListeners;
+    protected final ImgProgressListener[] mListeners;
     protected final ProgressInfo mProgressInfo;
     private BufferedSink mBufferedSink;
 
 
-    public GlideProgressRequestBody(Handler handler, RequestBody delegate, List<ProgressListener> listeners, int refreshTime) {
+    public GlideProgressRequestBody(Handler handler, RequestBody delegate, List<ImgProgressListener> listeners, int refreshTime) {
         this.mDelegate = delegate;
-        this.mListeners = listeners.toArray(new ProgressListener[listeners.size()]);
+        this.mListeners = listeners.toArray(new ImgProgressListener[listeners.size()]);
         this.mHandler = handler;
         this.mRefreshTime = refreshTime;
         this.mProgressInfo = new ProgressInfo(System.currentTimeMillis());
@@ -104,7 +104,7 @@ public class GlideProgressRequestBody extends RequestBody {
                     final long finalTotalBytesRead = totalBytesRead;
                     final long finalIntervalTime = curTime - lastRefreshTime;
                     for (int i = 0; i < mListeners.length; i++) {
-                        final ProgressListener listener = mListeners[i];
+                        final ImgProgressListener listener = mListeners[i];
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {

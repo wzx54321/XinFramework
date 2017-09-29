@@ -1,0 +1,16 @@
+示例：
+
+
+            //这里只是演示，表示请求可以传参，怎么传都行
+            GetRequest<File> request = OkGo.<File>get(apk.url)//
+                    .headers("aaa", "111")//
+                    .params("bbb", "222");
+
+            //这里第一个参数是tag，代表下载任务的唯一标识，传任意字符串都行，需要保证唯一,我这里用url作为了tag
+            OkDownload.request(apk.url, request)//
+                    .priority(apk.priority)//
+                    .extra1(apk)//
+                    .save()//
+                    .register(new LogDownloadListener())//
+                    .start();
+            adapter.notifyDataSetChanged();

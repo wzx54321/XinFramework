@@ -1,4 +1,4 @@
-package com.xin.framework.xinframwork.http.glide.progress.body;
+package com.xin.framework.xinframwork.http.plugins.glide.progress.body;
 
 import android.os.Parcel;
 import android.os.Parcelable;

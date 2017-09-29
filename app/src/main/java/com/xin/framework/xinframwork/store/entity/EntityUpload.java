@@ -1,7 +1,15 @@
 package com.xin.framework.xinframwork.store.entity;
 
+import android.os.SystemClock;
+
+import com.xin.framework.xinframwork.http.OkGo;
+import com.xin.framework.xinframwork.http.model.Priority;
+import com.xin.framework.xinframwork.http.plugins.up_download.bean.Progress;
 import com.xin.framework.xinframwork.http.request.base.Request;
 import com.xin.framework.xinframwork.utils.common.io.IOUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
@@ -13,29 +21,47 @@ import io.objectbox.annotation.Transient;
  * Created by 王照鑫 on 2017/9/15 0015.
  */
 @Entity
-public class EntityUpload {
+public class EntityUpload  extends Progress{
     @Id
     private long id;
 
     @Index
-    private String tag;//下载的标识键
+    private String tag;                              //上传的标识键
     private String url;                              //网址
     private String folder;                           //保存文件夹
     private String filePath;                         //保存文件地址
     private String fileName;                         //保存的文件名
-    private float fraction;                          //下载的进度，0-1
+    private float fraction;                          //上传的进度，0-1
     private long totalSize;                          //总字节长度, byte
-    private long currentSize;                        //本次下载的大小, byte
+    private long currentSize;                        //本次上传的大小, byte
     private int status;                              //当前状态
     private int priority;                            //任务优先级
     private long date;                               //创建时间
     private byte[] requestData;
 
     @Transient
-    public Request<?, ? extends Request> request;   //网络请求
+    private long speed;                         //网速，byte/s
     @Transient
-    public transient long speed;                    //网速，byte/s
+    private Request<?, ? extends Request> request;   //网络请求
+    @Transient
+    private transient long tempSize;                //每一小段时间间隔的网络流量
+    @Transient
+    private transient long lastRefreshTime;         //最后一次刷新的时间
+    @Transient
+    private transient List<Long> speedBuffer;       //网速做平滑的缓存，避免抖动过快
 
+
+    @Transient
+    public Throwable exception;                     //当前进度出现的异常
+
+
+    public EntityUpload() {
+        lastRefreshTime = SystemClock.elapsedRealtime();
+        totalSize = -1;
+        priority = Priority.DEFAULT;
+        date = System.currentTimeMillis();
+        speedBuffer = new ArrayList<>();
+    }
 
     public long getId() {
         return id;
@@ -154,6 +180,7 @@ public class EntityUpload {
 
     public void setRequest(Request<?, ? extends Request> request) {
         this.request = request;
+        getRequestData();
     }
 
     public long getSpeed() {
@@ -163,4 +190,79 @@ public class EntityUpload {
     public void setSpeed(long speed) {
         this.speed = speed;
     }
+
+
+    public static EntityUpload changeProgress(EntityUpload entityDownload, long writeSize, EntityUpload.Action action) {
+        return changeProgress(entityDownload, writeSize, entityDownload.getTotalSize(), action);
+    }
+
+    public static EntityUpload changeProgress(final EntityUpload progress, long writeSize, long totalSize, final EntityUpload.Action action) {
+        progress.totalSize = totalSize;
+        progress.currentSize += writeSize;
+        progress.tempSize += writeSize;
+
+        long currentTime = SystemClock.elapsedRealtime();
+        boolean isNotify = (currentTime - progress.lastRefreshTime) >= OkGo.REFRESH_TIME;
+        if (isNotify || progress.currentSize == totalSize) {
+            long diffTime = currentTime - progress.lastRefreshTime;
+            if (diffTime == 0) diffTime = 1;
+            progress.fraction = progress.currentSize * 1.0f / totalSize;
+            progress.speed = progress.bufferSpeed(progress.tempSize * 1000 / diffTime);
+            progress.lastRefreshTime = currentTime;
+            progress.tempSize = 0;
+            if (action != null) {
+                action.call(progress);
+            }
+        }
+        return progress;
+    }
+
+    /**
+     * 平滑网速，避免抖动过大
+     */
+    private long bufferSpeed(long speed) {
+        speedBuffer.add(speed);
+        if (speedBuffer.size() > 10) {
+            speedBuffer.remove(0);
+        }
+        long sum = 0;
+        for (float speedTemp : speedBuffer) {
+            sum += speedTemp;
+        }
+        return sum / speedBuffer.size();
+    }
+
+    /**
+     * 转换进度信息
+     */
+    public void from(EntityUpload progress) {
+        totalSize = progress.totalSize;
+        currentSize = progress.currentSize;
+        fraction = progress.fraction;
+        speed = progress.speed;
+        lastRefreshTime = progress.lastRefreshTime;
+        tempSize = progress.tempSize;
+    }
+
+    public interface Action {
+        void call(EntityUpload progress);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EntityUpload progress = (EntityUpload) o;
+        return tag != null ? tag.equals(progress.tag) : progress.tag == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return tag != null ? tag.hashCode() : 0;
+    }
+
+
+
 }

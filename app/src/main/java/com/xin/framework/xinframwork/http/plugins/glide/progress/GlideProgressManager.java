@@ -1,13 +1,13 @@
-package com.xin.framework.xinframwork.http.glide.progress;
+package com.xin.framework.xinframwork.http.plugins.glide.progress;
 
 
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import com.xin.framework.xinframwork.http.glide.progress.body.ProgressInfo;
-import com.xin.framework.xinframwork.http.glide.progress.body.GlideProgressRequestBody;
-import com.xin.framework.xinframwork.http.glide.progress.body.GlideProgressResponseBody;
+import com.xin.framework.xinframwork.http.plugins.glide.progress.body.GlideProgressRequestBody;
+import com.xin.framework.xinframwork.http.plugins.glide.progress.body.GlideProgressResponseBody;
+import com.xin.framework.xinframwork.http.plugins.glide.progress.body.ProgressInfo;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -24,8 +24,8 @@ public class GlideProgressManager {
 
 
     //WeakHashMap会在java虚拟机回收内存时,找到没被使用的key,将此条目移除,所以不需要手动remove()
-    private final Map<String, List<ProgressListener>> mRequestListeners = new WeakHashMap<>();
-    private final Map<String, List<ProgressListener>> mResponseListeners = new WeakHashMap<>();
+    private final Map<String, List<ImgProgressListener>> mRequestListeners = new WeakHashMap<>();
+    private final Map<String, List<ImgProgressListener>> mResponseListeners = new WeakHashMap<>();
     private static volatile GlideProgressManager mProgressManager;
     public static final int DEFAULT_REFRESH_TIME = 150;
     private final Handler mHandler;
@@ -88,7 +88,7 @@ public class GlideProgressManager {
         String key = response.request().url().toString();
 
         if (mResponseListeners.containsKey(key)) {
-            List<ProgressListener> listeners = mResponseListeners.get(key);
+            List<ImgProgressListener> listeners = mResponseListeners.get(key);
             return response.newBuilder()
                     .body(new GlideProgressResponseBody(mHandler, response.body(), listeners, mRefreshTime))
                     .build();
@@ -102,7 +102,7 @@ public class GlideProgressManager {
             return request;
         String key = request.url().toString();
         if (mRequestListeners.containsKey(key)) {
-            List<ProgressListener> listeners = mRequestListeners.get(key);
+            List<ImgProgressListener> listeners = mRequestListeners.get(key);
             return request.newBuilder()
                     .method(request.method(), new GlideProgressRequestBody(mHandler, request.body(), listeners, mRefreshTime))
                     .build();
@@ -136,9 +136,9 @@ public class GlideProgressManager {
      * @param map
      * @param response
      */
-    private void resolveRedirect(Map<String, List<ProgressListener>> map, Response response) {
+    private void resolveRedirect(Map<String, List<ImgProgressListener>> map, Response response) {
         String url = response.request().url().toString();
-        List<ProgressListener> progressListeners = map.get(url); //查看此重定向 url ,是否已经注册过监听器
+        List<ImgProgressListener> progressListeners = map.get(url); //查看此重定向 url ,是否已经注册过监听器
         if (progressListeners != null) {
             String location = response.header("Location");// 重定向地址
             if (!TextUtils.isEmpty(location) && !map.containsKey(location)) {
@@ -149,7 +149,7 @@ public class GlideProgressManager {
 
 
     /**
-     * 设置 {@link ProgressListener#onProgress(ProgressInfo)} 每次被调用的间隔时间,单位毫秒
+     * 设置 {@link ImgProgressListener#onProgress(ProgressInfo)} 每次被调用的间隔时间,单位毫秒
      *
      * @param refreshTime
      */
@@ -164,8 +164,8 @@ public class GlideProgressManager {
      * @param url
      * @param listener 当此 Url 地址存在上传的动作时,此监听器将被调用
      */
-    public void addRequestListener(String url, ProgressListener listener) {
-        List<ProgressListener> progressListeners;
+    public void addRequestListener(String url, ImgProgressListener listener) {
+        List<ImgProgressListener> progressListeners;
         synchronized (GlideProgressManager.class) {
             progressListeners = mRequestListeners.get(url);
             if (progressListeners == null) {
@@ -182,8 +182,8 @@ public class GlideProgressManager {
      * @param url
      * @param listener 当此 Url 地址存在下载的动作时,此监听器将被调用
      */
-    public void addResponseListener(String url, ProgressListener listener) {
-        List<ProgressListener> progressListeners;
+    public void addResponseListener(String url, ImgProgressListener listener) {
+        List<ImgProgressListener> progressListeners;
         synchronized (GlideProgressManager.class) {
             progressListeners = mResponseListeners.get(url);
             if (progressListeners == null) {
@@ -196,7 +196,7 @@ public class GlideProgressManager {
 
     /**
      * 当在 {@link GlideProgressRequestBody} 和 {@link GlideProgressResponseBody} 内部处理二进制流时发生错误
-     * 会主动调用 {@link ProgressListener#onError(long, Exception)},但是有些错误并不是在它们内部发生的
+     * 会主动调用 {@link ImgProgressListener#onError(long, Exception)},但是有些错误并不是在它们内部发生的
      * 但同样会引起网络请求的失败,所以向外面提供{@link GlideProgressManager#notifyOnErorr},当外部发生错误时
      * 手动调用此方法,以通知所有的监听器
      *
@@ -210,10 +210,10 @@ public class GlideProgressManager {
 
 
 
-    private void forEachListenersOnError(Map<String, List<ProgressListener>> map, String url, Exception e) {
+    private void forEachListenersOnError(Map<String, List<ImgProgressListener>> map, String url, Exception e) {
         if (map.containsKey(url)) {
-            List<ProgressListener> progressListeners = map.get(url);
-            ProgressListener[] array = progressListeners.toArray(new ProgressListener[progressListeners.size()]);
+            List<ImgProgressListener> progressListeners = map.get(url);
+            ImgProgressListener[] array = progressListeners.toArray(new ImgProgressListener[progressListeners.size()]);
             for (int i = 0; i < array.length; i++) {
                 array[i].onError(-1, e);
             }

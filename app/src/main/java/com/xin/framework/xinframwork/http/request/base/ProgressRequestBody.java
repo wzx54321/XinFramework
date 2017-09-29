@@ -1,8 +1,8 @@
 package com.xin.framework.xinframwork.http.request.base;
 
 import com.xin.framework.xinframwork.http.callback.Callback;
-import com.xin.framework.xinframwork.http.model.Progress;
 import com.xin.framework.xinframwork.http.utils.HttpUtils;
+import com.xin.framework.xinframwork.store.entity.EntityUpload;
 
 import java.io.IOException;
 
@@ -60,22 +60,22 @@ public class ProgressRequestBody<T> extends RequestBody {
 
 
     private final   class CountingSink extends ForwardingSink{
-        private Progress progress;
+        private EntityUpload progress;
 
         public CountingSink(Sink delegate) {
             super(delegate);
-            progress=new Progress();
+            progress=new EntityUpload();
 
-            progress.totalSize=contentLength();
+            progress.setTotalSize(contentLength());
         }
 
 
         @Override
         public void write(Buffer source, long byteCount) throws IOException {
             super.write(source, byteCount);
-            Progress.changeProgress(progress, byteCount, new Progress.Action() {
+            EntityUpload.changeProgress(progress, byteCount, new EntityUpload.Action() {
                 @Override
-                public void call(Progress progress) {
+                public void call(EntityUpload progress) {
                     if (interceptor != null) {
                         interceptor.uploadProgress(progress);
                     } else {
@@ -87,7 +87,7 @@ public class ProgressRequestBody<T> extends RequestBody {
         }
     }
 
-    private void onProgress(final Progress progress) {
+    private void onProgress(final EntityUpload progress) {
         HttpUtils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -103,6 +103,6 @@ public class ProgressRequestBody<T> extends RequestBody {
     }
 
     public interface UploadInterceptor {
-        void uploadProgress(Progress progress);
+        void uploadProgress(EntityUpload progress);
     }
 }

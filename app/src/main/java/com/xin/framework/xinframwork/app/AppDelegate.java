@@ -132,7 +132,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
     }
 
     public void onTrimMemory(int level) {
-        GlideApp.get(app).onTrimMemory(level);
+       GlideApp.get(app).onTrimMemory(level);
     }
 
     public void exit() {

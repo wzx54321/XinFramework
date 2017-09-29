@@ -27,6 +27,8 @@ public class EntityCache<T> implements Serializable {
     private byte[] HeadByteArray;          // 缓存的实体数据
     private byte[] dataByteArray;          // 缓存的实体数据
 
+
+
     @Transient
     private boolean isExpire;   //缓存是否过期该变量不必保存到数据库，程序运行起来后会动态计算
     @Transient
@@ -121,4 +123,6 @@ public class EntityCache<T> implements Serializable {
         if (cacheTime == CACHE_NEVER_EXPIRE) return false;
         return getLocalExpire() + cacheTime < baseTime;
     }
+
+
 }

@@ -18,9 +18,10 @@ package com.xin.framework.xinframwork.http.observable;
 
 import com.xin.framework.xinframwork.http.adapter.Call;
 import com.xin.framework.xinframwork.http.callback.Callback;
-import com.xin.framework.xinframwork.http.model.Progress;
 import com.xin.framework.xinframwork.http.model.Response;
 import com.xin.framework.xinframwork.http.request.base.Request;
+import com.xin.framework.xinframwork.store.entity.EntityDownload;
+import com.xin.framework.xinframwork.store.entity.EntityUpload;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -133,11 +134,15 @@ public class CallEnqueueObservable<T> extends Observable<Response<T>> {
         }
 
         @Override
-        public void uploadProgress(Progress progress) {
+        public void uploadProgress(EntityUpload progress) {
+
         }
 
         @Override
-        public void downloadProgress(Progress progress) {
+        public void downloadProgress(EntityDownload progress) {
+
         }
+
+
     }
 }

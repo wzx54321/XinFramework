@@ -13,33 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xin.framework.xinframwork.http.exception;
+package com.xin.framework.xinframwork.http.plugins.up_download.task;
 
 /**
  * ================================================
  * 作    者：jeasonlzy（廖子尧）Github地址：https://github.com/jeasonlzy
  * 版    本：1.0
- * 创建日期：16/8/28
- * 描    述：
+ * 创建日期：2016/1/19
+ * 描    述：具有优先级对象的公共类
  * 修订历史：
  * ================================================
  */
-public class OkGoException extends Exception {
-    private static final long serialVersionUID = -8641198158155821498L;
+public class PriorityObject<E> {
 
-    public OkGoException(String detailMessage) {
-        super(detailMessage);
-    }
+    public final int priority;
+    public final E obj;
 
-    public static OkGoException UNKNOWN() {
-        return new OkGoException("unknown exception!");
-    }
-
-    public static OkGoException BREAKPOINT_NOT_EXIST() {
-        return new OkGoException("operation file does not exist!");
-    }
-
-    public static OkGoException BREAKPOINT_EXPIRED() {
-        return new OkGoException("operation file has expired!");
+    public PriorityObject(int priority, E obj) {
+        this.priority = priority;
+        this.obj = obj;
     }
 }

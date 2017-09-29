@@ -1,8 +1,8 @@
 package com.xin.framework.xinframwork.store.box;
 
+import com.xin.framework.xinframwork.store.box.base.BaseBoxManager;
 import com.xin.framework.xinframwork.store.entity.EntityCookie;
 import com.xin.framework.xinframwork.store.entity.EntityCookie_;
-import com.xin.framework.xinframwork.store.box.base.BaseBoxManager;
 
 /**
  * Description :

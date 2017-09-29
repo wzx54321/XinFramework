@@ -20,7 +20,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.xin.framework.xinframwork.http.OkGo;
-import com.xin.framework.xinframwork.http.model.Progress;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -46,8 +45,8 @@ class DBHelper extends SQLiteOpenHelper {
 
    // private TableEntity cacheTableEntity = new TableEntity(TABLE_CACHE);
   //  private TableEntity cookieTableEntity = new TableEntity(TABLE_COOKIE);
-    private TableEntity downloadTableEntity = new TableEntity(TABLE_DOWNLOAD);
-    private TableEntity uploadTableEntity = new TableEntity(TABLE_UPLOAD);
+  /*  private TableEntity downloadTableEntity = new TableEntity(TABLE_DOWNLOAD);
+    private TableEntity uploadTableEntity = new TableEntity(TABLE_UPLOAD);*/
 
     DBHelper() {
         this(OkGo.getInstance().getContext());
@@ -67,7 +66,7 @@ class DBHelper extends SQLiteOpenHelper {
                 .addColumn(new ColumnEntity(SerializableCookie.COOKIE, "BLOB"))//
                 .addColumn(new ColumnEntity(SerializableCookie.HOST, SerializableCookie.NAME, SerializableCookie.DOMAIN));*/
 
-        downloadTableEntity.addColumn(new ColumnEntity(Progress.TAG, "VARCHAR", true, true))//
+/*        downloadTableEntity.addColumn(new ColumnEntity(Progress.TAG, "VARCHAR", true, true))//
                 .addColumn(new ColumnEntity(Progress.URL, "VARCHAR"))//
                 .addColumn(new ColumnEntity(Progress.FOLDER, "VARCHAR"))//
                 .addColumn(new ColumnEntity(Progress.FILE_PATH, "VARCHAR"))//
@@ -97,24 +96,24 @@ class DBHelper extends SQLiteOpenHelper {
                 .addColumn(new ColumnEntity(Progress.REQUEST, "BLOB"))//
                 .addColumn(new ColumnEntity(Progress.EXTRA1, "BLOB"))//
                 .addColumn(new ColumnEntity(Progress.EXTRA2, "BLOB"))//
-                .addColumn(new ColumnEntity(Progress.EXTRA3, "BLOB"));
+                .addColumn(new ColumnEntity(Progress.EXTRA3, "BLOB"));*/
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
       //  db.execSQL(cacheTableEntity.buildTableString());
        // db.execSQL(cookieTableEntity.buildTableString());
-        db.execSQL(downloadTableEntity.buildTableString());
-        db.execSQL(uploadTableEntity.buildTableString());
+     /*   db.execSQL(downloadTableEntity.buildTableString());
+        db.execSQL(uploadTableEntity.buildTableString());*/
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     //    if (DBUtils.isNeedUpgradeTable(db, cacheTableEntity)) db.execSQL("DROP TABLE IF EXISTS " + TABLE_CACHE);
       //  if (DBUtils.isNeedUpgradeTable(db, cookieTableEntity)) db.execSQL("DROP TABLE IF EXISTS " + TABLE_COOKIE);
-        if (DBUtils.isNeedUpgradeTable(db, downloadTableEntity)) db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOWNLOAD);
+    /*    if (DBUtils.isNeedUpgradeTable(db, downloadTableEntity)) db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOWNLOAD);
         if (DBUtils.isNeedUpgradeTable(db, uploadTableEntity)) db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPLOAD);
-        onCreate(db);
+        onCreate(db);*/
     }
 
     @Override

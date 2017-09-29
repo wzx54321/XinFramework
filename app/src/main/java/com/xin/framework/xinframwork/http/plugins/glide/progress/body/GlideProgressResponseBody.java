@@ -1,9 +1,9 @@
-package com.xin.framework.xinframwork.http.glide.progress.body;
+package com.xin.framework.xinframwork.http.plugins.glide.progress.body;
 
 import android.os.Handler;
 import android.os.SystemClock;
 
-import com.xin.framework.xinframwork.http.glide.progress.ProgressListener;
+import com.xin.framework.xinframwork.http.plugins.glide.progress.ImgProgressListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,13 +27,13 @@ public class GlideProgressResponseBody extends ResponseBody {
     protected Handler mHandler;
     protected int mRefreshTime;
     protected final ResponseBody mDelegate;
-    protected final ProgressListener[] mListeners;
+    protected final ImgProgressListener[] mListeners;
     protected final ProgressInfo mProgressInfo;
     private BufferedSource mBufferedSource;
 
-    public GlideProgressResponseBody(Handler handler, ResponseBody responseBody, List<ProgressListener> listeners, int refreshTime) {
+    public GlideProgressResponseBody(Handler handler, ResponseBody responseBody, List<ImgProgressListener> listeners, int refreshTime) {
         this.mDelegate = responseBody;
-        this.mListeners = listeners.toArray(new ProgressListener[listeners.size()]);
+        this.mListeners = listeners.toArray(new ImgProgressListener[listeners.size()]);
         this.mHandler = handler;
         this.mRefreshTime = refreshTime;
         this.mProgressInfo = new ProgressInfo(System.currentTimeMillis());
@@ -89,7 +89,7 @@ public class GlideProgressResponseBody extends ResponseBody {
                         final long finalTotalBytesRead = totalBytesRead;
                         final long finalIntervalTime = curTime - lastRefreshTime;
                         for (int i = 0; i < mListeners.length; i++) {
-                            final ProgressListener listener = mListeners[i];
+                            final  ImgProgressListener listener = mListeners[i];
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {

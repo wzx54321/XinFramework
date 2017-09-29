@@ -30,6 +30,10 @@ public class FileConfig {
      */
     public static String DIR_CRASH = "crash";
 
+    /**
+     * 下载目录
+     */
+    public static String DIR_DOWNLOAD = "download";
 
     /**
      * 日志文件名后缀

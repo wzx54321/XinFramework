@@ -24,8 +24,9 @@ import io.objectbox.query.QueryBuilder;
 
 /**
  * Box统一管理
- * @author 王照鑫
+ *
  * @param <T> 数据库表实体类
+ * @author 王照鑫
  */
 public abstract class BaseBoxManager<T> {
 
@@ -33,8 +34,6 @@ public abstract class BaseBoxManager<T> {
     private String TAG;
     protected Box<T> mBox;
     Class<T> tClass;
-
-
 
 
     public BaseBoxManager(Class<T> entityClazz) {
@@ -97,46 +96,47 @@ public abstract class BaseBoxManager<T> {
     }
 
 
+    /**
+     * 更新一条记录
+     */
+    public long update(T object) {
+
+        return mBox.put(object);
+    }
 
     /**
      * 更新一条记录
      */
-    public long update(T object ) {
-
-        return  mBox.put(object);
+    public void update(List<T> objects) {
+        mBox.put(objects);
     }
 
-
-
     /**
-     *
      * @return Returns a builder to create queries for Object matching supplied criteria.
      */
-    public QueryBuilder<T> getQueryBuilder(){
+    public QueryBuilder<T> getQueryBuilder() {
         return mBox.query();
     }
 
     /**
      * 查询并返回所有对象的集合
      */
-    public List<T> queryAll( ) {
+    public List<T> queryAll() {
         return getQueryBuilder().build().find();
     }
 
     /**
      * 查询并返回 第一个对象
      */
-    public T QueryFirst(){
+    public T QueryFirst() {
         return getQueryBuilder().build().findFirst();
     }
-
-
 
 
     /**
      * 获取对应的表名
      */
-    public abstract  String getTableName();
+    public abstract String getTableName();
 
 
 }
