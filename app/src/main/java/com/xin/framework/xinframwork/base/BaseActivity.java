@@ -60,7 +60,8 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
     protected void onDestroy() {
         super.onDestroy();
         if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) mUnbinder.unbind();
-        mPresenter.onDestroy();
+        if (mPresenter != null)
+            mPresenter.onDestroy();
         this.mPresenter = null;
         this.mUnbinder = null;
     }
