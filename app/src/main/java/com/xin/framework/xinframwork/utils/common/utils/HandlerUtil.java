@@ -1,7 +1,7 @@
 package com.xin.framework.xinframwork.utils.common.utils;
 
 import android.os.Handler;
-import android.os.Looper;
+        import android.os.Looper;
 
 /**
  * @author MaTianyu
