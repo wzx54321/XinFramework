@@ -41,7 +41,7 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
         mTitle = ViewFinder.findViewById(this, R.id.title_bar);
         initTitleBar();
         initView();
-        if (mPresenter != null && (this instanceof IView)){
+        if (mPresenter != null && (this instanceof IView)) {
             mPresenter.setView((IView) this);
             createMessage();
         }
@@ -66,7 +66,8 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
     protected void onDestroy() {
         super.onDestroy();
         if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) mUnbinder.unbind();
-        mPresenter.onDestroy();
+        if (mPresenter != null)
+            mPresenter.onDestroy();
         this.mPresenter = null;
         this.mUnbinder = null;
     }
