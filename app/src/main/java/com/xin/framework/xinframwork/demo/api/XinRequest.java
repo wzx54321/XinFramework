@@ -44,8 +44,8 @@ public class XinRequest<T> {
     /**
      * <p> 定制的POST请求传参，根据具体API设计</p>
      *
-     * @param method 请求的api的path
-     * @param input 请求参数
+     * @param method   请求的api的path
+     * @param input    请求参数
      * @param callback 成功回调
      * @see CustomParams  CustomParams类头说明
      */

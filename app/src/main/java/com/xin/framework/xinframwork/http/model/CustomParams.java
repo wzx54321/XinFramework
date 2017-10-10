@@ -15,6 +15,12 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Description : 定制请求参数
  * <p>
@@ -107,13 +113,34 @@ public class CustomParams implements Serializable {
         }
 
         String jsonStr = mParams.toString();
-        Log.i("Params:"+jsonStr);
+        Log.i("Params:" + jsonStr);
         try {
-            return  mApp.getResources().getBoolean(R.bool.http_params_base64_enable)
-                    ? new String(new Base64Cipher().encrypt(jsonStr.getBytes()), "UTF-8"): jsonStr;
+            return mApp.getResources().getBoolean(R.bool.http_params_base64_enable)
+                    ? new String(new Base64Cipher().encrypt(jsonStr.getBytes()), "UTF-8") : jsonStr;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return jsonStr;
     }
+
+
+    public Observable<String> build(final JSONObject data) {
+        return Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                emitter.onNext(CreateParams(data));
+            }
+        }).subscribeOn(Schedulers.io());
+
+
+      /*  Disposable disposable = observable.subscribe(new Consumer<String>() {
+            @Override
+            public void accept(@NonNull String s) throws Exception {
+                Log.i(TAG,s);
+            }
+        });
+        comDisposable.add(disposable);*/
+    }
+
+
 }

@@ -3,14 +3,12 @@ package com.xin.framework.xinframwork.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.mvp.IPresenter;
 import com.xin.framework.xinframwork.mvp.IView;
 import com.xin.framework.xinframwork.mvp.PresenterMessage;
 import com.xin.framework.xinframwork.mvp.TypeUtil;
 import com.xin.framework.xinframwork.ui.widget.titlebar.utils.TitleCompatibilityUtil;
 import com.xin.framework.xinframwork.ui.widget.titlebar.view.TitleBar;
-import com.xin.framework.xinframwork.utils.android.view.ViewFinder;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -36,9 +34,12 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
         mPresenter = TypeUtil.getT(this, 0);
         super.onCreate(savedInstanceState);
         mIsImmersive = TitleCompatibilityUtil.full(this);
+        if(getLayoutId()==0){
+            throw new ExceptionInInitializerError("Activity 没有实现 getLayoutId()方法");
+        }
         setContentView(getLayoutId());
         mUnbinder = ButterKnife.bind(this);
-        mTitle = ViewFinder.findViewById(this, R.id.title_bar);
+      //  mTitle = ViewFinder.findViewById(this, R.id.title_bar);
         initTitleBar();
         initView();
         if (mPresenter != null && (this instanceof IView)) {
@@ -66,8 +67,7 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
     protected void onDestroy() {
         super.onDestroy();
         if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) mUnbinder.unbind();
-        if (mPresenter != null)
-            mPresenter.onDestroy();
+        if (mPresenter != null) mPresenter.onDestroy();
         this.mPresenter = null;
         this.mUnbinder = null;
     }

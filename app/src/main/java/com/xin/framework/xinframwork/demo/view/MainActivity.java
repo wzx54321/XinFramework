@@ -1,9 +1,11 @@
 package com.xin.framework.xinframwork.demo.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,8 +38,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
 
         msg = PresenterMessage.obtain(this);
         mPresenter.onStart();
-
         mPresenter.checkVersion(msg);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

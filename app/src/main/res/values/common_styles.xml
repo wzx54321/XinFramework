@@ -13,6 +13,29 @@
         <item name="android:alertDialogTheme">@style/common_dialog_alert</item>
     </style>
 
+    <!--Commom style-->
+    <style name="AppTheme1" parent="@android:style/Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+     <!--   <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <item name="android:textViewStyle">@style/MR.TextView</item>
+        <item name="android:editTextStyle">@style/MR.EditText</item>
+        <item name="android:buttonStyle">@style/MR.Button</item>
+        <item name="android:checkboxStyle">@style/MR.CheckBox</item>
+        <item name="android:radioButtonStyle">@style/MR.RadioButton</item>
+        <item name="android:listViewStyle">@style/MR.ListView</item>
+        <item name="android:gridViewStyle">@style/MR.GridView</item>
+        <item name="android:progressBarStyle">@style/MR.ProgressBar</item>
+        <item name="android:progressBarStyleSmall">@style/MR.LittleProgressBar</item>-->
+        <item name="android:alertDialogStyle">@style/common_dialog_alert</item>
+    </style>
+
+    <!--Splash-->
+    <style name="Theme.Splash" parent="@style/AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <!--end Splash-->
+
     <!--对话框风格-->
     <style name="common_dialog_alert" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>

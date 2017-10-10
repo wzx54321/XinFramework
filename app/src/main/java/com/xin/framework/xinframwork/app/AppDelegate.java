@@ -22,8 +22,6 @@ import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.android.logger.LogLevel;
 import com.xin.framework.xinframwork.utils.android.logger.MemoryLog;
 
-import io.objectbox.BoxStore;
-
 /**
  * Description :
  * Created by 王照鑫 on 2017/8/17 0017.
@@ -33,7 +31,6 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
     private XinApplication app;
     private static int appCreateCount;
-    private BoxStore boxStore;
 
 
     public AppDelegate(XinApplication app) {
