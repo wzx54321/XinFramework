@@ -32,6 +32,7 @@ android {
             storePassword '12345678'
             keyAlias 'sample'
             keyPassword '12345678'
+          //  v2SigningEnabled false 传统签名方案来签署
         }
 
 //        debug {
