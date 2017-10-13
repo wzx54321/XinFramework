@@ -33,7 +33,7 @@ import okhttp3.ResponseBody;
 
 /**
  * Description : 下载任务
- * Created by 王照鑫 on 2017/9/28 0028.
+ * Created by xin on 2017/9/28 0028.
  */
 
 public class DownloadTask implements Runnable {

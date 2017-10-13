@@ -5,7 +5,7 @@ import android.os.Bundle;
 import me.framework.fragmentation.FragmentSupport;
 
 /**
- * Fregment生命周期回调
+ * Fragment生命周期回调
  */
 public class FragmentLifecycleCallbacks {
 

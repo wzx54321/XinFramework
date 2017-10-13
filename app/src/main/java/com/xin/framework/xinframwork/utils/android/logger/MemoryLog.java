@@ -18,26 +18,26 @@ public class MemoryLog {
 
 
     /**
-     * 打印Davik内存占用和native占用情况
+     * 打印Dalvik内存占用和native占用情况
      * 
-     * @param info
+     * @param info  相关信息
      */
     public static void printMemory(String info) {
         if (  !DEBUG_MEMORY) {
             return;
         }
         // System.gc();(gc会导致系统回收垃圾，使系统慢)
-        printDavikMemory(info);
+        printDalvikMemory(info);
         nativePrintMemory(info);
         memoryApp(info);
     }
 
     /**
-     * 打印Davik内存占用情况
+     * 打印Dalvik内存占用情况
      * 
-     * @param info
+     * @param info 相关信息
      */
-    public static void printDavikMemory(String info) {
+    public static void printDalvikMemory(String info) {
         if (  !DEBUG_MEMORY) {
             return;
         }
@@ -48,7 +48,7 @@ public class MemoryLog {
         long usedMemory = (totalMemory - freeMemory) >> 10;
         freeMemory = freeMemory >> 10;
         totalMemory = totalMemory >> 10;
-        String content = info + "-->totalMeory:" + totalMemory + ",freeMemory:" + freeMemory + ",usedMemory:" + usedMemory + "\n";
+        String content = info + "-->totalMemory:" + totalMemory + ",freeMemory:" + freeMemory + ",usedMemory:" + usedMemory + "\n";
         Log .d(
             content);
     }
@@ -56,7 +56,7 @@ public class MemoryLog {
     /**
      * 打印native内存占用情况
      * 
-     * @param info
+     * @param info 相关信息
      */
     public static void nativePrintMemory(String info) {
         if (  !DEBUG_MEMORY) {
@@ -80,15 +80,15 @@ public class MemoryLog {
             return;
         }
 
-        Debug.MemoryInfo memoryinfo = new Debug.MemoryInfo();
-        int dalvikPrivateDirty = memoryinfo.dalvikPrivateDirty;
-        int dalvikPss = memoryinfo.dalvikPss;
-        int dalvikSharedDirty = memoryinfo.dalvikSharedDirty;
-        int nativePrivateDirty = memoryinfo.nativePrivateDirty;
-        int nativePss = memoryinfo.nativePss;
-        int nativeSharedDirty = memoryinfo.nativeSharedDirty;
-        int otherPss = memoryinfo.otherPss;
-        int otherSharedDirty = memoryinfo.otherSharedDirty;
+        Debug.MemoryInfo memoryInfo = new Debug.MemoryInfo();
+        int dalvikPrivateDirty = memoryInfo.dalvikPrivateDirty;
+        int dalvikPss = memoryInfo.dalvikPss;
+        int dalvikSharedDirty = memoryInfo.dalvikSharedDirty;
+        int nativePrivateDirty = memoryInfo.nativePrivateDirty;
+        int nativePss = memoryInfo.nativePss;
+        int nativeSharedDirty = memoryInfo.nativeSharedDirty;
+        int otherPss = memoryInfo.otherPss;
+        int otherSharedDirty = memoryInfo.otherSharedDirty;
         String content =
             info + "-->dalvikPrivateDirty：" + dalvikPrivateDirty + ",dalvikPss:" + dalvikPss + ",dalvikSharedDirty:" + dalvikSharedDirty + ",nativePrivateDirty:" +
                     nativePrivateDirty + ",nativePss:" + nativePss + ",nativeSharedDirty:" + nativeSharedDirty + ",otherPss:" + otherPss + ",otherSharedDirty:" + otherSharedDirty +

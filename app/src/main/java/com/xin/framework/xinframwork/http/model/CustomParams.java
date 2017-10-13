@@ -32,20 +32,20 @@ import io.reactivex.schedulers.Schedulers;
  * <p>正式环境：供最终用户使用的环境，部署时，是将测试环境测试通过的代码拷贝到正式环境．
  * <p>不同的接口使用URI来区分， 如登录接口 https://api.xxxxx.com/login   添加好友接口https://api.xxxxx.com/user/addFriend
  * <p> 请求参数只有一个，参数名为req
- * <p>参数值为  将json做base64编码后的字段串，示例  req=aHR0cHM6Ly9hcGkubWVyaWNlbnR1cnkuY29tL2xvZ2luLz9yZXE9
+ * <p>参数值为  将json做base64编码后的字段串，示例  req=xxx
  * <p>参数分为公共参数和业务参数.
  * <p> json中的参数值只允许为字符串或空字符串，不能出现以下情况{"key":null}  {"key": }  {"key": 23};
  * <p>接口返回json中同样有公共参数和业务参数，并且做base64编码。
  * <p>
  * <p>示例：
  * <p>{
- * <p> "appid":"100001",
- * <p> "appver":"1.0.0.1089",
- * <p> "deviceid":"2SDFWEOLJLJPSIE",
- * <p> "cid":"100001",
+ * <p> "appid":"xxx",
+ * <p> "appver":"1.0.0.0",
+ * <p> "deviceid":"xxx",
+ * <p> "cid":"xxx",
  * <p> "ts":"201512221516333",
- * <p> "uid":"10000001",
- * <p> "token":"sdfwoeiakd23423",
+ * <p> "uid":"xxx",
+ * <p> "token":"xxx",
  * <p> "data":{
  * <p> ...
  * <p> }
@@ -53,7 +53,7 @@ import io.reactivex.schedulers.Schedulers;
  * <p>
  * <p>
  * <p>
- * Created by 王照鑫 on 2017/8/22 0022.
+ * Created by xin on 2017/8/22 0022.
  */
 
 public class CustomParams implements Serializable {

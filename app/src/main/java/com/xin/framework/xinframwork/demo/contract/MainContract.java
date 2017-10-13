@@ -6,8 +6,8 @@ import com.xin.framework.xinframwork.mvp.IView;
 import com.xin.framework.xinframwork.mvp.PresenterMessage;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/25 0025.
+ * Description : 主页面MVP接口
+ * Created by xin on 2017/8/25 0025.
  */
 
 public interface MainContract {

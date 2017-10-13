@@ -62,7 +62,7 @@ interface ISupport {
      * 类似startActivityForResult
      *
      * @param toFragment  目标Fragment
-     * @param requestCode requsetCode
+     * @param requestCode requestCode
      */
     void startForResult(FragmentSupport toFragment, int requestCode);
 

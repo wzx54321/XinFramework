@@ -67,7 +67,7 @@ public class MultiHashMap<K, BaseModel> {
     }
 
     public void put(K key,
-                    BaseModel value, int indext) {
+                    BaseModel value, int index) {
         ArrayList<BaseModel> ls = model.get(key);
         if (ls == null) {
             ls = new ArrayList<>();
@@ -75,7 +75,7 @@ public class MultiHashMap<K, BaseModel> {
                     ls);
         }
         if (!ls.contains(value)) {
-            ls.add(indext, value);
+            ls.add(index, value);
         }
     }
 

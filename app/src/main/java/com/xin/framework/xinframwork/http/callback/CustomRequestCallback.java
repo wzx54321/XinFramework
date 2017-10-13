@@ -6,8 +6,8 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/30 0030.
+ * Description :  根据需求自定义的请求回调
+ * Created by xin on 2017/8/30 0030.
  */
 
 public interface CustomRequestCallback<T> {
@@ -15,7 +15,7 @@ public interface CustomRequestCallback<T> {
 
     void onBeforeRequest(@NonNull Disposable disposable);
 
-    void onSuccess(@NonNull  CustomData<T>  resault);
+    void onSuccess(@NonNull  CustomData<T>  result);
 
     void onError(@NonNull Throwable e);
 

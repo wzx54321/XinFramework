@@ -9,11 +9,11 @@
   imageLoader.loadImage(context,
                 GlideImageConfig
                         .builder()
-                        .url(imgurl)
+                        .url(imgUrl)
                         .imageView(imageView)
-                        .transformation(mTranformation)
+                        .transformation(mTransformation)
                         .cacheStrategy(DiskCacheStrategy.XX)
-                        .errorPic(errpic)
+                        .errorPic(errorPic)
                         .isClearDiskCache(true)
                        /* ... 根据需求调用*/
                         .build());

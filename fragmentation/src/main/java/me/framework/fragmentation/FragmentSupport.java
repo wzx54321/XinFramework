@@ -19,7 +19,7 @@ import java.lang.annotation.RetentionPolicy;
 import me.framework.fragmentation.anim.FragmentAnimator;
 import me.framework.fragmentation.helper.internal.AnimatorHelper;
 import me.framework.fragmentation.helper.internal.LifecycleHelper;
-import me.framework.fragmentation.helper.internal.OnFragmentDestoryViewListener;
+import me.framework.fragmentation.helper.internal.OnFragmentDestroyViewListener;
 import me.framework.fragmentation.helper.internal.ResultRecord;
 import me.framework.fragmentation.helper.internal.TransactionRecord;
 import me.framework.fragmentation.helper.internal.VisibleDelegate;
@@ -30,8 +30,8 @@ import me.framework.fragmentation.helper.internal.VisibleDelegate;
 public class FragmentSupport extends RxFragment implements ISupportFragment {
     // LaunchMode
     public static final int STANDARD = 0;
-    public static final int SINGLETOP = 1;
-    public static final int SINGLETASK = 2;
+    public static final int SINGLE_TOP = 1;
+    public static final int SINGLE_TASK = 2;
 
     // ResultCode
     public static final int RESULT_CANCELED = 0;
@@ -61,11 +61,11 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
 
     public boolean mLocking; // 是否加锁 用于Fragmentation-SwipeBack库
 
-    private OnFragmentDestoryViewListener mOnDestoryViewListener;
+    private OnFragmentDestroyViewListener mOnDestroyViewListener;
 
     private TransactionRecord mTransactionRecord;
 
-    @IntDef({STANDARD, SINGLETOP, SINGLETASK})
+    @IntDef({STANDARD, SINGLE_TOP, SINGLE_TASK})
     @Retention(RetentionPolicy.SOURCE)
     @interface LaunchMode {
     }
@@ -81,7 +81,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
             throw new RuntimeException(activity.getClass().getSimpleName() + " must extends SupportActivity!");
         }
 
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONATTACH, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_ATTACH, null, false);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
             mSaveInstanceState = savedInstanceState;
             mFragmentAnimator = savedInstanceState.getParcelable(FragmentationDelegate.FRAGMENTATION_STATE_SAVE_ANIMATOR);
             mIsHidden = savedInstanceState.getBoolean(FragmentationDelegate.FRAGMENTATION_STATE_SAVE_IS_HIDDEN);
-            if (mContainerId == 0) { // After strong kill, mContianerId may not be correct restored.
+            if (mContainerId == 0) { // After strong kill, mContainerId may not be correct restored.
                 mIsRoot = savedInstanceState.getBoolean(FragmentationDelegate.FRAGMENTATION_ARG_IS_ROOT, false);
                 mIsSharedElement = savedInstanceState.getBoolean(FragmentationDelegate.FRAGMENTATION_ARG_IS_SHARED_ELEMENT, false);
                 mContainerId = savedInstanceState.getInt(FragmentationDelegate.FRAGMENTATION_ARG_CONTAINER);
@@ -119,7 +119,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
 
         initAnim();
 
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONCREATE, savedInstanceState, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_CREATE, savedInstanceState, false);
     }
 
     private void processRestoreInstanceState(Bundle savedInstanceState) {
@@ -202,7 +202,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
         outState.putParcelable(FragmentationDelegate.FRAGMENTATION_STATE_SAVE_ANIMATOR, mFragmentAnimator);
         outState.putBoolean(FragmentationDelegate.FRAGMENTATION_STATE_SAVE_IS_HIDDEN, isHidden());
 
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONSAVEINSTANCESTATE, outState, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_SAVE_INSTANCE_STATE, outState, false);
     }
 
     @Override
@@ -217,7 +217,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
             notifyNoAnim();
         }
 
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONACTIVITYCREATED, savedInstanceState, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_ACTIVITY_CREATED, savedInstanceState, false);
     }
 
     private void notifyNoAnim() {
@@ -254,7 +254,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
     public void onResume() {
         super.onResume();
         getVisibleDelegate().onResume();
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONRESUME, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_RESUME, null, false);
     }
 
     @Override
@@ -265,7 +265,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
             hideSoftInput();
         }
 
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONPAUSE, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_PAUSE, null, false);
     }
 
     @Override
@@ -281,7 +281,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
     }
 
     /**
-     * Called when the fragment is vivible.
+     * Called when the fragment is visible.
      * <p>
      * Is the combination of  [onHiddenChanged() + onResume()/onPause() + setUserVisibleHint()]
      */
@@ -289,16 +289,16 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
         if (_mActivity != null) {
             _mActivity.setFragmentClickable(true);
         }
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONSUPPORTVISIBLE, null, true);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_SUPPORT_VISIBLE, null, true);
     }
 
     /**
-     * Called when the fragment is invivible.
+     * Called when the fragment is Invisible.
      * <p>
      * Is the combination of  [onHiddenChanged() + onResume()/onPause() + setUserVisibleHint()]
      */
     public void onSupportInvisible() {
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONSUPPORTINVISIBLE, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_SUPPORT_INVISIBLE, null, false);
     }
 
     /**
@@ -314,7 +314,7 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
      * 同级下的 懒加载 ＋ ViewPager下的懒加载  的结合回调方法
      */
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONLAZYINITVIEW, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_LAZY_INIT_VIEW, null, false);
     }
 
     /**
@@ -363,13 +363,13 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
             @Override
             public void run() {
                 onEnterAnimationEnd(savedInstanceState);
-                dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONENTERANIMATIONEND, savedInstanceState, false);
+                dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_ENTER_ANIMATION_END, savedInstanceState, false);
             }
         });
     }
 
     /**
-     * 设定当前Fragmemt动画,优先级比在SupportActivity里高
+     * 设定当前Fragment动画,优先级比在SupportActivity里高
      */
     protected FragmentAnimator onCreateFragmentAnimator() {
         return _mActivity.getFragmentAnimator();
@@ -712,28 +712,28 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
     }
 
     /**
-     * @see OnFragmentDestoryViewListener
+     * @see OnFragmentDestroyViewListener
      */
-    void setOnFragmentDestoryViewListener(OnFragmentDestoryViewListener listener) {
-        this.mOnDestoryViewListener = listener;
+    void setOnFragmentDestroyViewListener(OnFragmentDestroyViewListener listener) {
+        this.mOnDestroyViewListener = listener;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONVIEWCREATED, savedInstanceState, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_VIEW_CREATED, savedInstanceState, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONSTART, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_START, null, false);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONSTOP, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_STOP, null, false);
     }
 
     @Override
@@ -741,24 +741,24 @@ public class FragmentSupport extends RxFragment implements ISupportFragment {
         _mActivity.setFragmentClickable(true);
         super.onDestroyView();
         getVisibleDelegate().onDestroyView();
-        if (mOnDestoryViewListener != null) {
-            mOnDestoryViewListener.onDestoryView();
-            mOnDestoryViewListener = null;
+        if (mOnDestroyViewListener != null) {
+            mOnDestroyViewListener.onDestroyView();
+            mOnDestroyViewListener = null;
         }
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONDESTROYVIEW, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_DESTROY_VIEW, null, false);
     }
 
     @Override
     public void onDestroy() {
         mFragmentationDelegate.handleResultRecord(this);
         super.onDestroy();
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONDESTROY, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_DESTROY, null, false);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        dispatchFragmentLifecycle(LifecycleHelper.LIFECYLCE_ONDETACH, null, false);
+        dispatchFragmentLifecycle(LifecycleHelper.LIFECYCLE_ON_DETACH, null, false);
     }
 
     private void dispatchFragmentLifecycle(int lifecycle, Bundle bundle, boolean visible) {

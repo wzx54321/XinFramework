@@ -19,7 +19,7 @@ import okhttp3.Call;
 
 /**
  * Description : 上传任务
- * Created by 王照鑫 on 2017/9/29 0029.
+ * Created by xin on 2017/9/29 0029.
  */
 
 public class UploadTask<T> implements Runnable{

@@ -18,7 +18,7 @@ import io.objectbox.annotation.Transient;
 
 /**
  * Description :上传文件数据数据库实体
- * Created by 王照鑫 on 2017/9/15 0015.
+ * Created by xin on 2017/9/15 0015.
  */
 @Entity
 public class EntityUpload  extends Progress{

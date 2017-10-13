@@ -1,4 +1,4 @@
-package com.xin.framework.xinframwork.http.glide.base;
+package com.xin.framework.xinframwork.http.plugins.glide.base;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -15,17 +15,17 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/17 0017.
+ * Description : GlideImageLoader委托实现类
+ * Created by xin on 2017/8/17 0017.
  */
 
-public class GlideImageLoaderDelegate implements IImageLoaderDelegate<GlideImageConfig> {
+public class GlideImageLoaderDelegate implements  IImageLoaderDelegate<GlideImageConfig> {
     @Override
     public void loadImage(Context ctx, GlideImageConfig config) {
         if (ctx == null) throw new IllegalStateException("Context is required");
         if (config == null) throw new IllegalStateException("GlideImageConfig is required");
         if (TextUtils.isEmpty(config.getUrl())) throw new IllegalStateException("Url is required");
-        if (config.getImageView() == null) throw new IllegalStateException("Imageview is required");
+        if (config.getImageView() == null) throw new IllegalStateException("ImageView is required");
 
 
         DiskCacheStrategy mDiskCacheStrategy = null;

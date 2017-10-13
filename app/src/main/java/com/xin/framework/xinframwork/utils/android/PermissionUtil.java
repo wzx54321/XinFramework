@@ -68,10 +68,10 @@ public class PermissionUtil {
                         @Override
                         public void onNext(Boolean granted) {
                             if (granted) {
-                                Log.d("Request permissons success");
+                                Log.d("Request permissions success");
                                 requestPermission.onRequestPermissionSuccess();
                             } else {
-                                Log.d("Request permissons failure");
+                                Log.d("Request permissions failure");
                                 requestPermission.onRequestPermissionFailure();
                             }
                         }
@@ -126,7 +126,7 @@ public class PermissionUtil {
     /**
      * 请求获取手机状态的权限
      */
-    public static void readPhonestate(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
+    public static void readPhoneState(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
         requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.READ_PHONE_STATE);
     }
 

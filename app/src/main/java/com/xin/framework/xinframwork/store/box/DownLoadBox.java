@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Description : 下载数据
- * Created by 王照鑫 on 2017/9/28 0028.
+ * Created by xin on 2017/9/28 0028.
  */
 
 public class DownLoadBox extends BaseBoxManager<EntityDownload> {

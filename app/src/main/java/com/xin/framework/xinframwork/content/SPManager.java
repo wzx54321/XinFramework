@@ -11,7 +11,7 @@ import java.util.UUID;
 
 /**
  * Description :SharedPreferences
- * Created by 王照鑫 on 2017/5/16 0016.
+ * Created by xin on 2017/5/16 0016.
  */
 
 public class SPManager implements SharedPreferencesKeys {
@@ -41,7 +41,7 @@ public class SPManager implements SharedPreferencesKeys {
     /**
      * 获取设备ID
      *
-     * @return
+     * @return 设备ID
      */
     public String getDeviceId() {
         return mDk.get(KEY_PHONE_DEVICE_ID, "");
@@ -50,17 +50,17 @@ public class SPManager implements SharedPreferencesKeys {
     /**
      * 保存设备ID
      *
-     * @param deviceid
+     * @param deviceId 设备ID
      */
     @SuppressLint("HardwareIds")
-    public void putDeviceId(String deviceid) {
+    public void putDeviceId(String deviceId) {
 
         if (TextUtils.isEmpty(mDk.get(KEY_PHONE_DEVICE_ID, ""))) {
-            // 某些设备在应用启动时会提示获取手机识别码安全限制，此时如果禁止权限则deviceid为空，无法进行登录,所以这种情况下取SERIAL作为设备唯一标识
-            if (TextUtils.isEmpty(deviceid)) {
-                deviceid = android.os.Build.SERIAL != null ? android.os.Build.SERIAL : UUID.randomUUID().toString();
+            // 某些设备在应用启动时会提示获取手机识别码安全限制，此时如果禁止权限则deviceId为空，无法进行登录,所以这种情况下取SERIAL作为设备唯一标识
+            if (TextUtils.isEmpty(deviceId)) {
+                deviceId = android.os.Build.SERIAL != null ? android.os.Build.SERIAL : UUID.randomUUID().toString();
             }
-            mDk.put(KEY_PHONE_DEVICE_ID, deviceid);
+            mDk.put(KEY_PHONE_DEVICE_ID, deviceId);
 
         }
 

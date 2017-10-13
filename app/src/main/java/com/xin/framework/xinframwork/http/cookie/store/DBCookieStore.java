@@ -36,7 +36,7 @@ import okhttp3.HttpUrl;
  * 版    本：1.0
  * 创建日期：2016/1/14
  * 描    述：使用数据库 持久化存储 cookie
- * 修订历史：alter by wangzhaoxin 使用objectbox替换sqlite
+ * 修订历史：alter by xin 使用objectBox替换sqlite
  * ================================================
  */
 public class DBCookieStore implements CookieStore {

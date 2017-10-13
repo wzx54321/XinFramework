@@ -66,7 +66,7 @@ public class SwipeBackLayout extends FrameLayout {
     private static final float DEFAULT_PARALLAX = 0.33f;
     private static final int FULL_ALPHA = 255;
     private static final float DEFAULT_SCROLL_THRESHOLD = 0.4f;
-    private static final int OVERSCROLL_DISTANCE = 10;
+    private static final int OVER_SCROLL_DISTANCE = 10;
 
     private float mScrollFinishThreshold = DEFAULT_SCROLL_THRESHOLD;
 
@@ -121,7 +121,7 @@ public class SwipeBackLayout extends FrameLayout {
      *
      * @param threshold
      */
-    public void setScrollThresHold(float threshold) {
+    public void setScrollThreshold(float threshold) {
         if (threshold >= 1.0f || threshold <= 0) {
             throw new IllegalArgumentException("Threshold value should be between 0 and 1.0");
         }
@@ -213,11 +213,11 @@ public class SwipeBackLayout extends FrameLayout {
         /**
          * Invoke when edge touched
          *
-         * @param oritentationEdgeFlag edge flag describing the edge being touched
+         * @param orientationEdgeFlag edge flag describing the edge being touched
          * @see #EDGE_LEFT
          * @see #EDGE_RIGHT
          */
-        void onEdgeTouch(int oritentationEdgeFlag);
+        void onEdgeTouch(int orientationEdgeFlag);
 
         /**
          * Invoke when scroll percent over the threshold for the first time
@@ -441,16 +441,16 @@ public class SwipeBackLayout extends FrameLayout {
         }
 
         @Override
-        public void onViewReleased(View releasedChild, float xvel, float yvel) {
+        public void onViewReleased(View releasedChild, float xVel, float yVel) {
             final int childWidth = releasedChild.getWidth();
 
             int left = 0, top = 0;
             if ((mCurrentSwipeOrientation & EDGE_LEFT) != 0) {
-                left = xvel > 0 || xvel == 0 && mScrollPercent > mScrollFinishThreshold ? (childWidth
-                        + mShadowLeft.getIntrinsicWidth() + OVERSCROLL_DISTANCE) : 0;
+                left = xVel > 0 || xVel == 0 && mScrollPercent > mScrollFinishThreshold ? (childWidth
+                        + mShadowLeft.getIntrinsicWidth() + OVER_SCROLL_DISTANCE) : 0;
             } else if ((mCurrentSwipeOrientation & EDGE_RIGHT) != 0) {
-                left = xvel < 0 || xvel == 0 && mScrollPercent > mScrollFinishThreshold ? -(childWidth
-                        + mShadowRight.getIntrinsicWidth() + OVERSCROLL_DISTANCE) : 0;
+                left = xVel < 0 || xVel == 0 && mScrollPercent > mScrollFinishThreshold ? -(childWidth
+                        + mShadowRight.getIntrinsicWidth() + OVER_SCROLL_DISTANCE) : 0;
             }
 
             mHelper.settleCapturedViewAt(left, top);

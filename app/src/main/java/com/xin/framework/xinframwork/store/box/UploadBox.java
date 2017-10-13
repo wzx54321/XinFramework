@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Description : 上传 数据库 Box
- * Created by 王照鑫 on 2017/9/28 0028.
+ * Created by xin on 2017/9/28 0028.
  */
 
 public class UploadBox extends BaseBoxManager<EntityUpload> {

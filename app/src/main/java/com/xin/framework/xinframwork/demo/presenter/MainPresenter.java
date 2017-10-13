@@ -13,8 +13,8 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/25 0025.
+ * Description :MainPresenter
+ * Created by xin on 2017/8/25 0025.
  */
 
 public class MainPresenter implements MainContract.Presenter {
@@ -50,8 +50,8 @@ public class MainPresenter implements MainContract.Presenter {
             }
 
             @Override
-            public void onSuccess(@NonNull CustomData<AppVersion> resault) {
-                AppVersion appVersion = resault.data;
+            public void onSuccess(@NonNull CustomData<AppVersion> result) {
+                AppVersion appVersion = result.data;
                 Log.i("onSuccess");
             }
 

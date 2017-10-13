@@ -325,7 +325,7 @@ public class FilenameUtils {
      *
      * @param filename  the filename to normalize, null returns null
      * @param unixSeparator {@code true} if a unix separator should
-     * be used or {@code false} if a windows separtor should be used.
+     * be used or {@code false} if a windows separator should be used.
      * @return the normalized filename, or null if invalid
      * @since 2.0
      */
@@ -355,7 +355,7 @@ public class FilenameUtils {
             return null;
         }
         
-        char[] array = new char[size + 2];  // +1 for possible extra slash, +2 for arraycopy
+        char[] array = new char[size + 2];  // +1 for possible extra slash, +2 for arrayCopy
         filename.getChars(0, filename.length(), array, 0);
         
         // fix separators throughout

@@ -18,16 +18,18 @@ import okhttp3.ResponseBody;
 
 /**
  * Description : 自定义转换类,根据自己应用的需求自定义
- * Created by 王照鑫 on 2017/8/29 0029.
+ * Created by xin on 2017/8/29 0029.
  */
 
 public class CustomConvert<T> implements Converter<T> {
 
-    private Class clzz;
+    private Class clazz;
 
-    public CustomConvert(Class clzz) {
-        this.clzz = clzz;
+
+    public CustomConvert(Class clazz) {
+        this.clazz = clazz;
     }
+
 
     @Override
     public T convertResponse(Response response) throws Throwable {
@@ -50,19 +52,19 @@ public class CustomConvert<T> implements Converter<T> {
         Log.i("convertResponse  :" + responseStr);
         response.close();
 
-        return parseRsault(responseStr);
+        return parseResult(responseStr);
     }
 
-    private T parseRsault(String responseStr) {
+    private T parseResult(String responseStr) {
 
 
-        Type objectType = TypeUtil.type(CustomData.class, clzz);
+        Type objectType = TypeUtil.type(CustomData.class, clazz);
         CustomData lzyResponse = Convert.fromJson(responseStr, objectType);
 
         int code = lzyResponse.code;
 
         //一般来说服务器会和客户端约定一个数表示成功，其余的表示失败，这里根据实际情况修改
-        if (code == HttpConst.RESAULT_OK) {
+        if (code == HttpConst.RESULT_OK) {
             return (T) lzyResponse;
         } else {
             //直接将服务端的错误信息抛出，onError中可以获取

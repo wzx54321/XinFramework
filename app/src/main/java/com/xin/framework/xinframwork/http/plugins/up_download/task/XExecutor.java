@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Description : 重写任务结束后回调
- * Created by 王照鑫 on 2017/9/28 0028.
+ * Created by xin on 2017/9/28 0028.
  */
 
 public class XExecutor extends ThreadPoolExecutor {

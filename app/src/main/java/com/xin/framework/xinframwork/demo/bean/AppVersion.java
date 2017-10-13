@@ -3,8 +3,8 @@ package com.xin.framework.xinframwork.demo.bean;
 import java.io.Serializable;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/29 0029.
+ * Description : App版本请求返回数据类
+ * Created by xin on 2017/8/29 0029.
  */
 
 public class AppVersion implements Serializable {

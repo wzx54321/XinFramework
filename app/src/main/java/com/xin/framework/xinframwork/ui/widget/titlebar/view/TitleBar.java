@@ -48,7 +48,7 @@ import java.util.LinkedList;
  * mCollectView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.mipmap.collect) {
  * @Override public void performAction(View view) {
  * Toast.makeText(MainActivity.this, "点击了收藏", Toast.LENGTH_SHORT).show();
- * mCollectView.setImageResource(R.mipmap.fabu);
+ * mCollectView.setImageResource(R.mipmap.xx);
  * }
  * });
  * <p>
@@ -184,8 +184,8 @@ public class TitleBar extends ViewGroup implements View.OnClickListener, ScrollA
         mLeftText.setText(title);
     }
 
-    public void setLeftText(int resid) {
-        mLeftText.setText(resid);
+    public void setLeftText(int resId) {
+        mLeftText.setText(resId);
     }
 
     public void setLeftTextSize(float size) {
@@ -227,12 +227,12 @@ public class TitleBar extends ViewGroup implements View.OnClickListener, ScrollA
         mCenterLayout.setOnClickListener(l);
     }
 
-    public void setTitle(int resid) {
-        setTitle(getResources().getString(resid));
+    public void setTitle(int resId) {
+        setTitle(getResources().getString(resId));
     }
 
-    public void setTitleColor(@ColorRes int resid) {
-        mCenterText.setTextColor(getResources().getColor(resid));
+    public void setTitleColor(@ColorRes int resId) {
+        mCenterText.setTextColor(getResources().getColor(resId));
         mOriginBarTitleColor = mCenterText.getTextColors();
     }
 
@@ -240,12 +240,12 @@ public class TitleBar extends ViewGroup implements View.OnClickListener, ScrollA
         mCenterText.setTextSize(size);
     }
 
-    public void setTitleBackground(int resid) {
-        mCenterText.setBackgroundResource(resid);
+    public void setTitleBackground(int resId) {
+        mCenterText.setBackgroundResource(resId);
     }
 
-    public void setSubTitleColor(int resid) {
-        mSubTitleText.setTextColor(resid);
+    public void setSubTitleColor(int resId) {
+        mSubTitleText.setTextColor(resId);
     }
 
     public void setSubTitleSize(float size) {
@@ -574,7 +574,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener, ScrollA
     private LinkedList<View> mFadeViewList = null;
 
     private ColorStateList mOriginBarTitleColor = null;
-    public int mAlph;
+    public int mAlpha;
 
 
     /**
@@ -612,7 +612,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener, ScrollA
             mEndFadePosition = end;
             mMaxAlpha = maxAlpha;
             mFadeDuration = mEndFadePosition - mStartFadePosition;
-            mAlph = 0;
+            mAlpha = 0;
         }
     }
 
@@ -625,8 +625,8 @@ public class TitleBar extends ViewGroup implements View.OnClickListener, ScrollA
             int top = (v == null) ? 0 : v.getTop();
             // distance from top of current window to ending position of fade
             int delta = top + mEndFadePosition - 4;
-            mAlph = interpolate(delta);
-            setTitleBarTranslate(mAlph);
+            mAlpha = interpolate(delta);
+            setTitleBarTranslate(mAlpha);
 
         }
     }
@@ -758,7 +758,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener, ScrollA
     }
 
 
-    public TextView getmLeftText() {
+    public TextView getLeftText() {
         return mLeftText;
     }
 }

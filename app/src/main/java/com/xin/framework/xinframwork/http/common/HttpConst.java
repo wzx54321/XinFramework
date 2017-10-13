@@ -1,10 +1,11 @@
 package com.xin.framework.xinframwork.http.common;
 
 /**
- * Created by 王照鑫 on 2017/8/30 0030.
+ *<p> Http使用的常量</p>
+ * Created by xin on 2017/8/30 0030.
  */
 
 public interface HttpConst {
 
-    int RESAULT_OK=1000;
+    int RESULT_OK =1000;
 }

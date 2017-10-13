@@ -20,7 +20,7 @@ import okhttp3.Cookie;
 
 /**
  * Description :Cookie数据库实体
- * Created by 王照鑫 on 2017/9/14 0014.
+ * Created by xin on 2017/9/14 0014.
  */
 @Entity
 public class EntityCookie implements Serializable {

@@ -8,8 +8,8 @@ import com.xin.framework.xinframwork.content.SPManager;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/22 0022.
+ * Description :App配置
+ * Created by xin on 2017/8/22 0022.
  */
 
 public class AppConfig {

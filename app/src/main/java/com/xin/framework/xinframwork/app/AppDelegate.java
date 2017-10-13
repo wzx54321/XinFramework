@@ -15,7 +15,7 @@ import com.xin.framework.xinframwork.common.DBConfig;
 import com.xin.framework.xinframwork.common.FileConfig;
 import com.xin.framework.xinframwork.common.HttpConfig;
 import com.xin.framework.xinframwork.common.NetWorkConfig;
-import com.xin.framework.xinframwork.http.glide.base.GlideApp;
+import com.xin.framework.xinframwork.http.plugins.glide.base.GlideApp;
 import com.xin.framework.xinframwork.utils.android.ActivityStackManager;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
@@ -23,8 +23,8 @@ import com.xin.framework.xinframwork.utils.android.logger.LogLevel;
 import com.xin.framework.xinframwork.utils.android.logger.MemoryLog;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/17 0017.
+ * Description : 应用全局配置委托
+ * Created by xin on 2017/8/17 0017.
  */
 
 class AppDelegate implements Application.ActivityLifecycleCallbacks {

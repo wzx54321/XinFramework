@@ -13,7 +13,7 @@
         <item name="android:alertDialogTheme">@style/common_dialog_alert</item>
     </style>
 
-    <!--Commom style-->
+    <!--Common style-->
     <style name="AppTheme1" parent="@android:style/Theme.Light">
         <item name="android:windowNoTitle">true</item>
      <!--   <item name="android:windowAnimationStyle">@style/AnimationActivity</item>

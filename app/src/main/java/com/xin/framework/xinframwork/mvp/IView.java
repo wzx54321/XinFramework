@@ -22,8 +22,8 @@ public interface IView {
 
 
     /**
-     * 处理Presenter发送的消息,这里面和handler的原理一样,通过swith(what),做不同的操作
-     * @param message
+     * 处理Presenter发送的消息,这里面和handler的原理一样,switch(what),做不同的操作
+     * @param message PresenterMessage
      */
     void handlePresenterMsg(PresenterMessage message);
 

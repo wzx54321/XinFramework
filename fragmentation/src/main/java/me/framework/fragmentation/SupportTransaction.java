@@ -38,8 +38,8 @@ public abstract class SupportTransaction {
     /**
      * @param launchMode Can replace {@link FragmentSupport#start(FragmentSupport, int)}
      *                   <p>
-     *                   May be one of {@link FragmentSupport#STANDARD}, {@link FragmentSupport#SINGLETASK}
-     *                   or {@link FragmentSupport#SINGLETOP}.
+     *                   May be one of {@link FragmentSupport#STANDARD}, {@link FragmentSupport#SINGLE_TASK}
+     *                   or {@link FragmentSupport#SINGLE_TOP}.
      * @return the same SupportTransaction instance.
      */
     public abstract SupportTransaction setLaunchMode(@FragmentSupport.LaunchMode int launchMode);

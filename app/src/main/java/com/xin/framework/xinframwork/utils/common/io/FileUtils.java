@@ -124,36 +124,36 @@ public class FileUtils {
     public static final BigInteger ONE_TB_BI = ONE_KB_BI.multiply(ONE_GB_BI);
 
     /**
-     * The number of bytes in a petabyte.
+     * The number of bytes in a petaByte.
      */
     public static final long ONE_PB = ONE_KB * ONE_TB;
 
     /**
-     * The number of bytes in a petabyte.
+     * The number of bytes in a petaByte.
      *
      * @since 2.4
      */
     public static final BigInteger ONE_PB_BI = ONE_KB_BI.multiply(ONE_TB_BI);
 
     /**
-     * The number of bytes in an exabyte.
+     * The number of bytes in an exaByte.
      */
     public static final long ONE_EB = ONE_KB * ONE_PB;
 
     /**
-     * The number of bytes in an exabyte.
+     * The number of bytes in an exaByte.
      *
      * @since 2.4
      */
     public static final BigInteger ONE_EB_BI = ONE_KB_BI.multiply(ONE_PB_BI);
 
     /**
-     * The number of bytes in a zettabyte.
+     * The number of bytes in a zettaByte.
      */
     public static final BigInteger ONE_ZB = BigInteger.valueOf(ONE_KB).multiply(BigInteger.valueOf(ONE_EB));
 
     /**
-     * The number of bytes in a yottabyte.
+     * The number of bytes in a yottaByte.
      */
     public static final BigInteger ONE_YB = ONE_KB_BI.multiply(ONE_ZB);
 
@@ -179,7 +179,7 @@ public class FileUtils {
      */
     public static File getFile(File directory, String... names) {
         if (directory == null) {
-            throw new NullPointerException("directorydirectory must not be null");
+            throw new NullPointerException("directory  must not be null");
         }
         if (names == null) {
             throw new NullPointerException("names must not be null");

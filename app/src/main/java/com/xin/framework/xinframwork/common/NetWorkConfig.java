@@ -15,8 +15,8 @@ import com.xin.framework.xinframwork.utils.android.SysUtils;
 import static com.xin.framework.xinframwork.app.XinApplication.getAppContext;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/17 0017.
+ * Description : 网络配置
+ * Created by xin on 2017/8/17 0017.
  */
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

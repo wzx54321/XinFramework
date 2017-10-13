@@ -77,7 +77,7 @@ public class CallEnqueueObservable<T> extends Observable<Response<T>> {
 
         @Override
         public T convertResponse(okhttp3.Response response) throws Throwable {
-            // okrx 使用converter转换，不需要这个解析方法
+            // okRx 使用converter转换，不需要这个解析方法
             return null;
         }
 

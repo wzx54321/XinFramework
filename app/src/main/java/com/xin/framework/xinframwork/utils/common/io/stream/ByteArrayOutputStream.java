@@ -142,7 +142,7 @@ public class ByteArrayOutputStream extends OutputStream {
             return;
         }
         synchronized (this) {
-            int newcount = count + len;
+            int newCount = count + len;
             int remaining = len;
             int inBufferPos = count - filledBufferSum;
             while (remaining > 0) {
@@ -150,11 +150,11 @@ public class ByteArrayOutputStream extends OutputStream {
                 System.arraycopy(b, off + len - remaining, currentBuffer, inBufferPos, part);
                 remaining -= part;
                 if (remaining > 0) {
-                    needNewBuffer(newcount);
+                    needNewBuffer(newCount);
                     inBufferPos = 0;
                 }
             }
-            count = newcount;
+            count = newCount;
         }
     }
 

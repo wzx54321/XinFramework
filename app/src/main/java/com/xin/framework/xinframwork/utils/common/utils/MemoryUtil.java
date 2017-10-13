@@ -32,7 +32,7 @@ public class MemoryUtil {
      * Inactive(anon):   132576 kB
      * Active(file):      49400 kB
      * Inactive(file):   136736 kB
-     * Unevictable:        2420 kB
+     * UnevicTable:        2420 kB
      * Mlocked:               0 kB
      * HighTotal:       1437692 kB
      * HighFree:         520212 kB

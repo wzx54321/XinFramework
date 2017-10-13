@@ -8,8 +8,8 @@ import android.os.SystemClock;
 import android.support.v4.util.TimeUtils;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/18 0018.
+ * Description :  MVP 中用于解耦合copy from Android Message。
+ * Created by xin on 2017/8/18 0018.
  */
 
 public class PresenterMessage implements Parcelable {

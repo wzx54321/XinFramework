@@ -17,7 +17,7 @@ import okio.Okio;
 import okio.Sink;
 
 /**
- * 继承于{@link RequestBody},通过此类获取 Okhttp 上传的二进制数据
+ * 继承于{@link RequestBody},通过此类获取 OkHttp 上传的二进制数据
  * Created by jess on 02/06/2017 18:05
  * Contact with jess.yan.effort@gmail.com
  */
@@ -111,7 +111,7 @@ public class GlideProgressRequestBody extends RequestBody {
                                 // Runnable 里的代码是通过 Handler 执行在主线程的,外面代码可能执行在其他线程
                                 // 所以我必须使用 final ,保证在 Runnable 执行前使用到的变量,在执行时不会被修改
                                 mProgressInfo.setEachBytes(finalTempSize);
-                                mProgressInfo.setCurrentbytes(finalTotalBytesRead);
+                                mProgressInfo.setCurrentBytes(finalTotalBytesRead);
                                 mProgressInfo.setIntervalTime(finalIntervalTime);
                                 mProgressInfo.setFinish(finalTotalBytesRead == mProgressInfo.getContentLength());
                                 listener.onProgress(mProgressInfo);

@@ -7,6 +7,6 @@ package me.framework.fragmentation.helper.internal;
  * 该Listener是为了解决该问题.
  * Created by YoKeyword on 16/7/1.
  */
-public interface OnFragmentDestoryViewListener {
-    void onDestoryView();
+public interface OnFragmentDestroyViewListener {
+    void onDestroyView();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017  (王照鑫)
+ * Copyright 2017  (王照鑫 xin)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import io.objectbox.query.QueryBuilder;
  * Box统一管理
  *
  * @param <T> 数据库表实体类
- * @author 王照鑫
+ * @author xin
  */
 public abstract class BaseBoxManager<T> {
 
@@ -65,10 +65,10 @@ public abstract class BaseBoxManager<T> {
     /**
      * 插入多条记录
      */
-    public void insert(List<T> entitys) {
-        if (entitys != null)
+    public void insert(List<T> entities) {
+        if (entities != null)
 
-            mBox.put(entitys);
+            mBox.put(entities);
 
     }
 

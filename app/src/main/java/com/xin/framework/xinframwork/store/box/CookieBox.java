@@ -5,8 +5,8 @@ import com.xin.framework.xinframwork.store.entity.EntityCookie;
 import com.xin.framework.xinframwork.store.entity.EntityCookie_;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/9/15 0015.
+ * Description :Cookie存储的Box
+ * Created by xin on 2017/9/15 0015.
  */
 
 public class CookieBox extends BaseBoxManager<EntityCookie> {

@@ -35,8 +35,8 @@ public class SysUtils {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en
                     .hasMoreElements(); ) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr
+                NetworkInterface anInterface = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = anInterface.getInetAddresses(); enumIpAddr
                         .hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {

@@ -262,7 +262,7 @@ public class SilentInstaller {
 
     /**
      * Uninstall return code<br/>
-     * uninstall fail if pcakge name is invalid
+     * uninstall fail if package name is invalid
      */
     public static final int DELETE_FAILED_INVALID_PACKAGE = -3;
 
@@ -318,7 +318,7 @@ public class SilentInstaller {
 
         /**
          * if context is system app, don't need root permission, but should add <uses-permission
-         * android:name="android.permission.DELETE_PACKAGES" /> in mainfest
+         * android:name="android.permission.DELETE_PACKAGES" /> in manifest
          **/
         String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall" +
                 (isKeepData ? " -k " : " ") + packageName.replace(" ", "\\ ");
@@ -378,7 +378,7 @@ public class SilentInstaller {
 
         /**
          * if context is system app, don't need root permission, but should add <uses-permission
-         * android:name="android.permission.INSTALL_PACKAGES" /> in mainfest
+         * android:name="android.permission.INSTALL_PACKAGES" /> in manifest
          **/
         String command = "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install " +
                 (pmParams == null ? "" : pmParams) + " " + filePath.replace(" ", "\\ ");

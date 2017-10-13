@@ -20,7 +20,7 @@ import me.framework.fragmentation.FragmentSupport;
  */
 public abstract class BaseFragment<P extends IPresenter> extends FragmentSupport {
     protected P mPresenter;
-    private Unbinder mUnbinder;
+    private Unbinder mUnBinder;
     @Nullable
     protected View mRootView;
 
@@ -37,7 +37,7 @@ public abstract class BaseFragment<P extends IPresenter> extends FragmentSupport
 
         mRootView = setLayout();
         if (mRootView != null) {
-            mUnbinder = ButterKnife.bind(this, mRootView);
+            mUnBinder = ButterKnife.bind(this, mRootView);
         }
         if (this instanceof IView) mPresenter.setView((IView) this);
         return mRootView;
@@ -62,9 +62,9 @@ public abstract class BaseFragment<P extends IPresenter> extends FragmentSupport
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) mUnbinder.unbind();
+        if (mUnBinder != null && mUnBinder != Unbinder.EMPTY) mUnBinder.unbind();
         mPresenter.onDestroy();
         this.mPresenter = null;
-        this.mUnbinder = null;
+        this.mUnBinder = null;
     }
 }

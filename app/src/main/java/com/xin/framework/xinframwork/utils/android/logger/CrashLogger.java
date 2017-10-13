@@ -19,7 +19,7 @@ import java.util.Date;
  * 
  * 描述： 未捕获异常
  * 
- * @Author Wangzhaoxin
+ * @Author xin
  * @since JDK1.8
  */
 @SuppressLint("SimpleDateFormat")

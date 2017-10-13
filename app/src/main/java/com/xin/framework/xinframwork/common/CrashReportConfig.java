@@ -14,8 +14,8 @@ import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import static com.xin.framework.xinframwork.app.XinApplication.getAppContext;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/17 0017.
+ * Description :Crash报告配置
+ * Created by xin on 2017/8/17 0017.
  */
 
 public class CrashReportConfig {
@@ -33,7 +33,7 @@ public class CrashReportConfig {
             strategy.setUploadProcess(processName == null || processName.equals(packageName));
             CrashReport.initCrashReport(app.getApplicationContext(),app.getString(R.string.bugly_app_id), false, strategy);
         } else {
-            if (app.getResources().getBoolean(R.bool.crash_loger_enable)) {
+            if (app.getResources().getBoolean(R.bool.crash_logger_enable)) {
                 Thread.currentThread()
                         .setUncaughtExceptionHandler(new CrashLogger(getAppContext()));
             } else {

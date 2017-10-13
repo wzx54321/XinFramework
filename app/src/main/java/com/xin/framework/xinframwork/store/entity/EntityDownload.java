@@ -18,7 +18,7 @@ import io.objectbox.annotation.Transient;
 
 /**
  * Description :下载文件数据库实体
- * Created by 王照鑫 on 2017/9/15 0015.
+ * Created by xin on 2017/9/15 0015.
  */
 @Entity
 public class EntityDownload extends Progress {

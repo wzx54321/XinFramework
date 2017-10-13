@@ -1,70 +1,69 @@
 package com.xin.framework.xinframwork.utils.common.assist;
 
 import android.content.Context;
-import android.widget.Toast;
 
 /**
  * Toast
  */
-public class Toastor {
+public class XinToast {
 
-    private Toast   mToast;
+    private android.widget.Toast mToast;
     private Context context;
 
-    public Toastor(Context context) {
+    public XinToast(Context context) {
         this.context = context.getApplicationContext();
     }
 
-    public Toast getSingletonToast(int resId) {
+    public android.widget.Toast getSingletonToast(int resId) {
         if (mToast == null) {
-            mToast = Toast.makeText(context, resId, Toast.LENGTH_SHORT);
+            mToast = android.widget.Toast.makeText(context, resId, android.widget.Toast.LENGTH_SHORT);
         }else{
             mToast.setText(resId);
         }
         return mToast;
     }
 
-    public Toast getSingletonToast(String text) {
+    public android.widget.Toast getSingletonToast(String text) {
         if (mToast == null) {
-            mToast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+            mToast = android.widget.Toast.makeText(context, text, android.widget.Toast.LENGTH_SHORT);
         }else{
             mToast.setText(text);
         }
         return mToast;
     }
 
-    public Toast getSingleLongToast(int resId) {
+    public android.widget.Toast getSingleLongToast(int resId) {
         if (mToast == null) {
-            mToast = Toast.makeText(context, resId, Toast.LENGTH_LONG);
+            mToast = android.widget.Toast.makeText(context, resId, android.widget.Toast.LENGTH_LONG);
         }else{
             mToast.setText(resId);
         }
         return mToast;
     }
 
-    public Toast getSingleLongToast(String text) {
+    public android.widget.Toast getSingleLongToast(String text) {
         if (mToast == null) {
-            mToast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+            mToast = android.widget.Toast.makeText(context, text, android.widget.Toast.LENGTH_LONG);
         }else{
             mToast.setText(text);
         }
         return mToast;
     }
 
-    public Toast getToast(int resId) {
-        return Toast.makeText(context, resId, Toast.LENGTH_SHORT);
+    public android.widget.Toast getToast(int resId) {
+        return android.widget.Toast.makeText(context, resId, android.widget.Toast.LENGTH_SHORT);
     }
 
-    public Toast getToast(String text) {
-        return Toast.makeText(context, text, Toast.LENGTH_SHORT);
+    public android.widget.Toast getToast(String text) {
+        return android.widget.Toast.makeText(context, text, android.widget.Toast.LENGTH_SHORT);
     }
 
-    public Toast getLongToast(int resId) {
-        return Toast.makeText(context, resId, Toast.LENGTH_LONG);
+    public android.widget.Toast getLongToast(int resId) {
+        return android.widget.Toast.makeText(context, resId, android.widget.Toast.LENGTH_LONG);
     }
 
-    public Toast getLongToast(String text) {
-        return Toast.makeText(context, text, Toast.LENGTH_LONG);
+    public android.widget.Toast getLongToast(String text) {
+        return android.widget.Toast.makeText(context, text, android.widget.Toast.LENGTH_LONG);
     }
 
     public void showSingletonToast(int resId) {

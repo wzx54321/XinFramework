@@ -7,8 +7,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/23 0023.
+ * Description : GET请求
+ * Created by xin on 2017/8/23 0023.
  */
 
 public class GetRequest<T> extends NoBodyRequest<T, GetRequest<T>> {

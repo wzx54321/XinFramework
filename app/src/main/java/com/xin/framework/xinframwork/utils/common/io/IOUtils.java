@@ -144,7 +144,7 @@ public class IOUtils {
      * N.B. no need to synchronize these because:
      * - we don't care if the buffer is created multiple times (the data is ignored)
      * - we always use the same size buffer, so if it it is recreated it will still be OK
-     * (if the buffer size were variable, we would need to synch. to ensure some other thread
+     * (if the buffer size were variable, we would need to sync. to ensure some other thread
      * did not create a smaller one)
      */
     private static char[] SKIP_CHAR_BUFFER;
@@ -470,19 +470,19 @@ public class IOUtils {
     }
 
     public static byte[] toByteArray(Object input) {
-        com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream baos = null;
+        com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream byteArrayOutputStream = null;
         ObjectOutputStream oos = null;
         try {
-            baos = new com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream();
-            oos = new ObjectOutputStream(baos);
+            byteArrayOutputStream = new com.xin.framework.xinframwork.utils.common.io.stream.ByteArrayOutputStream();
+            oos = new ObjectOutputStream(byteArrayOutputStream);
             oos.writeObject(input);
             oos.flush();
-            return baos.toByteArray();
+            return byteArrayOutputStream.toByteArray();
         } catch (IOException e) {
             Log.e(e, "toByteArray");
         } finally {
             IOUtils.closeQuietly(oos);
-            IOUtils.closeQuietly(baos);
+            IOUtils.closeQuietly(byteArrayOutputStream);
         }
         return null;
     }
@@ -536,14 +536,14 @@ public class IOUtils {
 
         byte[] data = new byte[size];
         int offset = 0;
-        int readed;
+        int read;
 
-        while (offset < size && (readed = input.read(data, offset, size - offset)) != EOF) {
-            offset += readed;
+        while (offset < size && (read = input.read(data, offset, size - offset)) != EOF) {
+            offset += read;
         }
 
         if (offset != size) {
-            throw new IOException("Unexpected readed size. current: " + offset + ", excepted: " + size);
+            throw new IOException("Unexpected read size. current: " + offset + ", excepted: " + size);
         }
 
         return data;
@@ -590,7 +590,7 @@ public class IOUtils {
      * using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa.org</a>.
      * <p/>
      * This method buffers the input internally, so there is no need to use a
      * <code>BufferedReader</code>.
@@ -723,7 +723,7 @@ public class IOUtils {
      * using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method buffers the input internally, so there is no need to use a
      * <code>BufferedInputStream</code>.
@@ -804,7 +804,7 @@ public class IOUtils {
      * using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method buffers the input internally, so there is no need to use a
      * <code>BufferedInputStream</code>.
@@ -947,7 +947,7 @@ public class IOUtils {
      * using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      *
      * @param input    the byte array to read from
      * @param encoding the encoding to use, null means platform default
@@ -1010,7 +1010,7 @@ public class IOUtils {
      * one entry per line, using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method buffers the input internally, so there is no need to use a
      * <code>BufferedInputStream</code>.
@@ -1088,7 +1088,7 @@ public class IOUtils {
      * using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      *
      * @param input    the CharSequence to convert
      * @param encoding the encoding to use, null means platform default
@@ -1134,7 +1134,7 @@ public class IOUtils {
      * using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      *
      * @param input    the string to convert
      * @param encoding the encoding to use, null means platform default
@@ -1152,17 +1152,17 @@ public class IOUtils {
 
     public static Object toObject(byte[] input) {
         if (input == null) return null;
-        ByteArrayInputStream bais = null;
+        ByteArrayInputStream byteArrayInputStream = null;
         ObjectInputStream ois = null;
         try {
-            bais = new ByteArrayInputStream(input);
-            ois = new ObjectInputStream(bais);
+            byteArrayInputStream = new ByteArrayInputStream(input);
+            ois = new ObjectInputStream(byteArrayInputStream);
             return ois.readObject();
         } catch (Exception e) {
             Log.e(e, "");
         } finally {
             IOUtils.closeQuietly(ois);
-            IOUtils.closeQuietly(bais);
+            IOUtils.closeQuietly(byteArrayInputStream);
         }
         return null;
     }
@@ -1235,7 +1235,7 @@ public class IOUtils {
      * using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method uses {@link String#String(byte[], String)}.
      *
@@ -1318,7 +1318,7 @@ public class IOUtils {
      * <code>OutputStream</code> using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method uses {@link String#String(char[])} and
      * {@link String#getBytes(String)}.
@@ -1398,7 +1398,7 @@ public class IOUtils {
      * <code>OutputStream</code> using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method uses {@link String#getBytes(String)}.
      *
@@ -1475,7 +1475,7 @@ public class IOUtils {
      * <code>OutputStream</code> using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method uses {@link String#getBytes(String)}.
      *
@@ -1539,7 +1539,7 @@ public class IOUtils {
      * <code>OutputStream</code> using the specified character encoding.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method uses {@link String#getBytes(String)}.
      *
@@ -1616,7 +1616,7 @@ public class IOUtils {
      * encoding and the specified line ending.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      *
      * @param lines      the lines to write, null entries produce blank lines
      * @param lineEnding the line separator to use, null is system default
@@ -1856,7 +1856,7 @@ public class IOUtils {
      * <code>BufferedInputStream</code>.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * This method uses {@link InputStreamReader}.
      *
@@ -2078,7 +2078,7 @@ public class IOUtils {
      * <code>BufferedReader</code>.
      * <p/>
      * Character encoding names can be found at
-     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * <a href="http://www.iana.org/assignments/character-sets">iaNa</a>.
      * <p/>
      * Due to the implementation of OutputStreamWriter, this method performs a
      * flush.
@@ -2220,7 +2220,7 @@ public class IOUtils {
         /*
          * N.B. no need to synchronize this because: - we don't care if the buffer is created multiple times (the data
          * is ignored) - we always use the same size buffer, so if it it is recreated it will still be OK (if the buffer
-         * size were variable, we would need to synch. to ensure some other thread did not create a smaller one)
+         * size were variable, we would need to sync. to ensure some other thread did not create a smaller one)
          */
         if (SKIP_BYTE_BUFFER == null) {
             SKIP_BYTE_BUFFER = new byte[SKIP_BUFFER_SIZE];
@@ -2257,7 +2257,7 @@ public class IOUtils {
         /*
          * N.B. no need to synchronize this because: - we don't care if the buffer is created multiple times (the data
          * is ignored) - we always use the same size buffer, so if it it is recreated it will still be OK (if the buffer
-         * size were variable, we would need to synch. to ensure some other thread did not create a smaller one)
+         * size were variable, we would need to sync. to ensure some other thread did not create a smaller one)
          */
         if (SKIP_CHAR_BUFFER == null) {
             SKIP_CHAR_BUFFER = new char[SKIP_BUFFER_SIZE];

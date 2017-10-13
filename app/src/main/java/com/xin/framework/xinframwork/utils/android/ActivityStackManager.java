@@ -124,9 +124,9 @@ public class ActivityStackManager {
 
     }
 
-    public synchronized void removeCurrentActivity(Activity activiy) {
-        if (activityStack != null && activiy != null) {
-            activityStack.remove(activiy);
+    public synchronized void removeCurrentActivity(Activity activity) {
+        if (activityStack != null && activity != null) {
+            activityStack.remove(activity);
         }
     }
 

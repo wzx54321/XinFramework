@@ -26,18 +26,18 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Description : 根据需求封装
- * Created by 王照鑫 on 2017/8/30 0030.
+ * Created by xin on 2017/8/30 0030.
  */
 
 public class XinRequest<T> {
 
-    private Class clzz;
+    private Class clazz;
 
     /**
-     * @param clzz 想要请求返回的Bean
+     * @param clazz 想要请求返回的Bean
      */
-    public XinRequest(Class clzz) {
-        this.clzz = clzz;
+    public XinRequest(Class clazz) {
+        this.clazz = clazz;
     }
 
 
@@ -52,9 +52,9 @@ public class XinRequest<T> {
     public void Post(String method, JSONObject input, final CustomRequestCallback<T> callback) {
         OkGo.<CustomData<T>>post(RestApiPath.REST_URI_HOST, method) // 使用常量配置
                 .params("req", new CustomParams(XinApplication.getAppContext()).CreateParams(input))
-                .cacheKey(RestApiPath.REST_URI_HOST + method + (input != null ? input.toString() : ""))              //这里完全同okgo的配置一样
+                .cacheKey(RestApiPath.REST_URI_HOST + method + (input != null ? input.toString() : ""))              //这里完全同OkGo的配置一样
                 .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
-                .converter(new CustomConvert<CustomData<T>>(clzz))
+                .converter(new CustomConvert<CustomData<T>>(clazz))
                 .adapt(new ObservableResponse<CustomData<T>>())//
                 .subscribeOn(Schedulers.io())//
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -110,7 +110,7 @@ public class XinRequest<T> {
                 .cacheKey(RestApiPath.REST_URI_HOST + method + (input != null ? input.toString() : "")) /* TODO 缓存Key 可以删除*/
                 .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)/* TODO  缓存策略 可以删除 */
                 .upJson(input)/* TODO  json 参数*/
-                .converter(new CustomConvert<CustomData<T>>(clzz))/* TODO 返回数据转换，根据各自的需求自定义*/
+                .converter(new CustomConvert<CustomData<T>>(clazz))/* TODO 返回数据转换，根据各自的需求自定义*/
                 .adapt(new ObservableResponse<CustomData<T>>())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -167,9 +167,9 @@ public class XinRequest<T> {
 
         OkGo.<CustomData<T>>get(RestApiPath.REST_URI_HOST, method)
                 .params(input, false)
-                .cacheKey(String.format("%s%s%s", RestApiPath.REST_URI_HOST, method, input != null ? input.toString() : ""))              //这里完全同okgo的配置一样
+                .cacheKey(String.format("%s%s%s", RestApiPath.REST_URI_HOST, method, input != null ? input.toString() : ""))              //这里完全同OkGo的配置一样
                 .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
-                .converter(new CustomConvert<CustomData<T>>(clzz) {
+                .converter(new CustomConvert<CustomData<T>>(clazz) {
                 })
                 .adapt(new ObservableResponse<CustomData<T>>()).subscribeOn(Schedulers.io())//
                 .doOnSubscribe(new Consumer<Disposable>() {

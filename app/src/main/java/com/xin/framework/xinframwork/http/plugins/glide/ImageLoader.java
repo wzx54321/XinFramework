@@ -2,8 +2,8 @@ package com.xin.framework.xinframwork.http.plugins.glide;
 
 import android.content.Context;
 
-import com.xin.framework.xinframwork.http.glide.base.IImageLoaderDelegate;
-import com.xin.framework.xinframwork.http.glide.base.ImageConfig;
+import com.xin.framework.xinframwork.http.plugins.glide.base.IImageLoaderDelegate;
+import com.xin.framework.xinframwork.http.plugins.glide.base.ImageConfig;
 
 
 public final class ImageLoader {

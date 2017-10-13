@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
 
         @Override
         public Object getItem(int position) {
-            return "sjldajlkdjakldjsakljdsklajdk";
+            return "一个快速开发的框架";
         }
 
         @Override
@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
         public View getView(int position, View convertView, ViewGroup parent) {
 
             convertView = new TextView(parent.getContext());
-            ((TextView) convertView).setText("sjldajlkdjakldjsakljdsklajdk");
+            ((TextView) convertView).setText("一个快速开发的框架");
             convertView.setPadding(100, 50, 100, 50);
             return convertView;
         }

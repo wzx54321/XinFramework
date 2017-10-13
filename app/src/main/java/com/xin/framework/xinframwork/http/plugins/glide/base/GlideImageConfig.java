@@ -1,4 +1,4 @@
-package com.xin.framework.xinframwork.http.glide.base;
+package com.xin.framework.xinframwork.http.plugins.glide.base;
 
 import android.widget.ImageView;
 

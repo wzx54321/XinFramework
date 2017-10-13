@@ -9,7 +9,7 @@ import io.objectbox.BoxStore;
 /**
  * 使用objectBox,具体使用文档参照：http://objectbox.io/documentation/entity-annotations/
  * Description : 数据库配置
- * Created by 王照鑫 on 2017/9/14 0014.
+ * Created by xin on 2017/9/14 0014.
  */
 
 public class DBConfig {

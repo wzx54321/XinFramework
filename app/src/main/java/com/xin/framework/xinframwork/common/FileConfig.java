@@ -15,7 +15,7 @@ import java.io.File;
 
 /**
  * Description : 文件路径配置
- * Created by 王照鑫 on 2017/7/10 0010.
+ * Created by xin on 2017/7/10 0010.
  */
 
 public class FileConfig {
@@ -23,7 +23,7 @@ public class FileConfig {
     /**
      * 应用程序在SDCARD中的根目录，/mnt/sdcard/
      */
-    public static String DIR_PUBLLIC_ROOT = XinApplication.getAppContext().getString(R.string.app_name);
+    public static String DIR_PUBLIC_ROOT = XinApplication.getAppContext().getString(R.string.app_name);
 
     /**
      * 崩溃日志存储目录
@@ -64,16 +64,16 @@ public class FileConfig {
 
     /**
      * 获取 SDCARD上的存储根目录（如果登录过，会自动追加加userId的子目录）<br>
-     * ，/mnt/sdcard/mericentury/whithin
+     * ，/mnt/sdcard/XinFramework/
      *
      * @param type
      * @return
      */
     public static File getPublicDir(String type) {
-        if (DIR_PUBLLIC_ROOT.equals(type)) {
-            return Environment.getExternalStoragePublicDirectory(FileConfig.DIR_PUBLLIC_ROOT);
+        if (DIR_PUBLIC_ROOT.equals(type)) {
+            return Environment.getExternalStoragePublicDirectory(FileConfig.DIR_PUBLIC_ROOT);
         } else {
-            return new File(Environment.getExternalStoragePublicDirectory(FileConfig.DIR_PUBLLIC_ROOT),
+            return new File(Environment.getExternalStoragePublicDirectory(FileConfig.DIR_PUBLIC_ROOT),
                     type);
         }
     }
@@ -108,7 +108,7 @@ public class FileConfig {
             public void run() {
 
                 if (SdCardUtil.isSdCardAvailable()) {// 创建外置根目录,.nomedia文件
-                    FileUtil.createNewFileAndParentDir(new File(getPublicDir(DIR_PUBLLIC_ROOT),
+                    FileUtil.createNewFileAndParentDir(new File(getPublicDir(DIR_PUBLIC_ROOT),
                             ".nomedia"));
                 }
             }

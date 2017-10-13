@@ -23,7 +23,7 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
     public boolean mIsImmersive;
     @Nullable
     public TitleBar mTitle;
-    private Unbinder mUnbinder;
+    private Unbinder mUnBinder;
     public PresenterMessage msg;
 
     public abstract void createMessage();
@@ -38,7 +38,7 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
             throw new ExceptionInInitializerError("Activity 没有实现 getLayoutId()方法");
         }
         setContentView(getLayoutId());
-        mUnbinder = ButterKnife.bind(this);
+        mUnBinder = ButterKnife.bind(this);
       //  mTitle = ViewFinder.findViewById(this, R.id.title_bar);
         initTitleBar();
         initView();
@@ -66,9 +66,9 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) mUnbinder.unbind();
+        if (mUnBinder != null && mUnBinder != Unbinder.EMPTY) mUnBinder.unbind();
         if (mPresenter != null) mPresenter.onDestroy();
         this.mPresenter = null;
-        this.mUnbinder = null;
+        this.mUnBinder = null;
     }
 }

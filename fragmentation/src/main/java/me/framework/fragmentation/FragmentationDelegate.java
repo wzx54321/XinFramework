@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.framework.fragmentation.debug.DebugFragmentRecord;
-import me.framework.fragmentation.helper.internal.OnFragmentDestoryViewListener;
+import me.framework.fragmentation.helper.internal.OnFragmentDestroyViewListener;
 import me.framework.fragmentation.helper.internal.ResultRecord;
 import me.framework.fragmentation.helper.internal.TransactionRecord;
 
@@ -117,7 +117,7 @@ class FragmentationDelegate {
         if (fragmentManager == null) return;
 
         if ((from != null && from.isRemoving())) {
-            Log.e(TAG, from.getClass().getSimpleName() + " is poped, maybe you want to call startWithPop()!");
+            Log.e(TAG, from.getClass().getSimpleName() + " is popped, maybe you want to call startWithPop()!");
             return;
         }
 
@@ -450,13 +450,13 @@ class FragmentationDelegate {
         Fragment stackToFragment = findStackFragment(toFragment.getClass(), toFragmentTag, fragmentManager);
         if (stackToFragment == null) return false;
 
-        if (launchMode == FragmentSupport.SINGLETOP) {
+        if (launchMode == FragmentSupport.SINGLE_TOP) {
             // 在栈顶
             if (toFragment == topFragment || toFragment.getClass().getName().equals(topFragment.getClass().getName())) {
                 handleNewBundle(toFragment, stackToFragment);
                 return true;
             }
-        } else if (launchMode == FragmentSupport.SINGLETASK) {
+        } else if (launchMode == FragmentSupport.SINGLE_TASK) {
             popToFix(toFragmentTag, 0, fragmentManager);
             handleNewBundle(toFragment, stackToFragment);
             return true;
@@ -646,9 +646,9 @@ class FragmentationDelegate {
 
                     final ViewGroup finalPreViewGroup = preViewGroup;
                     final ViewGroup finalViewGroup = viewGroup;
-                    preFragment.setOnFragmentDestoryViewListener(new OnFragmentDestoryViewListener() {
+                    preFragment.setOnFragmentDestroyViewListener(new OnFragmentDestroyViewListener() {
                         @Override
-                        public void onDestoryView() {
+                        public void onDestroyView() {
                             finalPreViewGroup.removeView(fromView);
 
                             showHideChildView(finalViewGroup, false);

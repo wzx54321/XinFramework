@@ -4,7 +4,7 @@ import com.xin.framework.xinframwork.BuildConfig;
 
 /**
  * Description : 接口请求地址全部配置在这里
- * Created by 王照鑫 on 2017/5/16 0016.
+ * Created by xin on 2017/5/16 0016.
  */
 
 public class RestApiPath {

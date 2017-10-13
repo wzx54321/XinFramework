@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * Description : 全局的上传管理
- * Created by 王照鑫 on 2017/9/29 0029.
+ * Created by xin on 2017/9/29 0029.
  */
 
 public class OkUpload {

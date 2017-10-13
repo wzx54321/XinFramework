@@ -1,9 +1,9 @@
-package com.xin.framework.xinframwork.http.glide.base;
+package com.xin.framework.xinframwork.http.plugins.glide.base;
 
 import android.widget.ImageView;
 
 /**
- * Created by 王照鑫 on 2017/8/17 0017.
+ * Created by xin on 2017/8/17 0017.
  * <p>
  * Email： ittfxin@126.com
  */

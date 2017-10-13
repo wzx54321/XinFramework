@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--配置一些公共的常量-->
 <resources>
-    <!--是否使用loger打印crashlog-->
-    <bool name="crash_loger_enable">false</bool>
-    <!--bugly appid-->
-    <string name="bugly_app_id">注册时申请的APPID</string>
+    <!--是否使用logger打印crashLog-->
+    <bool name="crash_logger_enable">false</bool>
+    <!--bugly app id-->
+    <string name="bugly_app_id">注册时申请的appId</string>
     <!--是否使用cookie-->
     <bool name="cookie_enable">false</bool>
     <!--是否请求参数base64处理-->

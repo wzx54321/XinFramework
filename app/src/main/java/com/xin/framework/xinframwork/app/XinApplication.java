@@ -6,7 +6,7 @@ import android.support.multidex.MultiDex;
 
 /**
  * Description :Application
- * Created by 王照鑫 on 2017/5/16 0016.
+ * Created by xin on 2017/5/16 0016.
  */
 
 public class XinApplication extends Application {

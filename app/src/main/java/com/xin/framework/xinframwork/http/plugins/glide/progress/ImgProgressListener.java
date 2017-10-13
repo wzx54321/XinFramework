@@ -5,7 +5,7 @@ import com.xin.framework.xinframwork.http.plugins.glide.progress.body.ProgressIn
 
 /**
  * Description : Progress监听接口
- * Created by 王照鑫 on 2017/8/31 0031.
+ * Created by xin on 2017/8/31 0031.
  */
 
 public interface ImgProgressListener {

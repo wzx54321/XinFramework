@@ -145,7 +145,7 @@ public class Network {
      * 3. 设备所在区域没有信号覆盖；
      * 4. 设备在漫游区域，且关闭了网络漫游。
      *
-     * @return boolean wifi为可用状态（不一定成功连接，即Connected）即返回ture
+     * @return boolean wifi为可用状态（不一定成功连接，即Connected）true
      */
     public static boolean isWifiAvailable(Context context) {
         NetworkInfo[] nets = getConnectivityManager(context).getAllNetworkInfo();
@@ -255,14 +255,14 @@ public class Network {
     }
 
     /**
-     * GPRS    2G(2.5) General Packet Radia Service 114kbps
+     * GPRS    2G(2.5) General Packet Radio Service 114kbps
      * EDGE    2G(2.75G) Enhanced Data Rate for GSM Evolution 384kbps
      * UMTS    3G WCDMA 联通3G Universal Mobile Telecommunication System 完整的3G移动通信技术标准
      * CDMA    2G 电信 Code Division Multiple Access 码分多址
      * EVDO_0  3G (EVDO 全程 CDMA2000 1xEV-DO) Evolution - Data Only (Data Optimized) 153.6kps - 2.4mbps 属于3G
      * EVDO_A  3G 1.8mbps - 3.1mbps 属于3G过渡，3.5G
      * 1xRTT   2G CDMA2000 1xRTT (RTT - 无线电传输技术) 144kbps 2G的过渡,
-     * HSDPA   3.5G 高速下行分组接入 3.5G WCDMA High Speed Downlink Packet Access 14.4mbps
+     * HSDPA   3.5G 高速下行分组接入 3.5G WCDMA High Speed Down link Packet Access 14.4mbps
      * HSUPA   3.5G High Speed Uplink Packet Access 高速上行链路分组接入 1.4 - 5.8 mbps
      * HSPA    3G (分HSDPA,HSUPA) High Speed Packet Access
      * IDEN    2G Integrated Dispatch Enhanced Networks 集成数字增强型网络 （属于2G，来自维基百科）
@@ -283,8 +283,8 @@ public class Network {
             case ConnectivityManager.TYPE_MOBILE_HIPRI:
             case ConnectivityManager.TYPE_MOBILE_MMS:
             case ConnectivityManager.TYPE_MOBILE_SUPL:
-                int teleType = getTelephonyManager(context).getNetworkType();
-                switch (teleType) {
+                int networkType = getTelephonyManager(context).getNetworkType();
+                switch (networkType) {
                     case TelephonyManager.NETWORK_TYPE_GPRS:
                     case TelephonyManager.NETWORK_TYPE_EDGE:
                     case TelephonyManager.NETWORK_TYPE_CDMA:

@@ -7,8 +7,8 @@ import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.base.BaseActivity;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/9/30 0030.
+ * Description : TestActivity
+ * Created by xin on 2017/9/30 0030.
  */
 
 public class TestActivity extends BaseActivity{

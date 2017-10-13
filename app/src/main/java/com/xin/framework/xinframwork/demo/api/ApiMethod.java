@@ -1,8 +1,8 @@
 package com.xin.framework.xinframwork.demo.api;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/30 0030.
+ * Description : 网络接口请求的方法。根据具体需要使用
+ * Created by xin on 2017/8/30 0030.
  */
 
 public interface ApiMethod {

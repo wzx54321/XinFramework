@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Description : download线程池
- * Created by 王照鑫 on 2017/9/28 0028.
+ * Created by xin on 2017/9/28 0028.
  */
 
 public class DownloadThreadPool {

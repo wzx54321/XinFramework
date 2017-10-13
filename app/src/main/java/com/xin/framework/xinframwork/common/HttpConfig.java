@@ -22,7 +22,7 @@ import okhttp3.OkHttpClient;
 
 /**
  * Description : 网络请求配置
- * Created by 王照鑫
+ * Created by xin
  */
 
 public class HttpConfig {
@@ -44,7 +44,7 @@ public class HttpConfig {
         // log相关
         HttpLog httpLog = new HttpLog();
         httpLog.setPrintLevel(HttpLog.Level.BODY); // log打印级别，决定了log显示的详细程度
-        //  httpLog.setPrintbinaryBody(true);// 打印二进制Log ,默认不打印
+        //  httpLog.setPrintBinaryBody(true);// 打印二进制Log ,默认不打印
         builder.addInterceptor(httpLog);
 
         // 超时时间设置，默认60秒

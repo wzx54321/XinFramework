@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 public class TitlePropertyUtils {
 
     public final static String PROPERTY_DNS_PRIMARY = "net.dns1";
-    public final static String PROPERTY_DNS_SECNDARY = "net.dns2";
+    public final static String PROPERTY_DNS_SECONDARY = "net.dns2";
 
     private final static String CMD_GET_PROP = "getprop";
 

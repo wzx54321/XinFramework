@@ -34,7 +34,7 @@ public class ShellUtil {
 
     /**
      * execute shell commands
-     * {@link CommandResult#result} is -1, there maybe some excepiton.
+     * {@link CommandResult#result} is -1, there maybe some exception.
      *
      * @param commands     command array
      * @param isRoot       whether need to run with root
@@ -61,7 +61,7 @@ public class ShellUtil {
                     continue;
                 }
 
-                // donnot use os.writeBytes(commmand), avoid chinese charset error
+                // Do not use os.writeBytes(command), avoid chinese charset error
                 os.write(command.getBytes());
                 os.writeBytes(COMMAND_LINE_END);
                 os.flush();

@@ -169,7 +169,6 @@ public class HttpUtils {
 
     /**
      * 通过 ‘？’ 和 ‘/’ 判断文件名
-     * http://mavin-manzhan.oss-cn-hangzhou.aliyuncs.com/1486631099150286149.jpg?x-oss-process=image/watermark,image_d2F0ZXJtYXJrXzIwMF81MC5wbmc
      */
     private static String getUrlFileName(String url) {
         String filename = null;

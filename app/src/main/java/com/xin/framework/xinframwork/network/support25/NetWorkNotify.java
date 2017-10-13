@@ -2,14 +2,13 @@ package com.xin.framework.xinframwork.network.support25;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkRequest;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/6/15 0015.
+ * Description : 网络环境更新回调
+ * Created by xin on 2017/6/15 0015.
  */
 
 public class NetWorkNotify {

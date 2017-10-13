@@ -2,7 +2,7 @@ package com.xin.framework.xinframwork.http.plugins.up_download;
 
 /**
  * Description :下载上传状态
- * Created by 王照鑫 on 2017/9/28 0028.
+ * Created by xin on 2017/9/28 0028.
  */
 
 public interface StatusConst {

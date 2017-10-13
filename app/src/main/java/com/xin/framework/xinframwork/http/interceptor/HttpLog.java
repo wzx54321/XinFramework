@@ -21,13 +21,13 @@ import okhttp3.internal.http.HttpHeaders;
 import okio.Buffer;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/8/22 0022.
+ * Description : 网络Log
+ * Created by xin on 2017/8/22 0022.
  */
 
 public class HttpLog implements Interceptor {
 
-    private boolean isPrintbinaryBody;
+    private boolean isPrintBinaryBody;
 
     public enum Level {
         NONE,       //不打印log
@@ -43,8 +43,8 @@ public class HttpLog implements Interceptor {
         this.printLevel = printLevel;
     }
 
-    public void setPrintbinaryBody(boolean printbinaryBody) {
-        isPrintbinaryBody = printbinaryBody;
+    public void setPrintBinaryBody(boolean printBinaryBody) {
+        isPrintBinaryBody = printBinaryBody;
     }
 
     @Override
@@ -145,7 +145,7 @@ public class HttpLog implements Interceptor {
                 if (logBody && HttpHeaders.hasBody(clone)) {
                     if (responseBody == null) return response;
 
-                    if (isPrintbinaryBody || isPlaintext(responseBody.contentType())) {
+                    if (isPrintBinaryBody || isPlaintext(responseBody.contentType())) {
                         byte[] bytes = IOUtils.toByteArray(responseBody.byteStream());
                         MediaType contentType = responseBody.contentType();
                         String body = new String(bytes, getCharset(contentType));
@@ -153,7 +153,7 @@ public class HttpLog implements Interceptor {
                         responseBody = ResponseBody.create(responseBody.contentType(), bytes);
                         return response.newBuilder().body(responseBody).build();
                     } else {
-                        responseMsg.append("\tbody: maybe [binary body], omitted! \n if you want to log it please call set isPrintbinaryBody is true");
+                        responseMsg.append("\tbody: maybe [binary body], omitted! \n if you want to log it please call set isPrintBinaryBody is true");
                     }
                 }
             }

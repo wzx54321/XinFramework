@@ -30,11 +30,11 @@ import java.io.StringWriter;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-import static com.xin.framework.xinframwork.common.FileConfig.DIR_PUBLLIC_ROOT;
+import static com.xin.framework.xinframwork.common.FileConfig.DIR_PUBLIC_ROOT;
 
 /**
- * Description :
- * Created by 王照鑫 on 2017/5/2 0002.
+ * Description : 文件工具
+ * Created by xin on 2017/5/2 0002.
  */
 
 public class FileUtil {
@@ -103,7 +103,7 @@ public class FileUtil {
                         } else {
                             boolean isDel = delFile[j].delete();// 删除文件
                             Log.d(TAG,
-                                    "deleteFileDir.delFile[" + j + "] = " + delFile[j] + ", isDeltet = " + isDel);
+                                    "deleteFileDir.delFile[" + j + "] = " + delFile[j] + ", isDelete  = " + isDel);
                         }
                     }
                 }
@@ -174,12 +174,12 @@ public class FileUtil {
             byte[] buffer;
             BufferedInputStream bis = null;
             BufferedOutputStream bos = null;
-            ByteArrayOutputStream baos = null;
+            ByteArrayOutputStream byteArrayOutputStream = null;
             try {
                 bis = new BufferedInputStream(new FileInputStream(file),
                         DEFAULT_BUFFER_SIZE);
-                baos = new ByteArrayOutputStream();
-                bos = new BufferedOutputStream(baos,
+                byteArrayOutputStream = new ByteArrayOutputStream();
+                bos = new BufferedOutputStream(byteArrayOutputStream,
                         DEFAULT_BUFFER_SIZE);
                 buffer = new byte[DEFAULT_BUFFER_SIZE];
                 int len;
@@ -191,7 +191,7 @@ public class FileUtil {
                             len);
                 }
                 bos.flush();
-                bytes = baos.toByteArray();
+                bytes = byteArrayOutputStream.toByteArray();
             } catch (Exception e) {
                 return null;
             } finally {
@@ -199,8 +199,8 @@ public class FileUtil {
                     if (bos != null) {
                         bos.close();
                     }
-                    if (baos != null) {
-                        baos.close();
+                    if (byteArrayOutputStream != null) {
+                        byteArrayOutputStream.close();
                     }
                     if (bis != null) {
                         bis.close();
@@ -482,7 +482,7 @@ public class FileUtil {
         boolean isWriteOk = false;
         byte[] buffer;
         int count = 0;
-        ByteArrayInputStream bais = null;
+        ByteArrayInputStream byteArrayInputStream = null;
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         try {
@@ -493,8 +493,8 @@ public class FileUtil {
                 bos = new BufferedOutputStream(new FileOutputStream(file,
                         isAppend),
                         DEFAULT_BUFFER_SIZE);
-                bais = new ByteArrayInputStream(bytes);
-                bis = new BufferedInputStream(bais,
+                byteArrayInputStream = new ByteArrayInputStream(bytes);
+                bis = new BufferedInputStream(byteArrayInputStream,
                         DEFAULT_BUFFER_SIZE);
                 buffer = new byte[DEFAULT_BUFFER_SIZE];
                 int len;
@@ -519,8 +519,8 @@ public class FileUtil {
                 if (bis != null) {
                     bis.close();
                 }
-                if (bais != null) {
-                    bais.close();
+                if (byteArrayInputStream != null) {
+                    byteArrayInputStream.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -677,12 +677,12 @@ public class FileUtil {
     public static long getFileSize(File f) {
         long size = 0;
         try {
-            File flist[] = f.listFiles();
-            for (File aFlist : flist) {
-                if (aFlist.isDirectory()) {
-                    size = size + getFileSize(aFlist);
+            File fList[] = f.listFiles();
+            for (File file : fList) {
+                if (file.isDirectory()) {
+                    size = size + getFileSize(file);
                 } else {
-                    size = size + aFlist.length();
+                    size = size + file.length();
                 }
             }
             return size;
@@ -709,15 +709,15 @@ public class FileUtil {
      * 保存APP资源文件到文件系统
      *
      * @param resID      drawable 资源文件
-     * @param difnneName 定义的文件名
+     * @param defineName 定义的文件名
      * @return 文件路径
      *//*
     public static String saveResImgToFile(int resID,
-                                          String difnneName) {
+                                          String defineName) {
         String path = null;
         try {
             File Dir = FileConfig.getScreenShortCutDir();
-            path = Dir.getAbsolutePath() + File.separator + difnneName;
+            path = Dir.getAbsolutePath() + File.separator + defineName;
             File file = new File(path);
             // 文件已存在
             Bitmap bitmap = BitmapFactory.decodeResource(WithinApplication.getAppContext()
@@ -866,7 +866,7 @@ public class FileUtil {
                     }
 
                     // then delete the files and subdirectories in this dir
-                    // only empty directories can be deleted, so subdirs have
+                    // only empty directories can be deleted, so subDirs have
                     // been done first
                     if (child.lastModified() < new Date().getTime() - numDays * DateUtils.DAY_IN_MILLIS) {
                         if (child.delete()) {
@@ -883,16 +883,17 @@ public class FileUtil {
 
     /**
      * 获取 SDCARD上的存储根目录（如果登录过，会自动追加加userId的子目录）<br>
-     * ，/mnt/sdcard/mericentury/whithin
+     * ，/mnt/sdcard/DIR_PUBLIC_ROOT
+     *
      *
      * @param type
      * @return
      */
     public static File getPublicDir(String type) {
-        if (DIR_PUBLLIC_ROOT.equals(type)) {
-            return Environment.getExternalStoragePublicDirectory(DIR_PUBLLIC_ROOT);
+        if (DIR_PUBLIC_ROOT.equals(type)) {
+            return Environment.getExternalStoragePublicDirectory(DIR_PUBLIC_ROOT);
         } else {
-            return new File(Environment.getExternalStoragePublicDirectory(DIR_PUBLLIC_ROOT),
+            return new File(Environment.getExternalStoragePublicDirectory(DIR_PUBLIC_ROOT),
                     type);
         }
     }

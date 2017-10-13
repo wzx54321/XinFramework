@@ -323,7 +323,7 @@ public abstract class Request<T, R extends Request> implements Serializable {
     /** 根据不同的请求方式，将RequestBody转换成Request对象 */
     public abstract okhttp3.Request generateRequest(RequestBody requestBody);
 
-    /** 获取okhttp的同步call对象 */
+    /** 获取okHttp的同步call对象 */
     public okhttp3.Call getRawCall() {
         //构建请求体，返回call对象
         RequestBody requestBody = generateRequestBody();

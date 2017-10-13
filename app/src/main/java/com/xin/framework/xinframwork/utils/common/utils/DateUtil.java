@@ -34,7 +34,7 @@ public class DateUtil {
         public static final String YEAR_FORMAT                                     = "yyyy";
         public static final String YEAR_MOUTH_DAY_HOUR_MINUTE                      = "yyyy-MM-dd HH:mm";
         public static final String MOUTH_DAY                                       = "MM月dd日";
-        public static final String MOUTH_DAY_smaple                                = "M月d日";
+        public static final String MOUTH_DAY_SAMPLE                                = "M月d日";
         public static final String TIME                                            = "HH:mm:ss";
         public static final String HOUR_MINUTE                                     = "HH:mm";
     }
@@ -71,10 +71,9 @@ public class DateUtil {
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat(format);
             ParsePosition pos = new ParsePosition(0);
-            Date strtodate = formatter.parse(strDate,
-                                             pos);
 
-            return strtodate;
+            return formatter.parse(strDate,
+                                             pos);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,11 +91,10 @@ public class DateUtil {
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat(format);
             ParsePosition pos = new ParsePosition(0);
-            Date strtodate = formatter.parse(strDate,
+            Date strToDate = formatter.parse(strDate,
                                              pos);
 
-            String dateStr = formatter.format(strtodate);
-            return dateStr;
+            return formatter.format(strToDate);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,12 +106,12 @@ public class DateUtil {
     /**
      * @param strDate
      *            2016-10-18
-     * @param splite
+
      * @return
      */
     public static String[] formatStrDate(String strDate,
-                                         String splite) {
-        return strDate.split(splite);
+                                         String splitStr) {
+        return strDate.split(splitStr);
     }
 
     public static String getTime() {
@@ -199,18 +197,18 @@ public class DateUtil {
      * 根据日期 找到对应日期的 星期
      */
     public static String getDayOfWeekByDate(String date) {
-        String dayOfweek = "-1";
+        String dayOfWeek = "-1";
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd");
             Date myDate = myFormatter.parse(date);
             @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("E");
             String str = formatter.format(myDate);
-            dayOfweek = str;
+            dayOfWeek = str;
 
         } catch (Exception e) {
             System.out.println("错误!");
         }
-        return dayOfweek;
+        return dayOfWeek;
     }
 
 

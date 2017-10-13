@@ -62,7 +62,7 @@ public class AsyncExecutor {
                 } catch (ExecutionException e) {
                     Log.e(TAG, e.getMessage());
                     e.printStackTrace();
-                    throw new RuntimeException("An error occured while executing doInBackground()", e.getCause());
+                    throw new RuntimeException("An error occur while executing doInBackground()", e.getCause());
                 } catch (CancellationException e) {
                     worker.abort();
                     postCancel(worker);
