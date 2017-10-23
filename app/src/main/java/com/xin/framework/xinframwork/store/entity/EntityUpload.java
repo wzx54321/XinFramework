@@ -131,7 +131,7 @@ public class EntityUpload  extends Progress{
         return currentSize;
     }
 
-    public void setCurrentSize(long currentSize) {
+    public void setCurrentSize(@SuppressWarnings("SameParameterValue") long currentSize) {
         this.currentSize = currentSize;
     }
 
@@ -187,7 +187,7 @@ public class EntityUpload  extends Progress{
         return speed;
     }
 
-    public void setSpeed(long speed) {
+    public void setSpeed(@SuppressWarnings("SameParameterValue") long speed) {
         this.speed = speed;
     }
 

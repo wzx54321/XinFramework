@@ -16,6 +16,8 @@
 package com.xin.framework.xinframwork.http.cookie;
 
 
+import android.support.annotation.NonNull;
+
 import com.xin.framework.xinframwork.http.cookie.store.CookieStore;
 
 import java.util.List;
@@ -45,12 +47,12 @@ public class CookieJarImpl implements CookieJar {
     }
 
     @Override
-    public synchronized void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+    public synchronized void saveFromResponse(@NonNull HttpUrl url, @NonNull List<Cookie> cookies) {
         cookieStore.saveCookie(url, cookies);
     }
 
     @Override
-    public synchronized List<Cookie> loadForRequest(HttpUrl url) {
+    public synchronized List<Cookie> loadForRequest(@NonNull HttpUrl url) {
         return cookieStore.loadCookie(url);
     }
 

@@ -70,7 +70,7 @@ public class SPManager implements SharedPreferencesKeys {
     /**
      * 登录的UID
      *
-     * @return
+     * @return UserID
      */
     public String getUserID() {
         return mDk.get(KEY_USER_ID, "");

@@ -1,5 +1,6 @@
 package com.xin.framework.xinframwork.utils.common.assist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 /**
@@ -14,6 +15,7 @@ public class XinToast {
         this.context = context.getApplicationContext();
     }
 
+    @SuppressLint("ShowToast")
     public android.widget.Toast getSingletonToast(int resId) {
         if (mToast == null) {
             mToast = android.widget.Toast.makeText(context, resId, android.widget.Toast.LENGTH_SHORT);
@@ -23,6 +25,7 @@ public class XinToast {
         return mToast;
     }
 
+    @SuppressLint("ShowToast")
     public android.widget.Toast getSingletonToast(String text) {
         if (mToast == null) {
             mToast = android.widget.Toast.makeText(context, text, android.widget.Toast.LENGTH_SHORT);
@@ -32,6 +35,7 @@ public class XinToast {
         return mToast;
     }
 
+    @SuppressLint("ShowToast")
     public android.widget.Toast getSingleLongToast(int resId) {
         if (mToast == null) {
             mToast = android.widget.Toast.makeText(context, resId, android.widget.Toast.LENGTH_LONG);
@@ -41,6 +45,7 @@ public class XinToast {
         return mToast;
     }
 
+    @SuppressLint("ShowToast")
     public android.widget.Toast getSingleLongToast(String text) {
         if (mToast == null) {
             mToast = android.widget.Toast.makeText(context, text, android.widget.Toast.LENGTH_LONG);

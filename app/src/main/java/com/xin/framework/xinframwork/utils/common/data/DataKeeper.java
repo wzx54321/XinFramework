@@ -84,7 +84,7 @@ public class DataKeeper {
         put(key, ser, null);
     }
 
-    public void put(String key, Object ser, Cipher cipher) {
+    public void put(String key, Object ser, @SuppressWarnings("SameParameterValue") Cipher cipher) {
         try {
             Log.i(TAG, key + " put: " + ser);
             if (ser == null) {

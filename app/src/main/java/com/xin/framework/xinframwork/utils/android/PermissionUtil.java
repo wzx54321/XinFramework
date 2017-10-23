@@ -1,7 +1,9 @@
 package com.xin.framework.xinframwork.utils.android;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.xin.framework.xinframwork.app.XinApplication;
@@ -158,8 +160,11 @@ public class PermissionUtil {
     /**
      * 传感器权限
      */
+    @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
     public static void sensors(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.BODY_SENSORS);
+
+            requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.BODY_SENSORS);
+
     }
 
 

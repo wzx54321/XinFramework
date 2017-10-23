@@ -25,7 +25,6 @@ import me.framework.fragmentation.helper.internal.TransactionRecord;
 import me.framework.fragmentation.helper.internal.VisibleDelegate;
 
 /**
- * Created by YoKeyword on 16/1/22.
  */
 public class FragmentSupport extends RxFragment implements ISupportFragment {
     // LaunchMode

@@ -22,7 +22,6 @@ import java.util.Map;
 public class OkUpload {
     private Map<String, UploadTask<?>> taskMap;         //所有任务
     private UploadThreadPool threadPool;                //上传的线程池
-    private UploadBox mBox;
 
 
     public static OkUpload getInstance() {
@@ -37,7 +36,7 @@ public class OkUpload {
     private OkUpload() {
         threadPool = new UploadThreadPool();
         taskMap = new LinkedHashMap<>();
-        mBox = new UploadBox();
+        UploadBox mBox = new UploadBox();
         //校验数据的有效性，防止下载过程中退出，第二次进入的时候，由于状态没有更新导致的状态错误
         List<EntityUpload> taskList = mBox.getUploading();
 

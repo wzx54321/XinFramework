@@ -1,5 +1,7 @@
 package com.xin.framework.xinframwork.http.request.base;
 
+import android.support.annotation.NonNull;
+
 import com.xin.framework.xinframwork.http.callback.Callback;
 import com.xin.framework.xinframwork.http.utils.HttpUtils;
 import com.xin.framework.xinframwork.store.entity.EntityUpload;
@@ -40,7 +42,7 @@ public class ProgressRequestBody<T> extends RequestBody {
     }
 
     @Override
-    public void writeTo(BufferedSink sink) throws IOException {
+    public void writeTo(@NonNull BufferedSink sink) throws IOException {
         CountingSink countingSink = new CountingSink(sink);
         BufferedSink bufferedSink = Okio.buffer(countingSink);
         requestBody.writeTo(bufferedSink);
@@ -71,7 +73,7 @@ public class ProgressRequestBody<T> extends RequestBody {
 
 
         @Override
-        public void write(Buffer source, long byteCount) throws IOException {
+        public void write(@NonNull Buffer source, long byteCount) throws IOException {
             super.write(source, byteCount);
             EntityUpload.changeProgress(progress, byteCount, new EntityUpload.Action() {
                 @Override

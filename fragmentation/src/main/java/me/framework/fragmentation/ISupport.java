@@ -2,7 +2,6 @@ package me.framework.fragmentation;
 
 
 /**
- * Created by YoKeyword on 16/6/1.
  */
 interface ISupport {
 

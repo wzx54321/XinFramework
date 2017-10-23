@@ -39,7 +39,6 @@ public class TestActivity extends BaseActivity{
         return R.layout.activity_test;
     }
 
-    @Nullable
     @Override
     protected void initTitleBar() {
 

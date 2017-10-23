@@ -55,6 +55,7 @@ class AndroidLogAdapter implements LogAdapter {
 
 
     private void writeLog2Native(final String content) {
+        //noinspection StatementWithEmptyBody
         if (isWriteLogToFile) {
             // TODO 写文件
             /*singleThreadExecutor.execute(new Runnable() {

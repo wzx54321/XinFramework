@@ -1,6 +1,6 @@
 package com.xin.framework.xinframwork.http.plugins.glide.transform;
 
-/**
+ /*
  * Copyright (C) 2015 Wasabeef
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -79,9 +79,6 @@ public class RoundedCornersTransformation implements Transformation<Bitmap> {
         int height = source.getHeight();
 
         Bitmap bitmap = mBitmapPool.get(width, height, Bitmap.Config.ARGB_8888);
-        if (bitmap == null) {
-            bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        }
 
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();

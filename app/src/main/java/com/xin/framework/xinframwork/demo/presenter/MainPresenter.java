@@ -51,7 +51,7 @@ public class MainPresenter implements MainContract.Presenter {
 
             @Override
             public void onSuccess(@NonNull CustomData<AppVersion> result) {
-                AppVersion appVersion = result.data;
+                @SuppressWarnings("UnusedAssignment") AppVersion appVersion = result.data;
                 Log.i("onSuccess");
             }
 

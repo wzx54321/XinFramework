@@ -25,7 +25,7 @@ public class ViewFinder {
     }
     /**
      * 动态设置ListView的高度
-     * @param listView
+     * @param listView ListView
      */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         if(listView == null) return;

@@ -67,6 +67,7 @@ public class FirstCacheRequestPolicy<T> extends BaseCachePolicy<T> {
         //同步请求，不能返回两次，只返回正确的数据
         Response<T> response;
         if (cacheEntity != null) {
+            //noinspection UnusedAssignment
             response = Response.success(true, cacheEntity.getData(), rawCall, null);
         }
         response = requestNetworkSync();

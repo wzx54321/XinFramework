@@ -107,7 +107,7 @@ public class EntityDownload extends Progress {
     public void setRequestData(byte[] requestData) {
         this.requestData = requestData;
 
-        if (requestData != null) {
+        if (requestData != null && request == null) {
             setRequest((Request<?, ? extends Request>) IOUtils.toObject(requestData));
         }
     }
@@ -119,7 +119,7 @@ public class EntityDownload extends Progress {
     public void setRequest(Request<?, ? extends Request> request) {
         this.request = request;
         if (requestData == null) {
-            setRequestData(IOUtils.toByteArray(requestData));
+            setRequestData(IOUtils.toByteArray(request));
         }
     }
 
@@ -239,6 +239,7 @@ public class EntityDownload extends Progress {
         return speed;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void setSpeed(long speed) {
         this.speed = speed;
     }

@@ -2,6 +2,7 @@ package com.xin.framework.xinframwork.http.plugins.glide.progress.body;
 
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 
 import com.xin.framework.xinframwork.http.plugins.glide.progress.ImgProgressListener;
 
@@ -56,7 +57,7 @@ public class GlideProgressRequestBody extends RequestBody {
     }
 
     @Override
-    public void writeTo(BufferedSink sink) throws IOException {
+    public void writeTo(@NonNull BufferedSink sink) throws IOException {
         if (mBufferedSink == null) {
             mBufferedSink = Okio.buffer(new CountingSink(sink));
         }
@@ -65,8 +66,8 @@ public class GlideProgressRequestBody extends RequestBody {
             mBufferedSink.flush();
         } catch (IOException e) {
             e.printStackTrace();
-            for (int i = 0; i < mListeners.length; i++) {
-                mListeners[i].onError(mProgressInfo.getId(), e);
+            for (ImgProgressListener mListener : mListeners) {
+                mListener.onError(mProgressInfo.getId(), e);
             }
             throw e;
         }
@@ -82,7 +83,7 @@ public class GlideProgressRequestBody extends RequestBody {
         }
 
         @Override
-        public void write(Buffer source, long byteCount) throws IOException {
+        public void write(@NonNull Buffer source, long byteCount) throws IOException {
             try {
                 super.write(source, byteCount);
             } catch (IOException e) {
@@ -97,30 +98,28 @@ public class GlideProgressRequestBody extends RequestBody {
             }
             totalBytesRead += byteCount;
             tempSize += byteCount;
-            if (mListeners != null) {
-                long curTime = SystemClock.elapsedRealtime();
-                if (curTime - lastRefreshTime >= mRefreshTime || totalBytesRead == mProgressInfo.getContentLength()) {
-                    final long finalTempSize = tempSize;
-                    final long finalTotalBytesRead = totalBytesRead;
-                    final long finalIntervalTime = curTime - lastRefreshTime;
-                    for (int i = 0; i < mListeners.length; i++) {
-                        final ImgProgressListener listener = mListeners[i];
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                // Runnable 里的代码是通过 Handler 执行在主线程的,外面代码可能执行在其他线程
-                                // 所以我必须使用 final ,保证在 Runnable 执行前使用到的变量,在执行时不会被修改
-                                mProgressInfo.setEachBytes(finalTempSize);
-                                mProgressInfo.setCurrentBytes(finalTotalBytesRead);
-                                mProgressInfo.setIntervalTime(finalIntervalTime);
-                                mProgressInfo.setFinish(finalTotalBytesRead == mProgressInfo.getContentLength());
-                                listener.onProgress(mProgressInfo);
-                            }
-                        });
-                    }
-                    lastRefreshTime = curTime;
-                    tempSize = 0;
+            long curTime = SystemClock.elapsedRealtime();
+            if (curTime - lastRefreshTime >= mRefreshTime || totalBytesRead == mProgressInfo.getContentLength()) {
+                final long finalTempSize = tempSize;
+                final long finalTotalBytesRead = totalBytesRead;
+                final long finalIntervalTime = curTime - lastRefreshTime;
+                for (int i = 0; i < mListeners.length; i++) {
+                    final ImgProgressListener listener = mListeners[i];
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Runnable 里的代码是通过 Handler 执行在主线程的,外面代码可能执行在其他线程
+                            // 所以我必须使用 final ,保证在 Runnable 执行前使用到的变量,在执行时不会被修改
+                            mProgressInfo.setEachBytes(finalTempSize);
+                            mProgressInfo.setCurrentBytes(finalTotalBytesRead);
+                            mProgressInfo.setIntervalTime(finalIntervalTime);
+                            mProgressInfo.setFinish(finalTotalBytesRead == mProgressInfo.getContentLength());
+                            listener.onProgress(mProgressInfo);
+                        }
+                    });
                 }
+                lastRefreshTime = curTime;
+                tempSize = 0;
             }
         }
     }

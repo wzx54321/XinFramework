@@ -31,13 +31,12 @@ import io.objectbox.query.QueryBuilder;
 public abstract class BaseBoxManager<T> {
 
 
-    private String TAG;
     protected Box<T> mBox;
     Class<T> tClass;
 
 
     public BaseBoxManager(Class<T> entityClazz) {
-        TAG = getClass().getSimpleName();
+
         this.tClass = entityClazz;
         mBox = DBConfig.getBoxStore().boxFor(tClass);
 

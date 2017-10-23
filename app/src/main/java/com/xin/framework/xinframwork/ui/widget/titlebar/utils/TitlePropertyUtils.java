@@ -37,7 +37,7 @@ public class TitlePropertyUtils {
      *
      * @param key      property key.
      * @param defValue default value.
-     * @return
+     * @return String
      */
     public static String get(String key, String defValue) {
         if (TextUtils.isEmpty(key)) {
@@ -58,7 +58,7 @@ public class TitlePropertyUtils {
      *
      * @param key      property key.
      * @param defValue default value.
-     * @return
+     * @return String
      */
     public static String getQuickly(String key, String defValue) {
         if (TextUtils.isEmpty(key)) {

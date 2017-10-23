@@ -2,6 +2,7 @@ package com.xin.framework.xinframwork.http.plugins.glide.progress.body;
 
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 
 import com.xin.framework.xinframwork.http.plugins.glide.progress.ImgProgressListener;
 
@@ -64,14 +65,14 @@ public class GlideProgressResponseBody extends ResponseBody {
             private long tempSize = 0L;
 
             @Override
-            public long read(Buffer sink, long byteCount) throws IOException {
-                long bytesRead = 0L;
+            public long read(@NonNull Buffer sink, long byteCount) throws IOException {
+                long bytesRead;
                 try {
                     bytesRead = super.read(sink, byteCount);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    for (int i = 0; i < mListeners.length; i++) {
-                        mListeners[i].onError(mProgressInfo.getId(), e);
+                    for (ImgProgressListener mListener : mListeners) {
+                        mListener.onError(mProgressInfo.getId(), e);
                     }
                     throw e;
                 }
@@ -88,8 +89,7 @@ public class GlideProgressResponseBody extends ResponseBody {
                         final long finalTempSize = tempSize;
                         final long finalTotalBytesRead = totalBytesRead;
                         final long finalIntervalTime = curTime - lastRefreshTime;
-                        for (int i = 0; i < mListeners.length; i++) {
-                            final  ImgProgressListener listener = mListeners[i];
+                        for (final ImgProgressListener listener : mListeners) {
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {

@@ -1,20 +1,18 @@
 package com.xin.framework.xinframwork.utils.android.logger;
 
 
-
-
 public final class LogSettings {
 
     private int methodCount = 2;
     private boolean showThreadInfo = true;
     private int methodOffset = 0;
-    private LogAdapter logAdapter;
+    private AndroidLogAdapter logAdapter;
     private boolean isWriteLogToFile = false;
 
     /**
      * Determines to how logs will be printed
      */
-    private LogLevel logLevel =   LogLevel.FULL/* : LogLevel.NONE*/;
+    private LogLevel logLevel = LogLevel.FULL/* : LogLevel.NONE*/;
 
     public LogSettings hideThreadInfo() {
         showThreadInfo = false;
@@ -39,17 +37,18 @@ public final class LogSettings {
         return this;
     }
 
-    public LogSettings logAdapter(LogAdapter logAdapter) {
+    public LogSettings logAdapter(AndroidLogAdapter logAdapter) {
         this.logAdapter = logAdapter;
         return this;
     }
 
     public boolean isWriteLogToFile() {
-        if(logAdapter == null){
-            if(logAdapter instanceof AndroidLogAdapter){
-                ((AndroidLogAdapter) logAdapter).setWriteLogToFile(isWriteLogToFile());
-            }
+
+
+        if (logAdapter != null) {
+            logAdapter.setWriteLogToFile(isWriteLogToFile);
         }
+
 
         return isWriteLogToFile;
     }

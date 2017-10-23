@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--谷歌推荐的色值，可以对应@color/...引用-->
+    <!-- google's material design colours from http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
+
     <color name="colorPrimary">@color/_3f51b5_indigo_500</color>
     <color name="colorPrimaryDark">@color/_303f9f_indigo_700</color>
     <color name="colorAccent">@color/ff80ab_pink_a200</color>
@@ -33,8 +36,7 @@
           0%=00（全透明）-->
 
 
-    <!-- google's material design colours from
-   http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
+
 
     <!--red-->
     <color name="ffebee_red_50">#FFEBEE</color>

@@ -23,7 +23,7 @@ public class TitleCompatibilityUtil {
     /**
      * Check whether is running Flyme
      *
-     * @return
+     * @return is running Flyme
      */
     public static boolean isFlyme() {
         try {
@@ -38,7 +38,7 @@ public class TitleCompatibilityUtil {
     /**
      * Check whether is MIUI
      *
-     * @return
+     * @return  is MIUI
      */
     public static boolean isMIUI() {
         String miuiVer = TitlePropertyUtils.getQuickly("ro.miui.ui.version.name", null);

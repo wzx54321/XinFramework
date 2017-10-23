@@ -20,7 +20,7 @@ public class AsyncExecutor {
         this(null);
     }
 
-    public AsyncExecutor(ExecutorService threadPool) {
+    public AsyncExecutor(@SuppressWarnings("SameParameterValue") ExecutorService threadPool) {
         if (AsyncExecutor.threadPool != null) {
             shutdownNow();
         }

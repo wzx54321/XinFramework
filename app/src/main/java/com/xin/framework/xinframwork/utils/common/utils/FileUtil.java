@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -42,10 +41,10 @@ public class FileUtil {
     public static final int DEFAULT_BUFFER_SIZE = 8 * 1024;
 
 
-    /**
-     * ********************************************读写***************************
-     *
+    /*
+      ********************************************读写***************************
      */
+
     /**
      * Returns a human-readable version of the file size, where the input
      * represents a specific number of bytes.
@@ -705,14 +704,14 @@ public class FileUtil {
         return memoryCacheSize;
     }
 
-   /* *//**
+   /* /**
      * 保存APP资源文件到文件系统
      *
      * @param resID      drawable 资源文件
      * @param defineName 定义的文件名
      * @return 文件路径
-     *//*
-    public static String saveResImgToFile(int resID,
+     */
+    /*public static String saveResImgToFile(int resID,
                                           String defineName) {
         String path = null;
         try {
@@ -736,8 +735,8 @@ public class FileUtil {
             e.printStackTrace();
         }
         return path;
-    }*/
-
+    }
+            */
 
     /**
      * 如果存在就文件名追加（count），如report（1）
@@ -885,7 +884,6 @@ public class FileUtil {
      * 获取 SDCARD上的存储根目录（如果登录过，会自动追加加userId的子目录）<br>
      * ，/mnt/sdcard/DIR_PUBLIC_ROOT
      *
-     *
      * @param type
      * @return
      */
@@ -929,17 +927,14 @@ public class FileUtil {
     public static File getExternalCacheDir(Context context) {
 
         if (SdCardUtil.isSdCardAvailable()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-                return context.getExternalCacheDir();
-            }
-            String cacheDir = "/Android/data/" + context.getPackageName() + "/cache/";
-            return new File(Environment.getExternalStorageDirectory()
-                    .getPath() +
-                    cacheDir);
-        } else
+
+            return context.getExternalCacheDir();
+
+
+        } else {
             // 使用data/data文件夹
             return context.getCacheDir();
-
+        }
     }
 
 

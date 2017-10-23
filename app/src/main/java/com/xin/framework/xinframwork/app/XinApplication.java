@@ -61,6 +61,7 @@ public class XinApplication extends Application {
     /**
      * 退出应用
      */
+    @SuppressWarnings("unused")
     public static void exitApp(){
         mAppDelegate.exit();
     }

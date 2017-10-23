@@ -53,10 +53,10 @@ public class ScreenReceiver extends BroadcastReceiver {
         }
     }
 
-    public static interface ScreenListener {
-        public void screenOn();
+    public interface ScreenListener {
+        void screenOn();
 
-        public void screenOff();
+        void screenOff();
     }
 
 }

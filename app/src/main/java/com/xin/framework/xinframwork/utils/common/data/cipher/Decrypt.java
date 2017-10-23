@@ -5,5 +5,5 @@ package com.xin.framework.xinframwork.utils.common.data.cipher;
  * @date 14-7-31
  */
 public interface Decrypt {
-    public byte[] decrypt(byte[] res);
+    byte[] decrypt(byte[] res);
 }

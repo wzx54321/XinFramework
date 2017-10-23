@@ -10,7 +10,6 @@ import java.util.List;
 import me.framework.fragmentation.FragmentSupport;
 
 /**
- * Created by YoKey on 17/4/4.
  */
 
 public class VisibleDelegate {

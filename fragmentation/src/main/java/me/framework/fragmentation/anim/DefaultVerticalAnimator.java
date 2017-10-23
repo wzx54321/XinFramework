@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import me.framework.fragmentation.R;
 
 /**
- * Created by YoKeyword on 16/2/5.
  */
 public class DefaultVerticalAnimator extends FragmentAnimator implements Parcelable{
 

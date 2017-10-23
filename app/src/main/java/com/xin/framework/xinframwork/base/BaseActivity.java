@@ -59,7 +59,6 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
 
     protected abstract int getLayoutId();
 
-    @Nullable
     protected abstract void initTitleBar();
 
 

@@ -1,4 +1,4 @@
-public def increasedVersionCode() {
+public static def increasedVersionCode() {
     return new Date().format("YYMMddHHmm").toInteger();
 }
 ext {

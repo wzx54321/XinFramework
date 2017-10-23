@@ -16,6 +16,7 @@
 package com.xin.framework.xinframwork.http.cache.policy;
 
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 
 import com.xin.framework.xinframwork.http.OkGo;
 import com.xin.framework.xinframwork.http.cache.CacheMode;
@@ -132,7 +133,7 @@ public abstract class BaseCachePolicy<T> implements CachePolicy<T> {
     protected void requestNetworkAsync() {
         rawCall.enqueue(new okhttp3.Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call,@NonNull IOException e) {
                 if (e instanceof SocketTimeoutException && currentRetryCount < request.getRetryCount()) {
                     //retry when timeout
                     currentRetryCount++;
@@ -151,7 +152,7 @@ public abstract class BaseCachePolicy<T> implements CachePolicy<T> {
             }
 
             @Override
-            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull okhttp3.Response response) throws IOException {
                 int responseCode = response.code();
 
                 //network error

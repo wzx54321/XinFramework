@@ -21,8 +21,8 @@ public class ToastPrompt {
     /**
      * Toast显示一个View
      *
-     * @param context
-     * @param view
+     * @param context Context
+     * @param view view
      */
     public static void show(Context context, View view) {
         Toast toast = getToast(context, view);
@@ -32,7 +32,7 @@ public class ToastPrompt {
     /**
      * 显示一个View为TextView的Toast
      *
-     * @param textResId
+     * @param textResId StringRes
      */
     public static void showTextViewPrompt(Context context, @StringRes int textResId) {
         showTextViewPrompt(context, context.getString(textResId));
@@ -59,7 +59,7 @@ public class ToastPrompt {
     /**
      * 显示正确的Toast
      *
-     * @param text
+     * @param text String
      */
     public static void showOkToast(Context context, String text) {
 
@@ -74,7 +74,7 @@ public class ToastPrompt {
     /**
      * 显示错误的Toast
      *
-     * @param text
+     * @param text String
      */
     public static void showErrorToast(Context context, String text) {
         View view = View.inflate(context, R.layout.toast_view_prompt, null);
@@ -89,7 +89,7 @@ public class ToastPrompt {
     /**
      * 显示警告的Toast
      *
-     * @param text
+     * @param text String
      */
     public static void showWarnToast(Context context, String text) {
         View view = View.inflate(context, R.layout.toast_view_prompt, null);
@@ -105,7 +105,7 @@ public class ToastPrompt {
     /**
      * 显示View为TextView 的Toast
      *
-     * @param text
+     * @param text String
      */
     public static void showVerboseToast(Context context, String text) {
         View view = View.inflate(context, R.layout.toast_view_prompt, null);

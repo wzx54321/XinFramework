@@ -1,6 +1,8 @@
 package com.xin.framework.xinframwork.http.interceptor;
 
 
+import android.support.annotation.NonNull;
+
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.common.io.IOUtils;
 
@@ -48,7 +50,7 @@ public class HttpLog implements Interceptor {
     }
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
         if (printLevel == Level.NONE) {
             return chain.proceed(request);

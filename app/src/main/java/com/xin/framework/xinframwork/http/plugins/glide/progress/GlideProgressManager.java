@@ -3,6 +3,7 @@ package com.xin.framework.xinframwork.http.plugins.glide.progress;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.xin.framework.xinframwork.http.plugins.glide.progress.body.GlideProgressRequestBody;
@@ -50,7 +51,7 @@ public class GlideProgressManager {
 
 
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
 
                 Request request = wrapRequestBody(chain.request());
 
@@ -122,10 +123,7 @@ public class GlideProgressManager {
         String status = response.header("Status");
         if (TextUtils.isEmpty(status))
             return false;
-        if (status.contains("301") || status.contains("302") || status.contains("303") || status.contains("307")) {
-            return true;
-        }
-        return false;
+        return status.contains("301") || status.contains("302") || status.contains("303") || status.contains("307");
     }
 
 
@@ -214,8 +212,8 @@ public class GlideProgressManager {
         if (map.containsKey(url)) {
             List<ImgProgressListener> progressListeners = map.get(url);
             ImgProgressListener[] array = progressListeners.toArray(new ImgProgressListener[progressListeners.size()]);
-            for (int i = 0; i < array.length; i++) {
-                array[i].onError(-1, e);
+            for (ImgProgressListener anArray : array) {
+                anArray.onError(-1, e);
             }
         }
     }

@@ -70,7 +70,7 @@ public class PresenterMessage implements Parcelable {
      * <p>
      * It is an error to attempt to enqueue or recycle a PresenterMessage that is already in use.
      */
-    /*package*/ static final int FLAG_IN_USE = 1 << 0;
+    /*package*/ static final int FLAG_IN_USE = 1;
 
     /**
      * If set PresenterMessage is asynchronous
@@ -527,7 +527,7 @@ public class PresenterMessage implements Parcelable {
             obj = source.readParcelable(getClass().getClassLoader());
         }
         when = source.readLong();
-        data = source.readBundle();
+        data = source.readBundle(getClass().getClassLoader());
         replyTo = Messenger.readMessengerOrNullFromParcel(source);
         sendingUid = source.readInt();
     }

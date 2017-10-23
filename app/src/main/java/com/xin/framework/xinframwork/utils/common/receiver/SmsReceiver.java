@@ -106,8 +106,8 @@ public class SmsReceiver extends BroadcastReceiver {
      * Call requires API level 4
      * <uses-permission android:name="android.permission.SEND_SMS"/>
      *
-     * @param phone
-     * @param msg
+     * @param phone  手机
+     * @param msg  内容
      */
     public static void sendMsgToPhone(String phone, String msg) {
         Log.i(TAG, "发送手机：" + phone + " ,内容： " + msg);
@@ -123,9 +123,9 @@ public class SmsReceiver extends BroadcastReceiver {
      * Call requires API level 4
      * <uses-permission android:name="android.permission.WRITE_SMS"/>
      *
-     * @param context
-     * @param phone
-     * @param msg
+     * @param context Context
+     * @param phone 手机号
+     * @param msg  消息
      */
     public static void saveMsgToSystem(Context context, String phone, String msg) {
         ContentValues values = new ContentValues();

@@ -284,7 +284,7 @@ public class SilentInstaller {
     /**
      * uninstall package and clear data of app silent by root
      *
-     * @param context
+     * @param context Context
      * @param packageName package name of app
      * @return
      * @see #uninstallSilent(Context, String, boolean)
@@ -316,7 +316,7 @@ public class SilentInstaller {
             return DELETE_FAILED_INVALID_PACKAGE;
         }
 
-        /**
+        /*
          * if context is system app, don't need root permission, but should add <uses-permission
          * android:name="android.permission.DELETE_PACKAGES" /> in manifest
          **/
@@ -376,7 +376,7 @@ public class SilentInstaller {
             return INSTALL_FAILED_INVALID_URI;
         }
 
-        /**
+        /*
          * if context is system app, don't need root permission, but should add <uses-permission
          * android:name="android.permission.INSTALL_PACKAGES" /> in manifest
          **/

@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by YoKeyword on 16/2/15.
  */
 public class DefaultNoAnimator extends FragmentAnimator implements Parcelable {
     public DefaultNoAnimator() {

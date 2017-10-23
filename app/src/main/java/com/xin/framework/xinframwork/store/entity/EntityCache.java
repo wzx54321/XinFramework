@@ -86,7 +86,7 @@ public class EntityCache<T> implements Serializable {
         return isExpire;
     }
 
-    public void setExpire(boolean expire) {
+    public void setExpire(@SuppressWarnings("SameParameterValue") boolean expire) {
         isExpire = expire;
     }
 
@@ -120,8 +120,7 @@ public class EntityCache<T> implements Serializable {
     public boolean checkExpire(CacheMode cacheMode, long cacheTime, long baseTime) {
         //304的默认缓存模式,设置缓存时间无效,需要依靠服务端的响应头控制
         if (cacheMode == CacheMode.DEFAULT) return getLocalExpire() < baseTime;
-        if (cacheTime == CACHE_NEVER_EXPIRE) return false;
-        return getLocalExpire() + cacheTime < baseTime;
+        return cacheTime != CACHE_NEVER_EXPIRE && getLocalExpire() + cacheTime < baseTime;
     }
 
 

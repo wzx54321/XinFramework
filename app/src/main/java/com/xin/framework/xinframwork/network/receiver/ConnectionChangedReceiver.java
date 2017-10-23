@@ -27,7 +27,7 @@ public class ConnectionChangedReceiver extends BroadcastReceiver {
 
             if (netInfo != null && netInfo.isAvailable()) {
                 // 网络连接
-                String name = netInfo.getTypeName();
+                @SuppressWarnings("UnusedAssignment") String name = netInfo.getTypeName();
 
 
                 if (netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
@@ -54,6 +54,7 @@ public class ConnectionChangedReceiver extends BroadcastReceiver {
                 // 网络断开
                 Log.d(
                         "网络断开");
+                //noinspection StatementWithEmptyBody
                 if (!isDisconnect) {
                     // 发送断网广播
 

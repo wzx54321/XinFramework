@@ -12,6 +12,7 @@ import android.text.TextUtils;
 
 import com.meituan.android.walle.ChannelInfo;
 import com.meituan.android.walle.WalleChannelReader;
+import com.xin.framework.xinframwork.utils.android.logger.Log;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -40,6 +41,7 @@ public class SysUtils {
                         .hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                        Log.i("IP info:"+inetAddress.getHostAddress(),"");
                         return inetAddress.getHostAddress();
                     }
                 }
@@ -109,7 +111,7 @@ public class SysUtils {
                 inumeric = ob_phone.toString();
             }
         } catch (Exception e) {
-
+            Log.printStackTrace(e);
         }
         return inumeric;
     }
@@ -210,7 +212,7 @@ public class SysUtils {
      */
     public static ChannelInfo readChannel(Context app) {
 
-        final long startTime = System.currentTimeMillis();
+        @SuppressWarnings("UnusedAssignment") final long startTime = System.currentTimeMillis();
         return WalleChannelReader.getChannelInfo(app);
 
         // TODO

@@ -63,13 +63,16 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         AppConfig.setChannel(app);
 
 
-
         // 生命周期
         app.registerActivityLifecycleCallbacks(this);
 
 
         // 配置网络请求
         HttpConfig.init(app);
+
+        if (BuildConfig.DEBUG) {
+            SysUtils.getPhoneIp();
+        }
 
     }
 
@@ -129,7 +132,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
     }
 
     public void onTrimMemory(int level) {
-       GlideApp.get(app).onTrimMemory(level);
+        GlideApp.get(app).onTrimMemory(level);
     }
 
     public void exit() {
