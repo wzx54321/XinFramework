@@ -38,21 +38,21 @@ public class NetWorkConfig {
         if (SysUtils.hasNougat()) {
 
 
-            PermissionUtil.requestPermission(new PermissionUtil.RequestPermission() {
+                PermissionUtil.requestPermission(new PermissionUtil.RequestPermission() {
 
-                @Override
-                public void onRequestPermissionSuccess() {
+                    @Override
+                    public void onRequestPermissionSuccess() {
 
-                    NetWorkNotify.getInstance(getAppContext()).setNetNotifyForNougat(callback);
+                        NetWorkNotify.getInstance(getAppContext()).setNetNotifyForNougat(callback);
 
 
-                }
+                    }
 
-                @Override
-                public void onRequestPermissionFailure() {
+                    @Override
+                    public void onRequestPermissionFailure() {
 
-                }
-            }, new RxPermissions(activity), null, Manifest.permission.CHANGE_NETWORK_STATE, Manifest.permission.WRITE_SETTINGS);
+                    }
+                }, new RxPermissions(activity), null, Manifest.permission.CHANGE_NETWORK_STATE, Manifest.permission.WRITE_SETTINGS);
 
         }
     }

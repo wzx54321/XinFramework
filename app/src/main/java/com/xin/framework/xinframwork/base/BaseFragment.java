@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xin.framework.xinframwork.mvp.IPresenter;
-import com.xin.framework.xinframwork.mvp.IView;
+import com.xin.framework.xinframwork.mvp.Iv;
 import com.xin.framework.xinframwork.mvp.TypeUtil;
 
 import butterknife.ButterKnife;
@@ -16,7 +16,7 @@ import me.framework.fragmentation.FragmentSupport;
 
 /**
  * 基类
- *  create by xin
+ * create by xin
  */
 public abstract class BaseFragment<P extends IPresenter> extends FragmentSupport {
     protected P mPresenter;
@@ -35,16 +35,35 @@ public abstract class BaseFragment<P extends IPresenter> extends FragmentSupport
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        mRootView = setLayout();
+        mRootView = setLayout(inflater);
         if (mRootView != null) {
             mUnBinder = ButterKnife.bind(this, mRootView);
         }
-        if (this instanceof IView) mPresenter.setView((IView) this);
+        if (this instanceof Iv && mPresenter != null) mPresenter.setView((Iv) this);
+
+
+        initView();
         return mRootView;
     }
 
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (mPresenter != null)
+            mPresenter.onStart();
+
+        onPresenterStarted();
+    }
+
     @Nullable
-    protected abstract View setLayout();
+    protected abstract View setLayout(LayoutInflater inflater);
+    protected abstract void initView();
+    protected abstract void onPresenterStarted();
+
+
+
 
     @Override
     public void onResume() {
@@ -67,4 +86,6 @@ public abstract class BaseFragment<P extends IPresenter> extends FragmentSupport
         this.mPresenter = null;
         this.mUnBinder = null;
     }
+
+
 }

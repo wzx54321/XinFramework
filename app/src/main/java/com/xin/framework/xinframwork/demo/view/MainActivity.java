@@ -1,6 +1,5 @@
 package com.xin.framework.xinframwork.demo.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.base.BaseActivity;
 import com.xin.framework.xinframwork.demo.contract.MainContract;
 import com.xin.framework.xinframwork.demo.presenter.MainPresenter;
+import com.xin.framework.xinframwork.hybrid.activity.CommWebViewActivity;
+import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
 import com.xin.framework.xinframwork.mvp.PresenterMessage;
 
 import butterknife.BindView;
@@ -25,7 +26,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
 
     @Override
     public void createMessage() {
-        msg=PresenterMessage.obtain(this);
+        msg = PresenterMessage.obtain(this);
     }
 
     @Override
@@ -37,13 +38,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
     protected void afterCreated() {
 
         msg = PresenterMessage.obtain(this);
-        mPresenter.onStart();
+
         mPresenter.checkVersion(msg);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
+                CommWebViewActivity.launcher(MainActivity.this, new WebOpenInfo("http://www.baidu.com", null, null));
             }
         });
 
@@ -60,26 +60,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
         return R.layout.activity_main;
     }
 
-    @Override
-    protected void initTitleBar() {
-
-        if (mTitle == null) // mTitle可能为空，不判断会警告
-            return;
-        mTitle.setImmersive(mIsImmersive);
-        mTitle.setLeftText("返回");
-        mTitle.setTitleColor(R.color._00c853_green_a700);
-        mTitle.setBackgroundColor(getResources().getColor(R.color._03a9f4_light_blue_500));
-        mTitle.setTitle("新歌的");
-
-
-        mTitle.setTransparentEnabled(true,
-                20,
-                60);
-
-        mTitle.addViewToFadeListTitle();
-
-
-    }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -142,7 +122,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
             return convertView;
         }
     }
-
 
 
 }

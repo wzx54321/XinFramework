@@ -9,4 +9,7 @@
     <bool name="cookie_enable">false</bool>
     <!--是否请求参数base64处理-->
     <bool name="http_params_base64_enable">true</bool>
+
+    <!--应用退出是否清缓存-->
+    <bool name="web_clear_cache_enable">false</bool>
 </resources>

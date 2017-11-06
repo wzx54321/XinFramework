@@ -5,7 +5,7 @@ import com.xin.framework.xinframwork.demo.contract.MainContract;
 import com.xin.framework.xinframwork.demo.model.MainModel;
 import com.xin.framework.xinframwork.http.callback.CustomRequestCallback;
 import com.xin.framework.xinframwork.http.model.CustomData;
-import com.xin.framework.xinframwork.mvp.IView;
+import com.xin.framework.xinframwork.mvp.Iv;
 import com.xin.framework.xinframwork.mvp.PresenterMessage;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 
@@ -23,7 +23,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onStart() {
-        // TODO something
+
 
         model = new MainModel();
     }
@@ -35,7 +35,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void setView(IView iview) {
+    public void setView( Iv iview) {
         mView = (MainContract.View) iview;
     }
 

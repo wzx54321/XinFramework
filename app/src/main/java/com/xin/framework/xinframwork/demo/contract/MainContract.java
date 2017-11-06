@@ -1,5 +1,7 @@
 package com.xin.framework.xinframwork.demo.contract;
 
+import com.xin.framework.xinframwork.demo.bean.AppVersion;
+import com.xin.framework.xinframwork.http.callback.CustomRequestCallback;
 import com.xin.framework.xinframwork.mvp.IModel;
 import com.xin.framework.xinframwork.mvp.IPresenter;
 import com.xin.framework.xinframwork.mvp.IView;
@@ -22,7 +24,7 @@ public interface MainContract {
     }
 
     interface Model extends IModel {
-
+        void checkVersion(CustomRequestCallback<AppVersion> customRequestCallback);
     }
 
 

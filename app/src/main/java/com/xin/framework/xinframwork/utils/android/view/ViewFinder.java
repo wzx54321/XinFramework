@@ -1,10 +1,15 @@
 package com.xin.framework.xinframwork.utils.android.view;
 
 import android.app.Activity;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.xin.framework.xinframwork.utils.android.SysUtils;
+
+import java.util.UUID;
 
 /**
  * Created by Get_sugar
@@ -46,5 +51,14 @@ public class ViewFinder {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+
+    public static int generateViewId() {
+        if (SysUtils.hasJellyBeanMr1()) {
+            return View.generateViewId();
+        } else {
+            return UUID.randomUUID().hashCode();
+        }
     }
 }

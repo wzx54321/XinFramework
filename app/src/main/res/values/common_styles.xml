@@ -11,21 +11,22 @@
         <item name="android:textViewStyle">@style/common_textView</item>
         <item name="android:dialogTheme">@style/common_dialog_alert</item>
         <item name="android:alertDialogTheme">@style/common_dialog_alert</item>
+
     </style>
 
     <!--Common style-->
     <style name="AppTheme1" parent="@android:style/Theme.Light">
         <item name="android:windowNoTitle">true</item>
-     <!--   <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-        <item name="android:textViewStyle">@style/MR.TextView</item>
-        <item name="android:editTextStyle">@style/MR.EditText</item>
-        <item name="android:buttonStyle">@style/MR.Button</item>
-        <item name="android:checkboxStyle">@style/MR.CheckBox</item>
-        <item name="android:radioButtonStyle">@style/MR.RadioButton</item>
-        <item name="android:listViewStyle">@style/MR.ListView</item>
-        <item name="android:gridViewStyle">@style/MR.GridView</item>
-        <item name="android:progressBarStyle">@style/MR.ProgressBar</item>
-        <item name="android:progressBarStyleSmall">@style/MR.LittleProgressBar</item>-->
+        <!--   <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+           <item name="android:textViewStyle">@style/MR.TextView</item>
+           <item name="android:editTextStyle">@style/MR.EditText</item>
+           <item name="android:buttonStyle">@style/MR.Button</item>
+           <item name="android:checkboxStyle">@style/MR.CheckBox</item>
+           <item name="android:radioButtonStyle">@style/MR.RadioButton</item>
+           <item name="android:listViewStyle">@style/MR.ListView</item>
+           <item name="android:gridViewStyle">@style/MR.GridView</item>
+           <item name="android:progressBarStyle">@style/MR.ProgressBar</item>
+           <item name="android:progressBarStyleSmall">@style/MR.LittleProgressBar</item>-->
         <item name="android:alertDialogStyle">@style/common_dialog_alert</item>
     </style>
 
@@ -67,6 +68,18 @@
 
 
     <style name="common_textView" parent="@android:style/Widget.TextView">
+    </style>
+
+
+    <style name="webProgress_horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/comm_web_progressbar_horizontal_shape</item>
+        <!-- progress_horizontal -->
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
     </style>
 
 

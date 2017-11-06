@@ -127,7 +127,8 @@ dependencies {
 
     compile rootProject.ext.dependencies["readystatesoftware.chuck"]
 
-
+    //VasSonic 加快H5浏览速度  https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md
+    compile rootProject.ext.dependencies["sonic-webView"]
 
 }
 

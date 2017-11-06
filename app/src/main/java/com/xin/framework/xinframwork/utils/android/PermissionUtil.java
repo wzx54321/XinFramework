@@ -87,7 +87,8 @@ public class PermissionUtil {
      * 请求摄像头权限
      */
     public static void launchCamera(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
+        requestPermission(requestPermission, rxPermissions, errorHandler,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
 
 
@@ -152,7 +153,8 @@ public class PermissionUtil {
      * 位置权限
      */
     public static void location(RequestPermission requestPermission, RxPermissions rxPermissions, RxErrorHandler errorHandler) {
-        requestPermission(requestPermission, rxPermissions, errorHandler, Manifest.permission.ACCESS_FINE_LOCATION,
+        requestPermission(requestPermission, rxPermissions, errorHandler,
+                Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
     }
 

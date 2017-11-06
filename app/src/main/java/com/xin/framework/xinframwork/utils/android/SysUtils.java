@@ -22,6 +22,7 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -111,7 +112,7 @@ public class SysUtils {
                 inumeric = ob_phone.toString();
             }
         } catch (Exception e) {
-            Log.printStackTrace(e);
+         //   Log.printStackTrace(e);
         }
         return inumeric;
     }
@@ -153,8 +154,20 @@ public class SysUtils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
+    public static boolean hasHoneycomb() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+    }
+
+
+
+
     public static boolean hasLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+
+    public static boolean hasJellyBeanMr1() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
 
     public static boolean hasNougat() {
@@ -174,6 +187,9 @@ public class SysUtils {
         }
         return null;
     }
+
+
+
 
 
     /**
@@ -205,7 +221,38 @@ public class SysUtils {
         return null;
     }
 
+    /**
+     * whether this process is named with processName
+     *
+     * @param context
+     * @param processName
+     * @return <ul>
+     * return whether this process is named with processName
+     * <li>if context is null, return false</li>
+     * <li>if {@link ActivityManager#getRunningAppProcesses()} is null, return false</li>
+     * <li>if one process of {@link ActivityManager#getRunningAppProcesses()} is equal to processName, return
+     * true, otherwise return false</li>
+     * </ul>
+     */
+    public static boolean isNamedProcess(Context context, String processName) {
+        if (context == null) {
+            return false;
+        }
 
+        int pid = android.os.Process.myPid();
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processInfoList = manager.getRunningAppProcesses();
+        if (processInfoList == null) {
+            return true;
+        }
+
+        for (ActivityManager.RunningAppProcessInfo processInfo : manager.getRunningAppProcesses()) {
+            if (processInfo.pid == pid && processInfo.processName.equals(processName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * 获取渠道信息
@@ -220,5 +267,9 @@ public class SysUtils {
             tv.setText(channelInfo.getChannel() + "\n" + channelInfo.getExtraInfo());
         }
         Toast.makeText(this, "ChannelReader takes " + (System.currentTimeMillis() - startTime) + " milliseconds", Toast.LENGTH_SHORT).show();*/
+    }
+
+    public static boolean hasM() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 }

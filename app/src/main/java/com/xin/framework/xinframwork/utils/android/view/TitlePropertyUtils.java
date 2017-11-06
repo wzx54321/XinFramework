@@ -1,4 +1,4 @@
-package com.xin.framework.xinframwork.ui.widget.titlebar.utils;
+package com.xin.framework.xinframwork.utils.android.view;
 
 import android.text.TextUtils;
 

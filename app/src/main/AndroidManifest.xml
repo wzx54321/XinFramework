@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
-          package="com.xin.framework.xinframwork"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.xin.framework.xinframwork"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_LOGS"/>
@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".demo.view.MainActivity"
+        <activity
+            android:name=".demo.view.MainActivity"
             android:theme="@style/Theme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -37,8 +38,9 @@
             android:name=".network.receiver.ConnectionChangedReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
-                        tools:ignore="BatteryLife"/>
+                <action
+                    android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife"/>
                 <action android:name="android.gzcpc.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
@@ -55,7 +57,22 @@
         </provider>
 
 
+        <provider
+            android:name=".hybrid.WebFileProvider"
+            android:authorities="${applicationId}.AgentWebFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/web_files_paths"/>
+        </provider>
 
+
+        <activity
+            android:name=".hybrid.activity.CommWebViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"/>
     </application>
 
 

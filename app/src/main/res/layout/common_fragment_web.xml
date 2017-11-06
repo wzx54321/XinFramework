@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:title="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/root_webview_f"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+
+    <com.xin.framework.xinframwork.ui.widget.titlebar1.CommonTitleBar
+        android:id="@+id/title_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        title:centerType="textView"
+        title:leftCustomView="@layout/comm_title_layout_custom_left_web"
+        title:leftType="customView"
+        title:rightImageResource="@drawable/comm_titlebar_more"
+        title:rightType="imageBotton"
+        title:statusBarColor="@color/cfd8dc_blue_grey_100"
+        title:titleBarColor="@color/cfd8dc_blue_grey_100"/>
+
+    <ProgressBar
+        android:id="@+id/progressbar_webview"
+        style="@style/webProgress_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        />
+
+
+
+</LinearLayout>

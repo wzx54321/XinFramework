@@ -15,6 +15,7 @@
  */
 package com.xin.framework.xinframwork.http.utils;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.xin.framework.xinframwork.http.OkGo;
@@ -49,7 +50,9 @@ import okhttp3.Response;
  * ================================================
  */
 public class HttpUtils {
-    /** 将传递进来的参数拼接成 url */
+    /**
+     * 将传递进来的参数拼接成 url
+     */
     public static String createUrlFromParams(String url, Map<String, List<String>> params) {
         try {
             StringBuilder sb = new StringBuilder();
@@ -67,12 +70,39 @@ public class HttpUtils {
             sb.deleteCharAt(sb.length() - 1);
             return sb.toString();
         } catch (UnsupportedEncodingException e) {
-            Log.e(e,"HttpUtils#createUrlFromParams fail");
+            Log.e(e, "HttpUtils#createUrlFromParams fail");
         }
         return url;
     }
 
-    /** 通用的拼接请求头 */
+
+    /**
+     * 将传递进来的参数拼接成  key 样式如：?data=sdsds&name=haha ...
+     */
+    public static String createParams(String url, @NonNull Map<String, String> params) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            if (url.indexOf('&') > 0 || url.indexOf('?') > 0) sb.append("&");
+            else sb.append("?");
+            for (Map.Entry<String, String> urlParams : params.entrySet()) {
+                String urlValues = urlParams.getValue();
+                //对参数进行 utf-8 编码,防止头信息传中文
+                String urlValue = URLEncoder.encode(urlValues, "UTF-8");
+                sb.append(urlParams.getKey()).append("=").append(urlValue).append("&");
+
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            return sb.toString();
+        } catch (UnsupportedEncodingException e) {
+            Log.e(e, "HttpUtils#createUrlFromParams fail");
+        }
+        return "";
+    }
+
+
+    /**
+     * 通用的拼接请求头
+     */
     public static Request.Builder appendHeaders(Request.Builder builder, HttpHeaders headers) {
         if (headers.headersMap.isEmpty()) return builder;
         Headers.Builder headerBuilder = new Headers.Builder();
@@ -83,13 +113,15 @@ public class HttpUtils {
                 headerBuilder.add(entry.getKey(), entry.getValue());
             }
         } catch (Exception e) {
-           Log.e(e,"HttpUtils#appendHeaders");
+            Log.e(e, "HttpUtils#appendHeaders");
         }
         builder.headers(headerBuilder.build());
         return builder;
     }
 
-    /** 生成类似表单的请求体 */
+    /**
+     * 生成类似表单的请求体
+     */
     public static RequestBody generateMultipartRequestBody(HttpParams params, boolean isMultipart) {
         if (params.fileParamsMap.isEmpty() && !isMultipart) {
             //表单提交，没有文件
@@ -125,7 +157,9 @@ public class HttpUtils {
         }
     }
 
-    /** 根据响应头或者url获取文件名 */
+    /**
+     * 根据响应头或者url获取文件名
+     */
     public static String getNetFileName(Response response, String url) {
         String fileName = getHeaderFileName(response);
         if (TextUtils.isEmpty(fileName)) fileName = getUrlFileName(url);
@@ -133,7 +167,7 @@ public class HttpUtils {
         try {
             fileName = URLDecoder.decode(fileName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            Log.e(e,"HttpUtils#getNetFileName");
+            Log.e(e, "HttpUtils#getNetFileName");
         }
         return fileName;
     }
@@ -188,21 +222,25 @@ public class HttpUtils {
         return filename;
     }
 
-    /** 根据路径删除文件 */
+    /**
+     * 根据路径删除文件
+     */
     public static boolean deleteFile(String path) {
         if (TextUtils.isEmpty(path)) return true;
         File file = new File(path);
         if (!file.exists()) return true;
         if (file.isFile()) {
             boolean delete = file.delete();
-            Log.e( "HttpUtils#"+"deleteFile:" + delete + " path:" + path);
+            Log.e("HttpUtils#" + "deleteFile:" + delete + " path:" + path);
 
             return delete;
         }
         return false;
     }
 
-    /** 根据文件名获取MIME类型 */
+    /**
+     * 根据文件名获取MIME类型
+     */
     public static MediaType guessMimeType(String fileName) {
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         fileName = fileName.replace("#", "");   //解决文件名中含有#号异常的问题

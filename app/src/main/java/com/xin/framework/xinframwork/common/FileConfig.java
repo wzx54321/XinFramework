@@ -20,6 +20,7 @@ import java.io.File;
 
 public class FileConfig {
 
+
     /**
      * 应用程序在SDCARD中的根目录，/mnt/sdcard/
      */
@@ -34,6 +35,18 @@ public class FileConfig {
      * 下载目录
      */
     public static String DIR_DOWNLOAD = "download";
+
+
+    /**
+     * webview 下载目录
+     */
+    public static String DIR_WEB_DOWNLOAD = "web_download";
+
+    /**
+     * webview 下载目录
+     */
+    public static String DIR_WEB_CACHE = "web-cache";
+
 
     /**
      * 日志文件名后缀
@@ -78,7 +91,10 @@ public class FileConfig {
         }
     }
 
-    public void init(final Activity activity) {
+    public void init(final Activity activity, OnFileCreatedListener onFileCreatedListener) {
+
+        mOnFileCreatedListener = onFileCreatedListener;
+
         if (SysUtils.hasLollipop()) {
 
 
@@ -86,15 +102,21 @@ public class FileConfig {
                 @Override
                 public void onRequestPermissionSuccess() {
                     createParentDir();
+                    if (mOnFileCreatedListener != null)
+                        mOnFileCreatedListener.onCreated();
                 }
 
                 @Override
                 public void onRequestPermissionFailure() {
                     // 没有创建权限
+                    if (mOnFileCreatedListener != null)
+                        mOnFileCreatedListener.onFailure();
                 }
             }, new RxPermissions(activity), null);
         } else {
             createParentDir();
+            if (mOnFileCreatedListener != null)
+                mOnFileCreatedListener.onCreated();
         }
 
 
@@ -116,4 +138,14 @@ public class FileConfig {
 
 
     }
+
+    OnFileCreatedListener mOnFileCreatedListener;
+
+    public  interface OnFileCreatedListener {
+        void onCreated();
+
+        void onFailure();
+    }
+
+
 }

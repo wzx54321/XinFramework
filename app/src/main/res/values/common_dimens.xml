@@ -7,6 +7,11 @@
     <dimen name="common_text_size_small_14">14sp</dimen>
     <dimen name="common_text_size_micro_12">12sp</dimen>
 
+
+    <dimen name="common_title_bar_height">@dimen/dimen_44</dimen>
+
+
+
     <!--dp -->
     <dimen name="dimen_0">0dp</dimen>
     <dimen name="dimen_0.3">0.3dp</dimen>

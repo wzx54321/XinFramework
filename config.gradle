@@ -21,7 +21,8 @@ ext {
             constraintLayoutSdkVersion     : "1.0.1",
             meituanWalleSdkVersion         : "1.1.3",
             customactivityoncrashSdkVersion: "1.5.0",
-            objectboxVersion               : "1.1.0"
+            objectboxVersion               : "1.1.0",
+            sonicVersion                   : "1.1.1"
     ]
 
 
@@ -75,7 +76,8 @@ ext {
             "objectbrowser"           : "io.objectbox:objectbox-android-objectbrowser:${version["objectboxVersion"]}",
             "objectbox-android"       : "io.objectbox:objectbox-android:${version["objectboxVersion"]}",
             "wallePlugin"             : "com.meituan.android.walle:plugin:${version["meituanWalleSdkVersion"]}",
-            "meituan-walle"           : "com.meituan.android.walle:library:${version["meituanWalleSdkVersion"]}"
+            "meituan-walle"           : "com.meituan.android.walle:library:${version["meituanWalleSdkVersion"]}",
+            "sonic-webView"           : "com.tencent.sonic:sdk:${version["sonicVersion"]}"
 
     ]
 }

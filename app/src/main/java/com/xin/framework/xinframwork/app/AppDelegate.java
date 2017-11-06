@@ -15,12 +15,14 @@ import com.xin.framework.xinframwork.common.DBConfig;
 import com.xin.framework.xinframwork.common.FileConfig;
 import com.xin.framework.xinframwork.common.HttpConfig;
 import com.xin.framework.xinframwork.common.NetWorkConfig;
+import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
 import com.xin.framework.xinframwork.http.plugins.glide.base.GlideApp;
 import com.xin.framework.xinframwork.utils.android.ActivityStackManager;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.android.logger.LogLevel;
 import com.xin.framework.xinframwork.utils.android.logger.MemoryLog;
+import com.xin.framework.xinframwork.utils.android.view.ScreenUtils;
 
 /**
  * Description : 应用全局配置委托
@@ -31,6 +33,11 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
     private XinApplication app;
     private static int appCreateCount;
+
+    /**
+     * 是否初始化webview
+     */
+    private boolean mIsWebViewInit;
 
 
     public AppDelegate(XinApplication app) {
@@ -70,9 +77,14 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         // 配置网络请求
         HttpConfig.init(app);
 
+        // 配置WebView,预先加载WEBVIEW提高反应速度，如果不使用weView可以忽略
+        mIsWebViewInit = WebViewConfig.getInstance().init();
+
         if (BuildConfig.DEBUG) {
             SysUtils.getPhoneIp();
         }
+        // 屏幕宽高
+        ScreenUtils.init(app);
 
     }
 
@@ -86,12 +98,21 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
         if (appCreateCount == 0) {
             // 配置文件系统
-            new FileConfig().init(activity);
+            new FileConfig().init(activity, new FileConfig.OnFileCreatedListener() {
+                @Override
+                public void onCreated() {
+                }
+
+                @Override
+                public void onFailure() {
+                }
+            });
 
             if (SysUtils.hasNougat()) {
                 // 配置网络监听
                 NetWorkConfig.initNetNotify(activity);
             }
+
         }
         appCreateCount++;
     }
@@ -137,7 +158,12 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
     public void exit() {
         try {
+
             ActivityStackManager.getInstance().popAllActivity();
+
+            WebViewConfig.getInstance().clearWebCache(mIsWebViewInit);
+
+
             ActivityManager activityMgr =
                     (ActivityManager) app.getSystemService(Context.ACTIVITY_SERVICE);
             activityMgr.killBackgroundProcesses(app.getPackageName());

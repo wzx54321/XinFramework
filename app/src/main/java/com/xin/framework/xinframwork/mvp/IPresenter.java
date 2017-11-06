@@ -7,7 +7,7 @@ public interface IPresenter {
     void onStart();
     void onDestroy();
 
-    <P extends IPresenter> void setView(IView iview);
+    <P extends IPresenter> void setView(Iv iview);
 
 
 

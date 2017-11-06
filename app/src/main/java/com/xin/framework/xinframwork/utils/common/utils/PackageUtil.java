@@ -16,7 +16,6 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +92,28 @@ public class PackageUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    /**
+     * whether application is in background
+     * <ul>
+     * <li>need use permission android.permission.GET_TASKS in Manifest.xml</li>
+     * </ul>
+     *
+     * @param context
+     * @return if application is in background return true, otherwise return false
+     */
+    public static boolean isApplicationInBackground(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> taskList = am.getRunningTasks(1);
+        if (taskList != null && !taskList.isEmpty()) {
+            ComponentName topActivity = taskList.get(0).topActivity;
+            if (topActivity != null && !topActivity.getPackageName().equals(context.getPackageName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

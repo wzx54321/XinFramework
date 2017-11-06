@@ -3,7 +3,7 @@ package com.xin.framework.xinframwork.mvp;
 /**
 
  */
-public interface IView {
+public interface IView extends Iv{
 
     /**
      * 显示加载
