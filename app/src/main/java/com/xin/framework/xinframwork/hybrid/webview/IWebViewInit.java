@@ -4,6 +4,8 @@ import android.content.Context;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import java.io.File;
+
 /**
  * Description :
  * Created by 王照鑫 on 2017/11/1 0001.
@@ -24,6 +26,7 @@ public interface IWebViewInit {
 
     String getCacheDir(Context context);
 
+    File getSonicCacheDir(Context context);
 
     void useWebView(Context context);
 

@@ -1,7 +1,10 @@
 package com.xin.framework.xinframwork.hybrid.model;
 
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -10,14 +13,19 @@ import android.text.TextUtils;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.tencent.sonic.sdk.SonicSession;
 import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.hybrid.contract.WebContract;
 import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
 import com.xin.framework.xinframwork.hybrid.webview.XinWebView;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
+import com.xin.framework.xinframwork.utils.common.utils.PackageUtil;
+
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 /**
@@ -31,6 +39,7 @@ public class WebModel implements WebContract.Model {
     private XinWebView mWebView;
     private static HashMap<String, String> titles;
 
+
     public WebModel() {
 
         titles = new HashMap<>();
@@ -38,16 +47,32 @@ public class WebModel implements WebContract.Model {
 
 
     public static class XinWebViewClient extends WebViewClient {
+        private SonicSession sonicSession;
+
+        public XinWebViewClient(SonicSession sonicSession) {
+            this.sonicSession = sonicSession;
+        }
 
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-           Log.d("XinWebView访问地址:" + url);
+            Log.d("XinWebView访问地址:" + url);
+
 
             if (handle_Tel_Mail_SMS(url)) {
                 return true;
             }
+
+
+            if (handleIntentUrl(view, url)) {
+
+                return true;
+            }
+
+            // TODO 微信 支付宝
+
+
             return shouldOverrideUrlLoading(url);
         }
 
@@ -55,12 +80,7 @@ public class WebModel implements WebContract.Model {
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-
-            String url = request.getUrl().toString();
-            if (handle_Tel_Mail_SMS(url)) {
-                return true;
-            }
-            return shouldOverrideUrlLoading(url);
+            return shouldOverrideUrlLoading(view, request.getUrl() + "");
         }
 
 
@@ -94,11 +114,27 @@ public class WebModel implements WebContract.Model {
                 onTitleSet(titleText);
             }
 
-            if (!view.getSettings().getLoadsImagesAutomatically()) {
-                view.getSettings().setLoadsImagesAutomatically(true);
-            }
+
             setTitleStyles();
 
+            if (sonicSession != null) {
+                sonicSession.getSessionClient().pageFinish(url);
+            }
+        }
+
+
+        @TargetApi(21)
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            return shouldInterceptRequest(view, request.getUrl().toString());
+        }
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+            if (sonicSession != null) {
+                return (WebResourceResponse) sonicSession.getSessionClient().requestResource(url);
+            }
+            return null;
         }
 
         public void setTitleStyles() {
@@ -153,11 +189,6 @@ public class WebModel implements WebContract.Model {
     }
 
 
-
-
-
-
-
     private static boolean handle_Tel_Mail_SMS(String targetUrl) {
 
         if (TextUtils.isEmpty(targetUrl)) {
@@ -165,8 +196,8 @@ public class WebModel implements WebContract.Model {
         }
         try {
             // 兼容打电话、发短信、发邮件
-            if (WebViewConfig.TEL_ENABLE && targetUrl.startsWith("tel:")
-                    || WebViewConfig.MAIL_ENABLE && targetUrl.startsWith("mailto:")
+            if (WebViewConfig.TEL_ENABLE && targetUrl.startsWith(WebView.SCHEME_TEL)
+                    || WebViewConfig.MAIL_ENABLE && targetUrl.startsWith(WebView.SCHEME_MAILTO)
                     || WebViewConfig.SMS_ENABLE && targetUrl.startsWith("smsto:")) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -176,6 +207,28 @@ public class WebModel implements WebContract.Model {
         } catch (Exception e) {
             Log.printStackTrace(e);
         }
+
+        return false;
+    }
+
+
+    private static boolean handleIntentUrl(WebView view, String url) {
+        if (TextUtils.isEmpty(url) || !url.startsWith("intent://"))
+
+            return false;
+        try {
+            Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            ResolveInfo info = PackageUtil.getResolveInfo(view.getContext(), intent);
+            if (info != null) {
+                if (!(view.getContext() instanceof Activity))
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                view.getContext().startActivity(intent);
+                return true;
+            }
+        } catch (URISyntaxException e) {
+            Log.printStackTrace(e);
+        }
+
 
         return false;
     }

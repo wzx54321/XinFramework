@@ -43,9 +43,15 @@ public class FileConfig {
     public static String DIR_WEB_DOWNLOAD = "web_download";
 
     /**
-     * webview 下载目录
+     * webview 缓存
      */
     public static String DIR_WEB_CACHE = "web-cache";
+
+
+    /**
+     * webview 缓存
+     */
+    public static String DIR_WEB_SONIC_CACHE = "web-sonic-ache";
 
 
     /**

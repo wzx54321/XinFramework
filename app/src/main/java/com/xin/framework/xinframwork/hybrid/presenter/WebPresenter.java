@@ -5,12 +5,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.tencent.sonic.sdk.SonicEngine;
+import com.tencent.sonic.sdk.SonicSession;
+import com.tencent.sonic.sdk.SonicSessionConfig;
 import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
 import com.xin.framework.xinframwork.hybrid.bean.WebPostParams;
 import com.xin.framework.xinframwork.hybrid.contract.WebContract;
 import com.xin.framework.xinframwork.hybrid.model.WebModel;
-import com.xin.framework.xinframwork.utils.android.logger.Log;
+import com.xin.framework.xinframwork.hybrid.sonic.XinSonicSessionClient;
 import com.xin.framework.xinframwork.mvp.Iv;
+import com.xin.framework.xinframwork.utils.android.logger.Log;
 
 /**
  * Description :
@@ -19,9 +23,11 @@ import com.xin.framework.xinframwork.mvp.Iv;
 
 public class WebPresenter implements WebContract.Presenter {
 
-    WebContract.View mView;
-    WebContract.Model model;
-
+    private WebContract.View mView;
+    private WebContract.Model model;
+    private WebOpenInfo mWebOpenInfo;
+    private XinSonicSessionClient mSonicSessionClient;
+    private SonicSession mSonicSession;
 
     @Override
     public void onStart() {
@@ -39,9 +45,23 @@ public class WebPresenter implements WebContract.Presenter {
         mView = (WebContract.View) iview;
     }
 
+
+    @Override
+    public void setWebOpenInfo(WebOpenInfo info) {
+        this.mWebOpenInfo = info;
+
+        SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
+        // create sonic session and run sonic flow
+        mSonicSession = SonicEngine.getInstance().createSession(info.getUrl(), sessionConfigBuilder.build());
+        if (null != mSonicSession) {
+            mSonicSession.bindClient(mSonicSessionClient = new XinSonicSessionClient());
+        }
+
+    }
+
     @Override
     public void setWebViewClient() {
-        mView.setWebViewClient(new WebModel.XinWebViewClient() {
+        mView.setWebViewClient(new WebModel.XinWebViewClient(mSonicSession) {
             @Override
             public void onTitleSet(String titleText) {
                 mView.setTitleText(titleText);
@@ -107,15 +127,24 @@ public class WebPresenter implements WebContract.Presenter {
         WebPostParams<String, String> params = webOpenInfo.getParams();
         if (TextUtils.isEmpty(htmlContent) && !TextUtils.isEmpty(url)) {
             if (params == null || params.isEmpty()) {
-                mView.loadUrl(url);
-               Log.d("XinWebView访问地址:" + url);
+
+                // webview is ready now, just tell session client to bind
+                if (mSonicSessionClient != null) {
+                    mSonicSessionClient.bindWebView(mView.getWebView());
+                    mSonicSessionClient.clientReady();
+                } else { // default mode
+                    mView.loadUrl(url);
+                }
+                Log.d("XinWebView访问地址:" + url);
             } else {
-                mView.postUrl(url, params);
-               Log.d("XinWebView访问地址:" + url + "\n" + "参数：" + params.toString());
+                mView.postUrl(url, params); // 没有使用 sonic
+                Log.d("XinWebView访问地址:" + url + "\n" + "参数：" + params.toString());
             }
         } else {
             mView.loadData(htmlContent);
             Log.d("XinWebView访问内容:" + htmlContent);
         }
     }
+
+
 }

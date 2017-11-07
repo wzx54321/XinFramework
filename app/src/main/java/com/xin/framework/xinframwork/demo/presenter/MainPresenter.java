@@ -52,7 +52,6 @@ public class MainPresenter implements MainContract.Presenter {
             @Override
             public void onSuccess(@NonNull CustomData<AppVersion> result) {
                 @SuppressWarnings("UnusedAssignment") AppVersion appVersion = result.data;
-                Log.i("onSuccess");
             }
 
 
@@ -63,7 +62,6 @@ public class MainPresenter implements MainContract.Presenter {
 
             @Override
             public void onComplete() {
-                Log.i("onComplete");
             }
         });
 

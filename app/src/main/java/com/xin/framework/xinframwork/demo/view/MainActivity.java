@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CommWebViewActivity.launcher(MainActivity.this, new WebOpenInfo("http://www.baidu.com", null, null));
+                CommWebViewActivity.launcher(MainActivity.this, new WebOpenInfo("http://m.youku.com/", null, null));
             }
         });
 

@@ -12,12 +12,17 @@ import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.tencent.sonic.sdk.SonicConfig;
+import com.tencent.sonic.sdk.SonicEngine;
+import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.common.FileConfig;
 import com.xin.framework.xinframwork.hybrid.download.WebDownLoadListener;
 import com.xin.framework.xinframwork.hybrid.model.WebModel;
+import com.xin.framework.xinframwork.hybrid.sonic.XinSonicRuntime;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.common.assist.Network;
+import com.xin.framework.xinframwork.utils.common.utils.FileUtil;
 
 import java.io.File;
 
@@ -90,11 +95,23 @@ public class WebViewConfig implements IWebViewInit {
         if (mWebView == null)
             return;
 
+
+        buildSonicEngine();
+
         mWebSettings = initWebSettings(mWebView);
         CookiesHandler.initCookiesManager(mWebView.getContext());
 
         if (DOWNLOAD_ENABLE)
             mWebView.setDownloadListener(new WebDownLoadListener(mWebView.getContext()));
+    }
+
+    private void buildSonicEngine() {
+        // step 1: Initialize sonic engine if necessary, or maybe u can do this when application created
+        if (!SonicEngine.isGetInstanceAllowed()) {
+            SonicEngine.createInstance(new XinSonicRuntime(XinApplication.getAppContext()), new SonicConfig.Builder().build());
+        }
+
+
     }
 
 
@@ -120,7 +137,13 @@ public class WebViewConfig implements IWebViewInit {
         setting.setDisplayZoomControls(false);// 隐藏缩放按钮
         setting.setUseWideViewPort(true);
         setting.setLoadWithOverviewMode(true);
-        setting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);// 排版适应屏幕
+
+        if (SysUtils.hasKitKat()) {
+
+            setting.setLayoutAlgorithm(android.webkit.WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        } else {
+            setting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+        }
 
         // 存储
         // setting.setSavePassword(true);
@@ -135,11 +158,14 @@ public class WebViewConfig implements IWebViewInit {
         String dir = getCacheDir(view.getContext());
         // 设置H5缓存
         setting.setAppCachePath(dir);
-        //设置数据库路径  api19 已经废弃,这里只针对 webkit 起作用
-        setting.setGeolocationDatabasePath(dir);
-        setting.setDatabasePath(dir);
-        //缓存文件最大值
-        setting.setAppCacheMaxSize(Long.MAX_VALUE);
+
+        if(!SysUtils.hasKitKat()){
+            //设置数据库路径  api19 已经废弃,这里只针对 webkit 起作用
+            setting.setGeolocationDatabasePath(dir);
+            setting.setDatabasePath(dir);
+            //缓存文件最大值
+            setting.setAppCacheMaxSize(Long.MAX_VALUE);
+        }
 
         if (Network.isAvailable(view.getContext())) {
             //根据cache-control获取数据。
@@ -162,7 +188,7 @@ public class WebViewConfig implements IWebViewInit {
         setting.setJavaScriptCanOpenWindowsAutomatically(true);
         setting.setDefaultFontSize(16);
         setting.setMinimumFontSize(12);//设置 WebView 支持的最小字体大小，默认为 8
-
+        setting.setJavaScriptEnabled(true);
 
         if (SysUtils.hasLollipop()) {
             //适配5.0不允许http和https混合使用情况
@@ -175,7 +201,18 @@ public class WebViewConfig implements IWebViewInit {
         }
         view.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_INSET);
         view.setSaveEnabled(true);
-        view.setKeepScreenOn(true);
+      //  view.setKeepScreenOn(true);
+
+
+
+
+     /* TODO 还没有使用sonic的接口   // add java script interface
+         // sonic 使用的
+        view.removeJavascriptInterface("searchBoxJavaBridge_");
+        intent.putExtra(SonicJavaScriptInterface.PARAM_LOAD_URL_TIME, System.currentTimeMillis());
+        view.addJavascriptInterface(new SonicJavaScriptInterface(sonicSessionClient, intent), "sonic");*/
+
+
         return setting;
     }
 
@@ -185,13 +222,22 @@ public class WebViewConfig implements IWebViewInit {
         return context.getCacheDir().getAbsolutePath() + File.separator + FileConfig.DIR_WEB_CACHE;
     }
 
+    @Override
+    public File getSonicCacheDir(Context context) {
+        String dir = context.getFilesDir().getAbsolutePath() + File.separator + FileConfig.DIR_WEB_SONIC_CACHE;
+        File file = new File(dir);
+
+
+        FileUtil.createDir(file);
+
+        return file;
+    }
+
+
     @SuppressLint("JavascriptInterface")
     @Override
     public void addJavascriptInterface(Object object, String name) {
 
-        if (!mWebSettings.getJavaScriptEnabled()) {
-            mWebSettings.setJavaScriptEnabled(true);
-        }
 
         mWebView.addJavascriptInterface(object, name);
 
@@ -201,6 +247,7 @@ public class WebViewConfig implements IWebViewInit {
     public void useWebView(Context context) {
         WebViewCache.getInstance().useWebView(context);
     }
+
     @Override
     public void resetWebView() {
         WebViewCache.getInstance().resetWebView();

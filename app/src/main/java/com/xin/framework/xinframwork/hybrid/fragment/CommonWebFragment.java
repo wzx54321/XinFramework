@@ -17,18 +17,18 @@ import android.widget.ProgressBar;
 import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.base.BaseFragment;
 import com.xin.framework.xinframwork.common.IntentParameter;
-import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
 import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
 import com.xin.framework.xinframwork.hybrid.bean.WebPostParams;
 import com.xin.framework.xinframwork.hybrid.contract.WebContract;
 import com.xin.framework.xinframwork.hybrid.presenter.WebPresenter;
 import com.xin.framework.xinframwork.hybrid.video.WebVideoDelegate;
+import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
 import com.xin.framework.xinframwork.hybrid.webview.XinWebView;
 import com.xin.framework.xinframwork.ui.widget.titlebar1.CommonTitleBar;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -81,7 +81,9 @@ public class CommonWebFragment extends BaseFragment<WebPresenter> implements Web
         mBtnClose.setVisibility(View.INVISIBLE);
 
         mWebView = WebViewConfig.getInstance().getWebView();
+
         WebViewConfig.getInstance().useWebView(getContext());
+
         LinearLayout.LayoutParams webParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         mWebView.setParentViewGroup(mRootWebviewF, webParams);
@@ -97,11 +99,13 @@ public class CommonWebFragment extends BaseFragment<WebPresenter> implements Web
     protected void onPresenterStarted() {
 
 
+        WebOpenInfo mWebOpenInfo = (WebOpenInfo) getArguments().getSerializable(IntentParameter.extras.WEB_OPEN_INFO);
+        mPresenter.setWebOpenInfo(mWebOpenInfo);
         mPresenter.setWebViewClient();
         mPresenter.setWebChromeClient();
 
 
-        WebOpenInfo mWebOpenInfo = (WebOpenInfo) getArguments().getSerializable(IntentParameter.extras.WEB_OPEN_INFO);
+
         mPresenter.openBrowser(mWebOpenInfo);
 
     }
@@ -241,6 +245,11 @@ public class CommonWebFragment extends BaseFragment<WebPresenter> implements Web
     @Override
     public void onHideCustomView() {
         mWebVideoDelegate.onHideCustomView();
+    }
+
+    @Override
+    public XinWebView getWebView() {
+        return mWebView;
     }
 
 

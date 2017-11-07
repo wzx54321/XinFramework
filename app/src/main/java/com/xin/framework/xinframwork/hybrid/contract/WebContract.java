@@ -7,6 +7,7 @@ import android.webkit.WebViewClient;
 
 import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
 import com.xin.framework.xinframwork.hybrid.bean.WebPostParams;
+import com.xin.framework.xinframwork.hybrid.webview.XinWebView;
 import com.xin.framework.xinframwork.mvp.IModel;
 import com.xin.framework.xinframwork.mvp.IPresenter;
 import com.xin.framework.xinframwork.mvp.IView1;
@@ -26,6 +27,10 @@ public interface WebContract {
         void setWebChromeClient();
 
         void openBrowser(WebOpenInfo mWebOpenInfo);
+
+
+
+        void setWebOpenInfo(WebOpenInfo info);
     }
 
     interface Model extends IModel {
@@ -56,6 +61,7 @@ public interface WebContract {
         void onHideCustomView();
 
 
+        XinWebView getWebView();
     }
 
 

@@ -60,6 +60,9 @@ class WebViewCache {
             view = initWebView();
         }
         ((MutableContextWrapper) view.getContext()).setBaseContext(ctx);
+
+
+        view.setIsUsed(true);
         return view;
     }
 

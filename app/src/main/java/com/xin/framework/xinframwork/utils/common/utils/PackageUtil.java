@@ -16,6 +16,8 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.xin.framework.xinframwork.utils.android.logger.Log;
+
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -205,7 +207,6 @@ public class PackageUtil {
 
     /**
      * 获取已安装的全部应用信息
-     *
      */
     public static boolean isInstalled(Context context, String pkg) {
         if (!TextUtils.isEmpty(pkg)) {
@@ -296,4 +297,18 @@ public class PackageUtil {
         return false;
     }
 
+
+    public static ResolveInfo getResolveInfo(Context context, Intent intent) {
+
+        ResolveInfo info = null;
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            info = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+
+        } catch (Exception err) {
+            Log.printStackTrace(err);
+        }
+        return info;
+
+    }
 }

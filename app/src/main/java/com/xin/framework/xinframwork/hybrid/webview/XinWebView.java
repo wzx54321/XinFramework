@@ -24,6 +24,7 @@ public class XinWebView extends WebView {
 
 
     private ViewGroup mViewGroup;
+    private boolean mIsUsed;
 
     public XinWebView(Context context) {
         super(context);
@@ -57,15 +58,26 @@ public class XinWebView extends WebView {
         this.onBackClickListener = onBackClickListener;
     }
 
-    public void setParentViewGroup(ViewGroup view,ViewGroup.LayoutParams webParams) {
+    public void setParentViewGroup(ViewGroup view, ViewGroup.LayoutParams webParams) {
 
-        this.mViewGroup=view;
+        if (mIsUsed) {
+            if (mViewGroup != null) {
+                mViewGroup.removeView(this);
+            }
+        }
+        this.mViewGroup = view;
+
         view.addView(this, webParams);
     }
 
 
-    public ViewGroup getParentVieGroup(){
+    public ViewGroup getParentViewGroup() {
         return mViewGroup;
+    }
+
+    public void setIsUsed(boolean isUsed) {
+        mIsUsed = isUsed;
+
     }
 
     public interface onBackClickListener {
@@ -84,15 +96,13 @@ public class XinWebView extends WebView {
     }
 
 
-
-
     public void postUrl(String url, @NonNull WebPostParams<String, String> params) {
 
         String paramStr = HttpUtils.createParams(url, params);
 
         if (!TextUtils.isEmpty(paramStr)) {
 
-            Log.i("webView地址:  "+url+"\n"+"参数: "+paramStr.toString());
+            Log.i("webView地址:  " + url + "\n" + "参数: " + paramStr.toString());
             postUrl(url, StringCodingUtils.getBytes(paramStr, Util.UTF_8));//这种写法可以正确解码
 
         }
@@ -101,16 +111,18 @@ public class XinWebView extends WebView {
 
     public void recycle() {
 
-        if(mViewGroup!=null){
-            if(mViewGroup.indexOfChild(this)!=-1){
-                mViewGroup.removeView(this);
-                mViewGroup=null;
-                onBackClickListener=null;
-            }
-        }
         setWebViewClient(null);
         setWebChromeClient(null);
-
+        setOnBackClickListener(null);
         super.destroy();
+
+        if (mViewGroup != null) {
+            if (mViewGroup.indexOfChild(this) != -1) {
+                mViewGroup.removeView(this);
+                mViewGroup = null;
+
+                mIsUsed = false;
+            }
+        }
     }
 }
