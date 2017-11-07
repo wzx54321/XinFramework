@@ -3,10 +3,11 @@ package com.xin.framework.xinframwork.hybrid.contract;
 import android.support.annotation.NonNull;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
+import com.tencent.sonic.sdk.SonicSession;
 import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
 import com.xin.framework.xinframwork.hybrid.bean.WebPostParams;
+import com.xin.framework.xinframwork.hybrid.model.WebModel;
 import com.xin.framework.xinframwork.hybrid.webview.XinWebView;
 import com.xin.framework.xinframwork.mvp.IModel;
 import com.xin.framework.xinframwork.mvp.IPresenter;
@@ -28,7 +29,7 @@ public interface WebContract {
 
         void openBrowser(WebOpenInfo mWebOpenInfo);
 
-
+        SonicSession buildSonicSession();
 
         void setWebOpenInfo(WebOpenInfo info);
     }
@@ -39,7 +40,7 @@ public interface WebContract {
 
 
     interface View extends IView1 {
-        void setWebViewClient(WebViewClient client);
+        void setWebViewClient(WebModel.XinWebViewClient client);
 
         void setWebChromeClient(WebChromeClient client);
 
@@ -63,7 +64,6 @@ public interface WebContract {
 
         XinWebView getWebView();
     }
-
 
 
 }

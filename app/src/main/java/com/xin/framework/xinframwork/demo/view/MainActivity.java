@@ -13,13 +13,14 @@ import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.base.BaseActivity;
 import com.xin.framework.xinframwork.demo.contract.MainContract;
 import com.xin.framework.xinframwork.demo.presenter.MainPresenter;
-import com.xin.framework.xinframwork.hybrid.activity.CommWebViewActivity;
-import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
 import com.xin.framework.xinframwork.mvp.PresenterMessage;
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements AbsListView.OnScrollListener, MainContract.View {
+
+
+
     @BindView(R.id.listView)
     ListView mListView;
 
@@ -40,10 +41,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements AbsList
         msg = PresenterMessage.obtain(this);
 
         mPresenter.checkVersion(msg);
+        mPresenter.preLoadWebData();
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CommWebViewActivity.launcher(MainActivity.this, new WebOpenInfo("http://m.youku.com/", null, null));
+
+
+                mPresenter.toMainWeb();
+
             }
         });
 

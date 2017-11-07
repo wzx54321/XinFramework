@@ -49,6 +49,14 @@ public class WebModel implements WebContract.Model {
     public static class XinWebViewClient extends WebViewClient {
         private SonicSession sonicSession;
 
+        public SonicSession getSonicSession() {
+            return sonicSession;
+        }
+
+        public void setSonicSession(SonicSession sonicSession) {
+            this.sonicSession = sonicSession;
+        }
+
         public XinWebViewClient(SonicSession sonicSession) {
             this.sonicSession = sonicSession;
         }

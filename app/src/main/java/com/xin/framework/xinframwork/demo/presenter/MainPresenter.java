@@ -1,10 +1,15 @@
 package com.xin.framework.xinframwork.demo.presenter;
 
+import com.tencent.sonic.sdk.SonicEngine;
+import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.demo.bean.AppVersion;
 import com.xin.framework.xinframwork.demo.contract.MainContract;
 import com.xin.framework.xinframwork.demo.model.MainModel;
 import com.xin.framework.xinframwork.http.callback.CustomRequestCallback;
 import com.xin.framework.xinframwork.http.model.CustomData;
+import com.xin.framework.xinframwork.hybrid.activity.CommWebViewActivity;
+import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
+import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
 import com.xin.framework.xinframwork.mvp.Iv;
 import com.xin.framework.xinframwork.mvp.PresenterMessage;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
@@ -18,6 +23,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class MainPresenter implements MainContract.Presenter {
+    private static final String WEB_URL = "http://www.shindong.xin/?p=95";
     MainContract.View mView;
     MainContract.Model model;
 
@@ -26,6 +32,7 @@ public class MainPresenter implements MainContract.Presenter {
 
 
         model = new MainModel();
+
     }
 
     @Override
@@ -35,7 +42,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void setView( Iv iview) {
+    public void setView(Iv iview) {
         mView = (MainContract.View) iview;
     }
 
@@ -68,5 +75,13 @@ public class MainPresenter implements MainContract.Presenter {
 
     }
 
+    @Override
+    public void preLoadWebData() {
+        SonicEngine.getInstance().preCreateSession(WEB_URL, WebViewConfig.getInstance().getSessionConfig());
+    }
 
+
+    public void toMainWeb() {
+        CommWebViewActivity.launcher(XinApplication.getAppContext(), new WebOpenInfo(WEB_URL, null, null));
+    }
 }

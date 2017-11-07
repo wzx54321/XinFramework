@@ -10,6 +10,7 @@ import android.webkit.WebView;
 
 import com.xin.framework.xinframwork.http.utils.HttpUtils;
 import com.xin.framework.xinframwork.hybrid.bean.WebPostParams;
+import com.xin.framework.xinframwork.hybrid.model.WebModel;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.common.io.StringCodingUtils;
 
@@ -25,6 +26,7 @@ public class XinWebView extends WebView {
 
     private ViewGroup mViewGroup;
     private boolean mIsUsed;
+    private WebModel.XinWebViewClient mXinWebViewClient;
 
     public XinWebView(Context context) {
         super(context);
@@ -109,9 +111,21 @@ public class XinWebView extends WebView {
     }
 
 
+    public void setXinWebViewClient(WebModel.XinWebViewClient client) {
+        super.setWebViewClient(client);
+        this.mXinWebViewClient = client;
+
+    }
+
     public void recycle() {
 
+        if (mXinWebViewClient != null) {
+            mXinWebViewClient.getSonicSession().destroy();
+            mXinWebViewClient.setSonicSession(null);
+        }
+
         setWebViewClient(null);
+
         setWebChromeClient(null);
         setOnBackClickListener(null);
         super.destroy();

@@ -28,7 +28,7 @@ public interface IWebViewInit {
 
     File getSonicCacheDir(Context context);
 
-    void useWebView(Context context);
+    XinWebView useWebView(Context context);
 
     void resetWebView();
 

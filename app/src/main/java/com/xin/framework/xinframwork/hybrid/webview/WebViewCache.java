@@ -3,6 +3,7 @@ package com.xin.framework.xinframwork.hybrid.webview;
 import android.content.Context;
 import android.content.MutableContextWrapper;
 
+import com.tencent.sonic.sdk.SonicEngine;
 import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
@@ -56,13 +57,12 @@ class WebViewCache {
 
     protected XinWebView useWebView(Context ctx) {
         XinWebView view = getWebView();
-        if (view == null) {
-            view = initWebView();
+        if (view != null) {
+            ((MutableContextWrapper) view.getContext()).setBaseContext(ctx);
+
+
+            view.setIsUsed(true);
         }
-        ((MutableContextWrapper) view.getContext()).setBaseContext(ctx);
-
-
-        view.setIsUsed(true);
         return view;
     }
 
@@ -75,6 +75,9 @@ class WebViewCache {
 
             XinWebView webView = webViews.poll();
             if (webView != null) {
+
+                SonicEngine.getInstance().cleanCache();
+
                 getApplication().deleteDatabase("webviewCache.db");
                 getApplication().deleteDatabase("webview.db");
                 webView.clearCache(true);

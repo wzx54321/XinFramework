@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -20,6 +19,7 @@ import com.xin.framework.xinframwork.common.IntentParameter;
 import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
 import com.xin.framework.xinframwork.hybrid.bean.WebPostParams;
 import com.xin.framework.xinframwork.hybrid.contract.WebContract;
+import com.xin.framework.xinframwork.hybrid.model.WebModel;
 import com.xin.framework.xinframwork.hybrid.presenter.WebPresenter;
 import com.xin.framework.xinframwork.hybrid.video.WebVideoDelegate;
 import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
@@ -79,11 +79,7 @@ public class CommonWebFragment extends BaseFragment<WebPresenter> implements Web
 
         ButterKnife.bind(mTitleWebView.getLeftCustomView());
         mBtnClose.setVisibility(View.INVISIBLE);
-
-        mWebView = WebViewConfig.getInstance().getWebView();
-
-        WebViewConfig.getInstance().useWebView(getContext());
-
+        mWebView=  WebViewConfig.getInstance().useWebView(getContext());
         LinearLayout.LayoutParams webParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         mWebView.setParentViewGroup(mRootWebviewF, webParams);
@@ -136,8 +132,8 @@ public class CommonWebFragment extends BaseFragment<WebPresenter> implements Web
 
 
     @Override
-    public void setWebViewClient(WebViewClient client) {
-        mWebView.setWebViewClient(client);
+    public void setWebViewClient(WebModel.XinWebViewClient client) {
+        mWebView.setXinWebViewClient(client);
     }
 
     @Override

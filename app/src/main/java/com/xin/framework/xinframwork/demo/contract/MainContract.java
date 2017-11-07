@@ -21,6 +21,9 @@ public interface MainContract {
          * @param msg
          */
         void checkVersion(PresenterMessage msg);
+
+
+        void preLoadWebData();
     }
 
     interface Model extends IModel {

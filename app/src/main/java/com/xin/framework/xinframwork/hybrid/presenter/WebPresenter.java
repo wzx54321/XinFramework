@@ -7,17 +7,17 @@ import android.webkit.WebView;
 
 import com.tencent.sonic.sdk.SonicEngine;
 import com.tencent.sonic.sdk.SonicSession;
-import com.tencent.sonic.sdk.SonicSessionConfig;
 import com.xin.framework.xinframwork.hybrid.bean.WebOpenInfo;
 import com.xin.framework.xinframwork.hybrid.bean.WebPostParams;
 import com.xin.framework.xinframwork.hybrid.contract.WebContract;
 import com.xin.framework.xinframwork.hybrid.model.WebModel;
 import com.xin.framework.xinframwork.hybrid.sonic.XinSonicSessionClient;
+import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
 import com.xin.framework.xinframwork.mvp.Iv;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 
 /**
- * Description :
+ * Description : webview使用的presenter
  * Created by 王照鑫 on 2017/11/2 0002.
  */
 
@@ -27,11 +27,12 @@ public class WebPresenter implements WebContract.Presenter {
     private WebContract.Model model;
     private WebOpenInfo mWebOpenInfo;
     private XinSonicSessionClient mSonicSessionClient;
-    private SonicSession mSonicSession;
+
 
     @Override
     public void onStart() {
         model = new WebModel();
+
     }
 
     @Override
@@ -50,17 +51,16 @@ public class WebPresenter implements WebContract.Presenter {
     public void setWebOpenInfo(WebOpenInfo info) {
         this.mWebOpenInfo = info;
 
-        SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
-        // create sonic session and run sonic flow
-        mSonicSession = SonicEngine.getInstance().createSession(info.getUrl(), sessionConfigBuilder.build());
-        if (null != mSonicSession) {
-            mSonicSession.bindClient(mSonicSessionClient = new XinSonicSessionClient());
-        }
 
     }
 
     @Override
     public void setWebViewClient() {
+
+
+        SonicSession mSonicSession = buildSonicSession();
+
+
         mView.setWebViewClient(new WebModel.XinWebViewClient(mSonicSession) {
             @Override
             public void onTitleSet(String titleText) {
@@ -85,6 +85,7 @@ public class WebPresenter implements WebContract.Presenter {
         });
 
     }
+
 
     @Override
     public void setWebChromeClient() {
@@ -144,6 +145,22 @@ public class WebPresenter implements WebContract.Presenter {
             mView.loadData(htmlContent);
             Log.d("XinWebView访问内容:" + htmlContent);
         }
+    }
+
+    @Override
+    public SonicSession buildSonicSession() {
+        // create sonic session and run sonic flow
+        SonicSession sonicSession = SonicEngine.getInstance().createSession(mWebOpenInfo.getUrl(), WebViewConfig.getInstance().getSessionConfig());
+        if (null != sonicSession) {
+            sonicSession.bindClient(mSonicSessionClient = new XinSonicSessionClient());
+        }
+
+
+        /*
+        *   预先加载数据
+        *  boolean preloadSuccess = SonicEngine.getInstance().preCreateSession(url, sessionConfig);
+        * */
+        return sonicSession;
     }
 
 

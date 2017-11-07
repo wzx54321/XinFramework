@@ -48,7 +48,7 @@ public class SysUtils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.printStackTrace(e);
         }
         return "";
     }
@@ -89,7 +89,7 @@ public class SysUtils {
                 }
             }
         } catch (Exception e2) {
-            e2.printStackTrace();
+            Log.printStackTrace(e2);
         }
         return Build.SERIAL != null ? Build.SERIAL : UUID.randomUUID().toString();
     }
@@ -208,14 +208,14 @@ public class SysUtils {
             }
             return processName;
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            Log.printStackTrace(throwable);
         } finally {
             try {
                 if (reader != null) {
                     reader.close();
                 }
             } catch (IOException exception) {
-                exception.printStackTrace();
+                Log.printStackTrace(exception);
             }
         }
         return null;

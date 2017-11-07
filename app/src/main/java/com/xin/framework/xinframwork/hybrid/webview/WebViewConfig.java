@@ -2,6 +2,7 @@ package com.xin.framework.xinframwork.hybrid.webview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.MutableContextWrapper;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -14,10 +15,10 @@ import android.webkit.WebView;
 
 import com.tencent.sonic.sdk.SonicConfig;
 import com.tencent.sonic.sdk.SonicEngine;
+import com.tencent.sonic.sdk.SonicSessionConfig;
 import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.common.FileConfig;
 import com.xin.framework.xinframwork.hybrid.download.WebDownLoadListener;
-import com.xin.framework.xinframwork.hybrid.model.WebModel;
 import com.xin.framework.xinframwork.hybrid.sonic.XinSonicRuntime;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
@@ -35,8 +36,6 @@ public class WebViewConfig implements IWebViewInit {
 
 
     private XinWebView mWebView;
-    private WebSettings mWebSettings;
-    private WebModel mWeViewModel;
 
     /**
      * 是否允许打电话
@@ -56,6 +55,9 @@ public class WebViewConfig implements IWebViewInit {
     public static final boolean DOWNLOAD_ENABLE = false;
 
 
+    private SonicSessionConfig mSessionConfig;
+
+
     private WebViewConfig() {
 
     }
@@ -73,12 +75,53 @@ public class WebViewConfig implements IWebViewInit {
     public boolean init() {
 
 
+        buildSonicEngine();
         createWebView();
-
         doConfig();
 
 
         return true;
+    }
+
+
+    /**
+     * 使用webView
+     */
+    @Override
+    public XinWebView useWebView(Context context) {
+        mWebView = WebViewCache.getInstance().useWebView(context);
+        if (mWebView == null) {
+
+            mWebView= reuseWebView(context);
+
+        }
+
+
+        return mWebView;
+    }
+
+    private XinWebView reuseWebView(Context context) {
+
+        createWebView();
+        doConfig();
+        if (mWebView != null) {
+            ((MutableContextWrapper) mWebView.getContext()).setBaseContext(context);
+
+            mWebView.setIsUsed(true);
+        }
+        return mWebView;
+    }
+
+
+    /**
+     * 不再使用重创建
+     */
+    @Override
+    public void resetWebView() {
+        WebViewCache.getInstance().resetWebView();
+        mWebView = null;
+        createWebView();
+        doConfig();
     }
 
 
@@ -96,9 +139,7 @@ public class WebViewConfig implements IWebViewInit {
             return;
 
 
-        buildSonicEngine();
-
-        mWebSettings = initWebSettings(mWebView);
+        initWebSettings(mWebView);
         CookiesHandler.initCookiesManager(mWebView.getContext());
 
         if (DOWNLOAD_ENABLE)
@@ -111,16 +152,10 @@ public class WebViewConfig implements IWebViewInit {
             SonicEngine.createInstance(new XinSonicRuntime(XinApplication.getAppContext()), new SonicConfig.Builder().build());
         }
 
+        SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
+      //  sessionConfigBuilder.setSessionMode(SonicConstants.SESSION_MODE_DEFAULT);
+         mSessionConfig = sessionConfigBuilder.build();
 
-    }
-
-
-    public XinWebView getWebView() {
-
-        init();
-
-
-        return mWebView;
     }
 
 
@@ -159,7 +194,7 @@ public class WebViewConfig implements IWebViewInit {
         // 设置H5缓存
         setting.setAppCachePath(dir);
 
-        if(!SysUtils.hasKitKat()){
+        if (!SysUtils.hasKitKat()) {
             //设置数据库路径  api19 已经废弃,这里只针对 webkit 起作用
             setting.setGeolocationDatabasePath(dir);
             setting.setDatabasePath(dir);
@@ -201,7 +236,7 @@ public class WebViewConfig implements IWebViewInit {
         }
         view.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_INSET);
         view.setSaveEnabled(true);
-      //  view.setKeepScreenOn(true);
+        //  view.setKeepScreenOn(true);
 
 
 
@@ -243,23 +278,17 @@ public class WebViewConfig implements IWebViewInit {
 
     }
 
-    @Override
-    public void useWebView(Context context) {
-        WebViewCache.getInstance().useWebView(context);
-    }
-
-    @Override
-    public void resetWebView() {
-        WebViewCache.getInstance().resetWebView();
-        mWebView = null;
-        createWebView();
-        doConfig();
-    }
 
     @Override
     public void clearWebCache(boolean mIsWebViewInit) {
         WebViewCache.getInstance().clearWebCache(mIsWebViewInit);
     }
+
+
+    public SonicSessionConfig getSessionConfig() {
+        return mSessionConfig;
+    }
+
 
 
     /**
@@ -392,6 +421,7 @@ public class WebViewConfig implements IWebViewInit {
         }
 
     }
+
 
 
 }

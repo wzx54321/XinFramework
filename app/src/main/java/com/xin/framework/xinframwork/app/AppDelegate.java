@@ -37,7 +37,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
     /**
      * 是否初始化webview
      */
-    private boolean mIsWebViewInit;
+    private   boolean mIsWebViewInit;
 
 
     public AppDelegate(XinApplication app) {
@@ -77,8 +77,6 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
         // 配置网络请求
         HttpConfig.init(app);
 
-        // 配置WebView,预先加载WEBVIEW提高反应速度，如果不使用weView可以忽略
-        mIsWebViewInit = WebViewConfig.getInstance().init();
 
         if (BuildConfig.DEBUG) {
             SysUtils.getPhoneIp();
@@ -101,6 +99,8 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
             new FileConfig().init(activity, new FileConfig.OnFileCreatedListener() {
                 @Override
                 public void onCreated() {
+                    // 配置WebView,预先加载WEBVIEW提高反应速度，如果不使用weView可以忽略
+                    mIsWebViewInit = WebViewConfig.getInstance().init();
                 }
 
                 @Override
