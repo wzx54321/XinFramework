@@ -32,7 +32,7 @@ public abstract class BaseActivity<P extends IPresenter> extends ActivitySupport
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        TitleCompatibilityUtil.full( getWindow());
+        TitleCompatibilityUtil.full(getWindow());
         TitleCompatibilityUtil.StatusBarLightMode(getWindow());
         KeyBoardConflictCompat.assistActivity(this);
     }

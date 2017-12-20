@@ -9,6 +9,7 @@ import com.tencent.sonic.sdk.SonicRuntime;
 import com.tencent.sonic.sdk.SonicSessionClient;
 import com.xin.framework.xinframwork.BuildConfig;
 import com.xin.framework.xinframwork.common.FileConfig;
+import com.xin.framework.xinframwork.hybrid.model.CookiesHandler;
 import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
@@ -47,14 +48,14 @@ public class XinSonicRuntime extends SonicRuntime {
 
     @Override
     public String getCookie(String url) {
-        return WebViewConfig.CookiesHandler.getCookiesByUrl(url);
+        return  CookiesHandler.getCookiesByUrl(url);
     }
 
     @Override
     public boolean setCookie(String url, List<String> cookies) {
         if (!TextUtils.isEmpty(url) && cookies != null && !cookies.isEmpty()) {
             for (String cookie : cookies) {
-                WebViewConfig.CookiesHandler.syncCookie(url, cookie);
+                 CookiesHandler.syncCookie(url, cookie);
             }
             return true;
 

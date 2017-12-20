@@ -6,16 +6,16 @@ import android.content.MutableContextWrapper;
 import com.tencent.sonic.sdk.SonicEngine;
 import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.app.XinApplication;
+import com.xin.framework.xinframwork.hybrid.model.CookiesHandler;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
 import com.xin.framework.xinframwork.utils.common.utils.FileUtil;
 
 import java.io.File;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static com.xin.framework.xinframwork.hybrid.webview.WebViewConfig.CookiesHandler.removeAllCookies;
 
 /**
- * Description :WebView Cache
+ * Description :WebView Cache 目前只缓存了一个webview,以后会相应的扩展
  * Created by 王照鑫 on 2017/11/1 0001.
  */
 
@@ -83,7 +83,7 @@ class WebViewCache {
                 webView.clearCache(true);
                 webView.clearHistory();
                 webView.clearFormData();
-                removeAllCookies(null);
+                CookiesHandler.removeAllCookies(null);
                 FileUtil.clearCacheFolder(new File(WebViewConfig.getInstance().getCacheDir(getApplication())), 0);
             }
             webViews = null;

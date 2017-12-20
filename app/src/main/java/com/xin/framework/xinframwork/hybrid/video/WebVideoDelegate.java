@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Description :
+ * Description :WebVideo加载视频页面全屏兼容
  * Created by 王照鑫 on 2017/11/3 0003.
  */
 

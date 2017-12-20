@@ -33,4 +33,6 @@ public interface IWebViewInit {
     void resetWebView();
 
     void clearWebCache(boolean mIsWebViewInit);
+
+    void checkCacheMode();
 }

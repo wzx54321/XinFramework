@@ -20,7 +20,6 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity<MainPresenter> implements AbsListView.OnScrollListener, MainContract.View {
 
 
-
     @BindView(R.id.listView)
     ListView mListView;
 

@@ -46,7 +46,8 @@
 - [X] 下载，上传模块,断点续传,结合RxJAVA
 ##### ————————————————————————————— UI及组件————————————————————————————— 
 - [x] 通用titleBar
-- [ ] webView  sonic-android
+- [X] webView  sonic-android
+- [X] webView离线加载
 - [ ] ui控件
 - [ ] 引导页面
 - [ ] 欢迎页面

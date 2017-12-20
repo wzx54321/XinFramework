@@ -17,6 +17,12 @@ android {
             //设置支持的SO库架构:ObjectBox only supports "armeabi-v7a" and "arm64-v8a" ABIs. "armeabi" is outdated.
             abiFilters /* 'x86',  */ 'armeabi-v7a' /*armeabi-v7a向下兼容armeabi, 'x86_64'*/, 'arm64-v8a'
         }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
     }
 
     // 解决.common.process.ProcessException: org.gradle.process.internal.ExecException: Process 'command... java.exe'' finished with non-zero exit value 1问题
@@ -83,8 +89,7 @@ android {
 dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    // modules
-    compile project(path: ':fragmentation')
+
     // android support
     compile rootProject.ext.dependencies["appcompat-v7"]
 
@@ -130,9 +135,42 @@ dependencies {
     //VasSonic 加快H5浏览速度  https://github.com/Tencent/VasSonic/blob/master/sonic-android/README.md
     compile rootProject.ext.dependencies["sonic-webView"]
 
+
+    provided rootProject.ext.dependencies["appcompat-v7"]
+
+    //rx2
+    compile rootProject.ext.dependencies["rxjava2"]
+    compile(rootProject.ext.dependencies["rxandroid2"]) {
+        exclude module: 'rxjava'
+    }
+    compile(rootProject.ext.dependencies["rxcache2"]) {
+        exclude module: 'rxjava'
+        /* exclude module: 'dagger'*/
+    }
+
+    compile(rootProject.ext.dependencies["rxcache-jolyglot-gson"]) {
+        exclude module: 'gson'
+    }
+    compile(rootProject.ext.dependencies["rxpermissions2"]) {
+        exclude module: 'rxjava'
+        exclude module: 'support-annotations'
+    }
+    compile(rootProject.ext.dependencies["rxlifecycle2"]) {
+        exclude module: 'rxjava'
+    }
+    compile(rootProject.ext.dependencies["rxlifecycle2-components"]) {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+        exclude module: 'rxjava'
+        exclude module: 'rxandroid'
+        exclude module: 'rxlifecycle'
+    }
+
 }
 
 // 美团多渠道打包 https://github.com/Meituan-Dianping/walle
+// 360加固失效 https://github.com/Meituan-Dianping/walle/wiki/360%E5%8A%A0%E5%9B%BA%E5%A4%B1%E6%95%88%EF%BC%9F
 walle {
     // 指定渠道包的输出路径
     apkOutputFolder = new File("${project.buildDir}/outputs/channels");

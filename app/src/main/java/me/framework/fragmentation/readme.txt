@@ -1,0 +1,1 @@
+Fragment 管理的封装，使用fragment更方便

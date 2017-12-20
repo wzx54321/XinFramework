@@ -6,12 +6,13 @@ import android.support.annotation.Nullable;
 import com.xin.framework.xinframwork.R;
 import com.xin.framework.xinframwork.base.BaseActivity;
 
+
 /**
  * Description : TestActivity
  * Created by xin on 2017/9/30 0030.
  */
 
-public class TestActivity extends BaseActivity{
+public class TestActivity extends BaseActivity {
 
     @Override
     public void createMessage() {
@@ -22,7 +23,9 @@ public class TestActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
+
 
     @Override
     protected void afterCreated() {

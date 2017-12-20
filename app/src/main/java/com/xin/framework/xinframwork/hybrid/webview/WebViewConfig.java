@@ -3,13 +3,7 @@ package com.xin.framework.xinframwork.hybrid.webview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.MutableContextWrapper;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.Nullable;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
-import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -19,6 +13,7 @@ import com.tencent.sonic.sdk.SonicSessionConfig;
 import com.xin.framework.xinframwork.app.XinApplication;
 import com.xin.framework.xinframwork.common.FileConfig;
 import com.xin.framework.xinframwork.hybrid.download.WebDownLoadListener;
+import com.xin.framework.xinframwork.hybrid.model.CookiesHandler;
 import com.xin.framework.xinframwork.hybrid.sonic.XinSonicRuntime;
 import com.xin.framework.xinframwork.utils.android.SysUtils;
 import com.xin.framework.xinframwork.utils.android.logger.Log;
@@ -56,6 +51,7 @@ public class WebViewConfig implements IWebViewInit {
 
 
     private SonicSessionConfig mSessionConfig;
+    private WebSettings mSettings;
 
 
     private WebViewConfig() {
@@ -92,7 +88,7 @@ public class WebViewConfig implements IWebViewInit {
         mWebView = WebViewCache.getInstance().useWebView(context);
         if (mWebView == null) {
 
-            mWebView= reuseWebView(context);
+            mWebView = reuseWebView(context);
 
         }
 
@@ -139,7 +135,7 @@ public class WebViewConfig implements IWebViewInit {
             return;
 
 
-        initWebSettings(mWebView);
+        mSettings = initWebSettings(mWebView);
         CookiesHandler.initCookiesManager(mWebView.getContext());
 
         if (DOWNLOAD_ENABLE)
@@ -153,8 +149,8 @@ public class WebViewConfig implements IWebViewInit {
         }
 
         SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
-      //  sessionConfigBuilder.setSessionMode(SonicConstants.SESSION_MODE_DEFAULT);
-         mSessionConfig = sessionConfigBuilder.build();
+        //  sessionConfigBuilder.setSessionMode(SonicConstants.SESSION_MODE_DEFAULT);
+        mSessionConfig = sessionConfigBuilder.build();
 
     }
 
@@ -202,13 +198,9 @@ public class WebViewConfig implements IWebViewInit {
             setting.setAppCacheMaxSize(Long.MAX_VALUE);
         }
 
-        if (Network.isAvailable(view.getContext())) {
-            //根据cache-control获取数据。
-            setting.setCacheMode(android.webkit.WebSettings.LOAD_DEFAULT);
-        } else {
-            //没网，则从本地获取，即离线加载
-            setting.setCacheMode(android.webkit.WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        }
+        //根据cache-control获取数据。
+        setting.setCacheMode(android.webkit.WebSettings.LOAD_DEFAULT);
+
 
         if (SysUtils.hasKitKat()) {
             setting.setLoadsImagesAutomatically(true);//图片自动缩放 打开
@@ -284,143 +276,28 @@ public class WebViewConfig implements IWebViewInit {
         WebViewCache.getInstance().clearWebCache(mIsWebViewInit);
     }
 
+    @Override
+    public void checkCacheMode() {
+        if (Network.isAvailable(mWebView.getContext())) {
+            //根据cache-control获取数据。
+            getSettings().setCacheMode(android.webkit.WebSettings.LOAD_DEFAULT);
+        } else {
+            //没网，则从本地获取，即离线加载
+            getSettings().setCacheMode(android.webkit.WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
+
+    }
+
 
     public SonicSessionConfig getSessionConfig() {
         return mSessionConfig;
     }
 
 
-
-    /**
-     * cookies处理
-     */
-    public static class CookiesHandler {
-
-        private static boolean isInit = false;
-
-        static synchronized void initCookiesManager(Context context) {
-            if (!isInit) {
-                createCookiesSyncInstance(context);
-                isInit = true;
-            }
-        }
-
-        //获取Cookie
-        public static String getCookiesByUrl(String url) {
-            return CookieManager.getInstance() == null ? null : CookieManager.getInstance().getCookie(url);
-        }
-
-
-        /**
-         * 清除过期的cookie
-         */
-        public static void removeExpiredCookies() {
-            CookieManager mCookieManager = null;
-            if ((mCookieManager = CookieManager.getInstance()) != null) { //同步清除
-                mCookieManager.removeExpiredCookie();
-                toSyncCookies();
-            }
-        }
-
-        public static void removeAllCookies() {
-            removeAllCookies(null);
-
-        }
-
-
-        // 解决兼容 Android 4.4 java.lang.NoSuchMethodError: android.webkit.CookieManager.removeSessionCookies
-        public static void removeSessionCookies() {
-            removeSessionCookies(null);
-        }
-
-        public static void removeSessionCookies(ValueCallback<Boolean> callback) {
-
-            if (callback == null)
-                callback = getDefaultIgnoreCallback();
-            if (CookieManager.getInstance() == null) {
-                callback.onReceiveValue(new Boolean(false));
-                return;
-            }
-            if (!SysUtils.hasLollipop()) {
-                CookieManager.getInstance().removeSessionCookie();
-                toSyncCookies();
-                callback.onReceiveValue(new Boolean(true));
-                return;
-            } else {
-
-                CookieManager.getInstance().removeSessionCookies(callback);
-            }
-            toSyncCookies();
-
-        }
-
-
-        //Android  4.4  NoSuchMethodError: android.webkit.CookieManager.removeAllCookies
-        public static void removeAllCookies(@Nullable ValueCallback<Boolean> callback) {
-
-            if (callback == null)
-                callback = getDefaultIgnoreCallback();
-            if (!SysUtils.hasLollipop()) {
-                CookieManager.getInstance().removeAllCookie();
-                toSyncCookies();
-                callback.onReceiveValue(!CookieManager.getInstance().hasCookies());
-                return;
-            } else {
-
-                CookieManager.getInstance().removeAllCookies(callback);
-            }
-            toSyncCookies();
-        }
-
-
-        private static ValueCallback<Boolean> getDefaultIgnoreCallback() {
-
-            return new ValueCallback<Boolean>() {
-                @Override
-                public void onReceiveValue(Boolean ignore) {
-                    Log.i("removeExpiredCookies:" + ignore);
-                }
-            };
-        }
-
-
-        public static void syncCookie(String url, String cookies) {
-
-            CookieManager mCookieManager = CookieManager.getInstance();
-            if (mCookieManager != null) {
-                mCookieManager.setCookie(url, cookies);
-                toSyncCookies();
-            }
-        }
-
-
-        private static void createCookiesSyncInstance(Context context) {
-
-
-            if (!SysUtils.hasLollipop()) {
-                CookieSyncManager.createInstance(context);
-            }
-        }
-
-
-        private static void toSyncCookies() {
-
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                CookieSyncManager.getInstance().sync();
-                return;
-            }
-
-            AsyncTask.THREAD_POOL_EXECUTOR.execute(new Runnable() {
-                @Override
-                public void run() {
-                    if (SysUtils.hasLollipop())
-                        CookieManager.getInstance().flush();
-
-                }
-            });
-        }
-
+    public WebSettings getSettings() {
+        return mSettings;
     }
+
 
 
 

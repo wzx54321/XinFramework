@@ -9,10 +9,15 @@ buildscript {
     repositories {
         jcenter()
         maven { url "http://objectbox.net/beta-repo/" }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath rootProject.ext.dependencies["objectbox"]
         // 美团多渠道打包 https://github.com/Meituan-Dianping/walle
         classpath rootProject.ext.dependencies["wallePlugin"]
@@ -26,6 +31,8 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
         maven { url "http://objectbox.net/beta-repo/" }
+
+        google()
     }
 }
 

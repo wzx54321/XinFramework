@@ -3,6 +3,7 @@ package com.xin.framework.xinframwork.hybrid.sonic;
 import android.os.Bundle;
 
 import com.tencent.sonic.sdk.SonicSessionClient;
+import com.xin.framework.xinframwork.hybrid.webview.WebViewConfig;
 import com.xin.framework.xinframwork.hybrid.webview.XinWebView;
 
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class XinSonicSessionClient extends SonicSessionClient {
 
     @Override
     public void loadUrl(String url, Bundle extraData) {
+        WebViewConfig.getInstance().checkCacheMode();
         webView.loadUrl(url);
     }
 
