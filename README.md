@@ -50,7 +50,7 @@
 - [X] webView  sonic-android
 - [X] webView离线加载
 
-后续的业务模块不再添加，作为单独的组件引用和扩展
+后续的业务模块不再添加，作为单独的组件引用和扩展，组件化框架：https://github.com/wzx54321/XinFramework-component
 - [ ] ui控件
 - [ ] 引导页面
 - [ ] 欢迎页面
