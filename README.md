@@ -23,7 +23,8 @@
     
         部分包中有readme.txt包功能说明和部分使用方法，目前满足HTTP请求、下载、上传文件、图片加载、Activity基类、Fragment基类、数据库操作。
     集成美团瓦力的多渠道打包， res包中有COLOR和UI风格规范（根据具体需求处理）。 
-   [360加固失效](https://github.com/Meituan-Dianping/walle/wiki/360%E5%8A%A0%E5%9B%BA%E5%A4%B1%E6%95%88%EF%BC%9F)。   
+    
+   [引用瓦力360加固失效处理](https://github.com/Meituan-Dianping/walle/wiki/360%E5%8A%A0%E5%9B%BA%E5%A4%B1%E6%95%88%EF%BC%9F)。   
    
    
    
