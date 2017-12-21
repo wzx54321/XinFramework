@@ -22,7 +22,7 @@
     
   部分包中有readme.txt包功能说明和部分使用方法，目前满足HTTP请求、下载、上传文件、图片加载、Activity基类、Fragment基类、数据库操作，res包中有COLOR  和UI风格规范（根据具体需求处理）。 
    
-   集成美团瓦力的多渠道打包，注意：[引用瓦力360加固失效处理](https://github.com/Meituan-Dianping/walle/wiki/360%E5%8A%A0%E5%9B%BA%E5%A4%B1%E6%95%88%EF%BC%9F)。   
+  集成美团瓦力的多渠道打包，注意：[引用瓦力360加固失效处理](https://github.com/Meituan-Dianping/walle/wiki/360%E5%8A%A0%E5%9B%BA%E5%A4%B1%E6%95%88%EF%BC%9F)。   
    
    
    
@@ -50,7 +50,7 @@
 - [X] webView  sonic-android
 - [X] webView离线加载
 
-后续的业务模块不再添加，作为单独的组件引用和扩展，组件化框架：https://github.com/wzx54321/XinFramework-component
+后续的业务模块不再添加，作为单独的组件引用和扩展，之后会扩展到[组件化框架](https://github.com/wzx54321/XinFramework-component)，敬请期待！
 - [ ] ui控件
 - [ ] 引导页面
 - [ ] 欢迎页面
@@ -60,6 +60,7 @@
 - [ ] 二维码处理
 - [ ] 图片选择器
 - [ ] 查看大图
+- [ ] 换肤
 - [ ] ...
 
 #### 感谢
