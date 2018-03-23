@@ -4,7 +4,7 @@ apply plugin: 'io.objectbox' // after applying Android plugin
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+   // buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
         applicationId "com.xin.framework.xinframwork"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
