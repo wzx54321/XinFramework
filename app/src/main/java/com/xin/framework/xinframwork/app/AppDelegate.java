@@ -46,8 +46,7 @@ class AppDelegate implements Application.ActivityLifecycleCallbacks {
 
     public void onCreate() {
 
-        if (!app.getApplicationInfo().packageName.equals(SysUtils.getCurProcessName(app)))
-            return;
+
         appCreateCount = 0;
 
         //  创建或更新数据库

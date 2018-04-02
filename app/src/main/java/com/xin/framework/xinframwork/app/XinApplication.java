@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.xin.framework.xinframwork.utils.android.SysUtils;
+
 /**
  * Description :Application
  * Created by xin on 2017/5/16 0016.
@@ -37,6 +39,9 @@ public class XinApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (!getApplicationInfo().packageName.equals(SysUtils.getCurProcessName(this)))
+            return;
         sAppContext = getApplicationContext();
 
         mAppDelegate = new AppDelegate(this);
